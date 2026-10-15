@@ -984,9 +984,46 @@ body{background:linear-gradient(175deg,#F5F0E8 0%,#FAF6EE 45%,#F1EADF 100%);colo
   .film-poster[data-p="10"]{background-image:url('assets/banque/lumieres/s10_pov_f0_mob.webp')!important}
   .film-poster[data-p="11"]{background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp')!important}
 }
+
+/* ═══ 15/10 : PRELOADER — ecran de chargement (logo + paysage) ═══
+   Attend les assets CRITIQUES seulement (fonts + hero + 1re scene video) — JAMAIS les 12 videos
+   (lecon 01/09 : 3 preload=auto saturaient la 4G). Sortie forcee 10 s, clic/Echap = passer.
+   Filet CSS : meme si le JS ne tourne pas, l'ecran se retire seul a 12 s (ldFail). */
+#loader{position:fixed;inset:0;z-index:400;display:grid;place-items:center;background:#0b1219;transition:opacity .55s var(--ease),visibility .55s;animation:ldFail 0s linear 12s forwards}
+html.ld-lock{overflow:hidden}
+@keyframes ldFail{to{opacity:0;visibility:hidden;pointer-events:none}}
+#loader.ld-out{opacity:0;visibility:hidden;pointer-events:none}
+/* le fond PHOTO n'est PAS sur le chemin critique : il n'est demande par le JS
+   QUE si l'ecran est encore la ET que polices+photo hero sont deja arrivees.
+   Sur une liaison lente l'ecran reste navy + logo : zero octet de decor. */
+#loader .ld-bg{position:absolute;inset:-4%;background-position:50% 50%;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity .9s var(--ease)}
+#loader .ld-bg.on{opacity:1;animation:ldKb 14s ease-out forwards}
+@keyframes ldKb{from{transform:scale(1)}to{transform:scale(1.07)}}
+#loader .ld-scrim{position:absolute;inset:0;background:radial-gradient(112% 74% at 50% 44%,rgba(11,18,25,.46),rgba(11,18,25,.88) 68%,#0b1219)}
+#loader .ld-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:20px;padding:24px;text-align:center}
+#loader .ld-logo{width:104px;height:104px;filter:drop-shadow(0 12px 34px rgba(0,0,0,.55));opacity:0;transform:scale(.92);animation:ldLogo .9s cubic-bezier(.23,1,.32,1) .12s forwards}
+@keyframes ldLogo{to{opacity:1;transform:scale(1)}}
+#loader .ld-name{font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:.22em;color:#f5efe3;opacity:0;animation:ldFade .7s ease-out .45s forwards}
+#loader .ld-bar{width:186px;height:2px;border-radius:2px;background:rgba(245,239,227,.16);overflow:hidden;opacity:0;animation:ldFade .7s ease-out .6s forwards}
+#loader .ld-bar i{display:block;height:100%;width:8%;background:var(--accent);transition:width .35s var(--ease)}
+#loader .ld-dom{font-family:var(--font-display);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--accent);opacity:0;animation:ldFade .6s ease-out .55s forwards;min-height:18px}
+#loader .ld-txt{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,239,227,.55);opacity:0;animation:ldFade .7s ease-out .7s forwards}
+@keyframes ldFade{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){#loader .ld-bg.on{animation:none}#loader .ld-logo,#loader .ld-name,#loader .ld-bar,#loader .ld-dom,#loader .ld-txt{animation:none;opacity:1;transform:none}}
 </style>
+<noscript><style>#loader{display:none!important}</style></noscript>
 </head>
 <body>
+<div id="loader" role="status" aria-live="polite" aria-label="Chargement du site">
+  <div class="ld-bg"></div><div class="ld-scrim"></div>
+  <div class="ld-in">
+    <img class="ld-logo" src="assets/logo/logo-suisse-intervention.webp" alt="Suisse Intervention" width="104" height="104">
+    <div class="ld-name">SUISSE INTERVENTION</div>
+    <div class="ld-bar"><i id="ldBar"></i></div>
+    <p class="ld-dom" id="ldDom" aria-hidden="true">Informatique &amp; réseaux</p>
+    <p class="ld-txt" id="ldTxt">Préparation de votre visite…</p>
+  </div>
+</div>
 <div class="film-grain"></div>
 
 <nav class="nav" id="nav">
@@ -2862,5 +2899,78 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
   } catch(e){ try { (window.__mfL = window.__mfL || function(){}).call(null,'DBG','logger err ' + e.message); } catch(x){} }
 })();
 </script>
-</body>
+<script>
+/* 15/10 : preloader — sortie des assets CRITIQUES uniquement
+   Jalon 1 = 2 polices du 1er ecran (~94 ko) · Jalon 2 = photo hero (~306 ko) · Jalon 3 = FILM BORNE 5 s.
+   Les 12 videos ne sont JAMAIS attendues (lecon 01/09). Filet JS 10 s, filet CSS 12 s (ldFail). */
+(function(){
+  var L=document.getElementById('loader');
+  if(!L) return;
+  var bar=document.getElementById('ldBar'), txt=document.getElementById('ldTxt'), dom=document.getElementById('ldDom');
+  var done=false, t0=performance.now();
+  document.documentElement.classList.add('ld-lock');
+  function setBar(p){ if(bar) bar.style.width=Math.max(8,Math.min(100,p))+'%'; }
+  function setTxt(s){ if(txt) txt.textContent=s; }
+  function finish(){ if(done) return; done=true; setBar(100); setTxt('Bienvenue');
+    /* duree visible mini 700 ms (depuis le debut de navigation) : jamais de flash */
+    var hold=Math.max(0, 700-(performance.now()-t0));
+    setTimeout(function(){
+      L.classList.add('ld-out');
+      document.documentElement.classList.remove('ld-lock');
+    }, 200+hold); }
+  /* le texte NOMME le jalon reel — la barre ne fait que le suivre (texte initial porte par le HTML) */
+  /* les 4 domaines du site, en rotation pendant le chargement (esprit du site) */
+  var DOMS=['Informatique & réseaux','TV & home cinéma','Photovoltaïque & batteries','Vidéosurveillance & sécurité'];
+  var di=0;
+  var rot=setInterval(function(){ if(done){clearInterval(rot);return;} di=(di+1)%DOMS.length;
+    if(dom){ dom.style.opacity='0'; setTimeout(function(){ dom.textContent=DOMS[di]; dom.style.opacity='1'; }, 180); } }, 2100);
+  if(dom) dom.textContent=DOMS[0];
+  var guard=setTimeout(finish, 10000);
+  L.addEventListener('click', finish);
+  addEventListener('keydown', function(e){ if(e.key==='Escape') finish(); });
+  /* fond PHOTO (decor) : hors du chemin critique. Demande 250 ms APRES le jalon 1, et
+     seulement si ce jalon est arrive avant 2,5 s (liaison bonne).
+     MESURE du 15/10 : 3G et 4G faible -> ZERO octet de decor ; 4G reelle -> image affichee
+     (~0,7 s sur bureau, ~1,9 s lors d'une passe plus lente). */
+  function loadBg(){
+    var b=L.querySelector('.ld-bg'); if(!b||done) return;   /* ecran deja sorti : ZERO octet de decor */
+    var u='assets/banque/exterieurs/loader-paysage.webp?v=20261016a';
+    var im=new Image();
+    function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); }
+    /* priorite HAUTE : mesure du 15/10 — en priorite basse la requete n'aboutissait jamais
+       (affamee derriere le film) et l'ecran se levait avant l'image. */
+    try { im.fetchPriority='high'; } catch(e){}
+    im.src=u; im.onload=show; im.onerror=function(){ if(im.decode) im.decode().then(show,show); };
+  }
+  /* garde de 250 ms : si l'ecran est deja sorti a cet instant, RIEN n'est telecharge */
+  function maybeBg(){ setTimeout(function(){ if(done) return; loadBg(); }, 250); }
+  /* jalon 1 — polices du 1er ecran : document.fonts.load() DECLENCHE le telechargement
+     (document.fonts.ready seul resout avant que les polices soient demandees — mesure du 15/10). */
+  function fLoad(spec){ try { return document.fonts.load(spec,'A').catch(function(){}); } catch(e){ return Promise.resolve(); } }
+  var p1=(document.fonts&&document.fonts.load)
+    ? Promise.all([fLoad('700 16px "Inter Tight"'), fLoad('400 16px "Inter"')])
+    : ((document.fonts&&document.fonts.ready)?document.fonts.ready:Promise.resolve());
+  p1=Promise.race([p1, new Promise(function(r){ setTimeout(r,3000); })])
+    .then(function(){ setBar(40); setTxt('Préparation de l\'image…');
+      /* decor : seulement si la liaison est bonne. Mesure ABSOLUE du jalon 1 (>2,5 s = lente)
+         -> sur liaison lente la photo hero passe d'abord et le decor n'est pas telecharge. */
+      if(performance.now()<=2500) maybeBg(); });
+  /* jalon 2 — photo hero (celle qui peint le premier ecran) */
+  var hero="assets/banque/exterieurs/s0_villa_ancrage.webp?v=20261016b";
+  var p2=new Promise(function(res){ var im=new Image(); im.onload=im.onerror=function(){ setBar(78); setTxt('Préparation du film…'); res(); };
+    im.src=hero; });
+  /* jalon 3 — 1re video, BORNEE : jamais plus de 5 s d'attente (2,0 Mo = 5 s en 4G, 40 s en 3G) */
+  var p3=new Promise(function(res){
+    var v=document.querySelector('.film-vid, video'); if(!v) { setBar(96); return res(); }
+    var ended=false;
+    function ok(){ if(ended) return; ended=true; setBar(96); res(); }
+    if(v.readyState>=3) return ok();
+    v.addEventListener('canplay', ok, {once:true});
+    v.addEventListener('loadeddata', ok, {once:true});
+    setTimeout(ok, 5000);
+  });
+  Promise.all([p1,p2,p3]).then(function(){ clearTimeout(guard); finish(); });
+})();
+</script>
+
 </html>
