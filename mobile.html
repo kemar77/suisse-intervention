@@ -712,7 +712,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 0 · 07:00 Villa -->
   <section class="sn" data-scene="0">
-    <video class="snv" data-src="videos/s1_villa_mob2.mp4" data-src-h265="videos/s1_villa_mob2_h265.mp4" poster="assets/banque/exterieurs/s0_villa_ancrage_poster.webp?v=20261016b" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s1_villa_mob2.mp4" data-src-h265="videos/s1_villa_mob2_h265.mp4" poster="assets/banque/exterieurs/s0_villa_ancrage_poster_mob.webp?v=20261016b" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <h2>Tous vos <em>équipements</em></h2>
@@ -1904,16 +1904,18 @@ html.ld-lock{overflow:hidden}
     ? Promise.all([fLoad('700 16px "Inter Tight"'), fLoad('400 16px "Inter"')])
     : ((document.fonts&&document.fonts.ready)?document.fonts.ready:Promise.resolve());
   p1=Promise.race([p1, new Promise(function(r){ setTimeout(r,3000); })])
-    .then(function(){ setBar(40); setTxt('Préparation de l\'image…');
-      /* decor : seulement si la liaison est bonne. Mesure ABSOLUE du jalon 1 (>2,5 s = lente)
-         -> sur liaison lente la photo hero passe d'abord et le decor n'est pas telecharge. */
-      if(performance.now()<=2500) maybeBg(); });
-  /* fond PHOTO (decor) : hors du chemin critique. Demande 250 ms APRES le jalon 1, et
-     seulement si ce jalon est arrive avant 2,5 s (liaison bonne).
-     MESURE du 15/10 : 3G et 4G faible -> ZERO octet de decor ; 4G reelle -> image affichee
-     (~0,7 s sur bureau, ~1,9 s lors d'une passe plus lente). */
+    .then(function(){ setBar(40); setTxt('Préparation de l\'image…'); });
+  /* fond PHOTO (decor) — le script s'execute a la fin du <body>, donc performance.now()
+     mesure deja le temps d'arrivee du HTML :
+       - HTML arrive vite (<= 2,5 s) = liaison rapide -> demande TOUT DE SUITE (aucune
+         contention a craindre, la photo a le temps de s'installer) ;
+       - sinon REPLI apres le jalon hero (p2) -> le decor ne vole jamais sa bande
+         passante a l'essentiel.
+     Sur 3G le jalon hero n'arrive pas avant le filet -> ZERO octet de decor (mesure). */
+  var bgAsked=false;
   function loadBg(){
-    var b=L.querySelector('.ld-bg'); if(!b||done) return;   /* ecran deja sorti : ZERO octet de decor */
+    var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked) return;   /* deja demande ou ecran sorti : ZERO octet */
+    bgAsked=true;
     var u='assets/banque/exterieurs/loader-paysage-mob.webp?v=20261015b';
     var im=new Image();
     function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); }
@@ -1924,8 +1926,10 @@ html.ld-lock{overflow:hidden}
   }
   /* garde de 250 ms : si l'ecran est deja sorti a cet instant, RIEN n'est telecharge */
   function maybeBg(){ setTimeout(function(){ if(done) return; loadBg(); }, 250); }
+  /* liaison jugee sur le temps d'arrivee du HTML lui-meme */
+  if(performance.now()<=2500) loadBg();
   var p2=new Promise(function(res){ var im=new Image(); im.onload=im.onerror=function(){ setBar(78); setTxt('Préparation du film…'); res(); };
-    im.src="assets/banque/exterieurs/s0_villa_ancrage_mob.webp?v=20261016b"; });
+    im.src="assets/banque/exterieurs/s0_villa_ancrage_mob.webp?v=20261016b"; }).then(function(){ maybeBg(); });
   /* Jalon 3 identique au bureau. NB mobile : les clips .snv ont data-src + preload=none,
      leur src n'est pose qu'au window.load (plus bas dans ce fichier) : leur canplay ne peut
      donc pas arriver avant. La borne de 5 s EST ce qui libere l'ecran — c'est voulu. */
