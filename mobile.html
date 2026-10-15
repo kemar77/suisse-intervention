@@ -629,11 +629,15 @@ html.ld-lock{overflow:hidden}
 @keyframes ldLogo{to{opacity:1;transform:scale(1)}}
 #loader .ld-name{font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:.2em;color:#f5efe3;opacity:0;animation:ldFade .7s ease-out .45s forwards}
 #loader .ld-bar{width:168px;height:2px;border-radius:2px;background:rgba(245,239,227,.16);overflow:hidden;opacity:0;animation:ldFade .7s ease-out .6s forwards}
-#loader .ld-bar i{display:block;height:100%;width:8%;background:var(--accent);transition:width .35s var(--ease)}
+#loader .ld-bar i{display:block;height:100%;width:8%;background:var(--accent);transition:width .35s var(--ease);animation:ldBar 1.1s ease-in-out infinite alternate}
+/* barre INDETERMINEE tant que le JS n'a pas pris la main : sur liaison tres lente le script
+   arrive a ~19 s et la barre restait figee a 8 %, ce qui se lit comme un bug. */
+@keyframes ldBar{from{width:8%}to{width:56%}}
+#loader.ld-js .ld-bar i{animation:none}
 #loader .ld-dom{font-family:var(--font-display);font-size:12.5px;font-weight:500;letter-spacing:.06em;color:var(--accent);opacity:0;animation:ldFade .6s ease-out .55s forwards;min-height:18px}
 #loader .ld-txt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,239,227,.55);opacity:0;animation:ldFade .7s ease-out .7s forwards}
 @keyframes ldFade{to{opacity:1}}
-@media (prefers-reduced-motion:reduce){#loader .ld-bg.on{animation:none}#loader .ld-logo,#loader .ld-name,#loader .ld-bar,#loader .ld-dom,#loader .ld-txt{animation:none;opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#loader .ld-bg.on{animation:none}#loader .ld-bar i{animation:none}#loader .ld-logo,#loader .ld-name,#loader .ld-bar,#loader .ld-dom,#loader .ld-txt{animation:none;opacity:1;transform:none}}
 </style>
 <noscript><style>#loader{display:none!important}</style></noscript>
 <script type="application/ld+json"> {"@context":"https://schema.org","@type":"LocalBusiness","name":"Suisse Intervention","description":"Installation informatique, TV, Wi-Fi, photovoltaïque et vidéosurveillance à domicile.","address":{"@type":"PostalAddress","streetAddress":"Chemin du Grand-Clos 7","postalCode":"1896","addressLocality":"Vouvry","addressRegion":"Valais","addressCountry":"CH"},"telephone":"+41 79 908 92 95","email":"info@suisseintervention.ch","areaServed":["Vouvry","Monthey","Saint-Maurice","Valais","Vaud","Fribourg","Genève"],"openingHours":"Mo-Su 07:00-22:00","priceRange":"Sur devis","makesOffer":[ {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vente et installation d'ordinateurs et imprimantes"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Installation de télévision et rétroprojecteur"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Réseaux Wi-Fi, switch et câblage Ethernet"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Photovoltaïque clé en main avec onduleur et batterie"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vidéosurveillance et surveillance à distance"}}]} </script>
@@ -1891,6 +1895,7 @@ html.ld-lock{overflow:hidden}
   if(!L) return;
   var bar=document.getElementById('ldBar'), txt=document.getElementById('ldTxt'), dom=document.getElementById('ldDom');
   var done=false, finishing=false, bgAsked=false, bgShownAt=0, t0=performance.now();
+  L.classList.add('ld-js');   /* le JS prend la barre en main : l'animation indeterminee s'arrete */
   /* N2 : on ne court-circuite plus TOUT sur lien lent (l'ecran restait fige a 8 % de barre
      pendant ~12 s, lu comme un bug) — on saute seulement le VERROU. Le filet du verrou est
      arme AVANT de le poser (3e regard) : si une exception survient ensuite, elle desarmerait
