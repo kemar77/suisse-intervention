@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════════
+#  Suisse Intervention — robots.txt (SEO-safe)
+#  Le site EST 100% indexable. On n'interdit QUE les fichiers
+#  d'administration / config sensibles — JAMAIS le contenu public.
+#  NB : un scraper malveillant ignore robots.txt de toute façon ;
+#  ce fichier sert à TOUS les moteurs légitimes (Google, Bing...) sans les bloquer.
+# ═══════════════════════════════════════════════
+
+User-agent: *
+Allow: /
+
+# Interdire l'indexation de l'admin + config (sans toucher au contenu SEO)
+Disallow: /admin.php
+Disallow: /admin
+Disallow: /config.json
+Disallow: /config
+Disallow: /.admin_pass.json
+
+# Interdire l'indexation des assets "techniques" (pas du contenu du site)
+Disallow: /temp/
+Disallow: /backups/
+Disallow: /.backups/
+
+# Sitemap (si vous en générez un à la racine)
+Sitemap: https://kemar77.github.io/suisse-intervention/sitemap.xml

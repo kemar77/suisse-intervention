@@ -1,0 +1,1823 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="UTF-8">
+<!-- CLONE MOBILE PROPRE (tâche #64) — architecture validée DeepSeek v4-flash 01/09 :
+     UN moteur natif (scroll-snap mandatory + IntersectionObserver), ZÉRO scroll-jacking,
+     ZÉRO listener scroll/touch pour la progression, ZÉRO window.innerHeight.
+     Contenu = miroir EXACT du film desktop (mêmes scènes 0-11, mêmes textes, mêmes
+     cartes produit, mêmes vidéos _mob2, mêmes panneau Avant/Après · Réalisations ·
+     Preuve sociale, finale). Diagnostic complet : Temp/deepseek_full.md -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Suisse Intervention — Informatique, TV, Wi-Fi &amp; solaire à domicile | Siège et atelier à Vouvry</title>
+<meta name="description" content="Suisse Intervention, siège social et atelier à Vouvry (Valais) : vente, installation et dépannage 7j/7 à domicile — informatique, TV &amp; rétroprojecteurs, Wi-Fi, photovoltaïque, batteries, vidéosurveillance. Domaine d'intervention : cantons de Vaud, Valais, Fribourg &amp; Genève. Devis gratuit.">
+<meta property="og:title" content="Suisse Intervention — Informatique, TV, Wi-Fi &amp; photovoltaïque à domicile — cantons VD, VS, FR &amp; GE">
+<meta property="og:description" content="Siège social et atelier à Vouvry (Valais). Vente, installation et dépannage 7j/7 : ordinateurs, imprimantes, TV &amp; rétroprojecteurs, Wi-Fi, photovoltaïque, batteries, caméras. Domaine d'intervention : cantons de Vaud, Valais, Fribourg &amp; Genève. Devis gratuit.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_CH">
+<meta property="og:url" content="https://kemar77.github.io/suisse-intervention/mobile.html">
+<meta property="og:site_name" content="Suisse Intervention">
+<meta property="og:image" content="https://kemar77.github.io/suisse-intervention/og-image.webp">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://kemar77.github.io/suisse-intervention/mobile.html">
+<meta name="theme-color" content="#0D1520">
+<link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<style>
+/* ═══ Palette + fontes — copie des variables du site desktop (miroir visuel) ═══ */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/Inter-400.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('assets/fonts/Inter-500.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/Inter-600.woff2') format('woff2')}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/InterTight-600.woff2') format('woff2')}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/InterTight-700.woff2') format('woff2')}
+:root{
+  --bg:#0d1520; --bg-deep:#0a111a; --surface:#121b28; --night:#1e2a45;
+  --cream:#f5efe3; --cream-80:rgba(245,239,227,.80); --cream-60:rgba(245,239,227,.60); --cream-40:rgba(245,239,227,.40);
+  --cream-15:rgba(245,239,227,.15); /* Fix LongCat P1-1 (01/09) : manquait → bordures stats hero + timeline invisibles */
+  --accent:#c9a254; --accent-hover:#d4b87a;
+  --bronze:#6F5320; --bronze-16:rgba(111,83,32,.16);
+  --paper:#FBF8F1; --ink:#0D1520; --ink-62:rgba(13,21,32,.62);
+  --gold:#C9A96A;
+  --font-display:'Inter Tight','Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg-deep);color:var(--cream);font-family:'Inter',system-ui,sans-serif;line-height:1.55}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font-family:inherit}
+
+/* ═══ NAV compacte ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;min-height:56px;background:linear-gradient(180deg,rgba(10,17,26,.82),rgba(10,17,26,0));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-brand img{height:30px;width:auto}   /* logo 1600×1143 : JAMAIS forcé carré (distorsion) — règle desktop L82 */
+/* Boss 31/08 : écrits plus petits, bien ordonnés, lisibles — calibrage réel (index.html L83-84 + L585-586) */
+.brand-name{font-family:var(--font-display);font-weight:700;font-size:.75rem;letter-spacing:.06em;line-height:1.15;color:var(--cream);
+  text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.brand-name small{display:block;font-size:.55rem;font-weight:500;letter-spacing:.22em;color:var(--cream-60);margin-top:1px}
+/* ☎ + burger = miroir MF-01 réel (index.html L786-787 : fond transparent, 44×44, spans 24px)
+   + L969 nav-cta-urgence mobile (le ☎ seul, sans numéro) */
+.nav-tel{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;
+  text-decoration:none;color:#fff;font-weight:700;font-size:1.25rem;line-height:1;padding:0 6px;
+  text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.nav-tel:active{color:var(--gold)}
+.burger{appearance:none;background:none;border:0;cursor:pointer;
+  width:44px;height:44px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px}
+.burger span{display:block;width:24px;height:2px;border-radius:2px;background:rgba(245,239,227,.92);transition:transform .3s}
+/* .burger.on = verbatim MF-01 réel (gap 7px → translate 4.5px) */
+.burger.on span:first-child{transform:translateY(4.5px) rotate(45deg)}
+.burger.on span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+/* Boss 31/08 : « le menu doit être classe » — la couleur plate #0d1520 est INTERDITE ; retour au
+   verre réel (index.html L790) : rgba(13,21,32,.94) + blur 20px, calibrage identique */
+/* Boss 01/09 (#5) : menu = beige de l'UI mais transparent (pas trop) — texte/CTA basculés encre */
+.mnav{position:fixed;inset:0;z-index:99;background:rgba(251,248,241,.9);backdrop-filter:blur(22px) saturate(1.05);-webkit-backdrop-filter:blur(22px) saturate(1.05);
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2px;padding:80px 32px 60px;
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,visibility .3s}
+.mnav.on{opacity:1;visibility:visible;pointer-events:auto}
+.mnav a{color:var(--ink);text-decoration:none;font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(1.8rem,8.5vw,2.6rem);padding:10px 0;opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s} /* padding 10px = verbatim réel L792 (revues vision instables, code réel fait foi) */
+.mnav.on a{opacity:1;transform:none}
+.mnav.on a:nth-child(1){transition-delay:.04s}
+.mnav.on a:nth-child(2){transition-delay:.08s}
+.mnav.on a:nth-child(3){transition-delay:.08s}
+.mnav.on a:nth-child(4){transition-delay:.12s}
+.mnav.on a:nth-child(5){transition-delay:.16s}
+.mnav.on a:nth-child(6){transition-delay:.2s}
+.mnav a:hover{color:var(--bronze)}
+.mnav .mnav-cta{display:inline-block;margin-top:18px;padding:15px 34px;border:2px solid var(--ink);border-radius:999px;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase} /* t67: dimensions RDV = réel (revue v6 P1) — Boss 01/09: bordure encre sur beige */
+.mnav .mnav-tel{margin-top:22px;font-size:1.1rem;letter-spacing:.06em;color:var(--bronze);opacity:.85}
+.mnav .mnav-tel:hover{opacity:1}
+
+/* ═══ HERO = ÉCRAN 0 DU FILM (Boss 31/08 : chaque écran couvre SEUL l'écran, aucune page
+   à moitié ouverte) — même scroller + snap mandatory que les 12 scènes/panneaux/finale ═══ */
+.hero{position:relative;height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 20px 118px;overflow:hidden;
+  scroll-snap-align:start;scroll-snap-stop:always}
+.hero-bg{position:absolute;inset:0;background:url('assets/banque/exterieurs/s0_villa_ancrage_mob.webp') center/cover no-repeat}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,26,.55) 0%,rgba(10,17,26,.1) 34%,rgba(10,17,26,.88) 78%,var(--bg-deep) 100%)}
+.hero-content{position:relative;max-width:560px}
+/* h1 + lead = calibrage VERBATIM réel @375 (index.html L567 + L74) : h1 clamp(2.2rem,12vw,4rem), lead 19px */
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.2rem,12vw,4rem);letter-spacing:-.03em;line-height:1.02;margin-bottom:clamp(16px,2.6vh,28px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.hero .lead{color:var(--cream-80);font-size:19px;line-height:1.6;max-width:65ch;margin-bottom:22px}
+.lead-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;padding:0}
+.lead-list li{position:relative;padding-left:16px;font-size:.9rem;color:var(--cream-80);line-height:1.6}
+.lead-list li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+/* Hero : pills = miroir réel .hero-ctas L135 (marges) + .btn L136 (taille réelle 48px/pad 28) */
+.hero-ctas{display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(24px,4.5vh,48px);margin-bottom:24px}
+/* CTA2 hero = btn-outline site réel (index.html L1003 + .btn-outline L139)
+   — .btn.btn-outline (0,2,0) BAT le border:0 du .btn base déclaré plus bas */
+.btn.btn-outline{background:transparent;color:var(--cream);border:1px solid rgba(245,239,227,.32)}
+.hero-ctas .btn{padding:11px 18px;font-size:.82rem}
+/* .btn = dimensions RÉELLES L136 : hauteur 48px, padding 0 28, radius 16, font 15 */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;gap:12px;padding:0 28px;border-radius:16px;border:0;
+  font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;text-align:center}
+.btn-gold{background:linear-gradient(135deg,#c9a254,#d4b87a);color:#141d29;box-shadow:0 10px 30px rgba(201,162,84,.25)}
+/* Boss 31/08 (revue DeepSeek P1) : verre CLAIR du réel — index.html L137 verbatim
+   rgba(245,239,227,.08) + cream-25 + blur(16) (l'ancien fond sombre .45 était faux) */
+.btn-glass{background:rgba(245,239,227,.08);color:var(--cream);border:1px solid rgba(245,239,227,.25);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+/* Boss 31/08 : PAS de panneaux derrière les chiffres (n'existe pas desktop) — mise en forme VERBATIM réel
+   (index.html L143-148 + override @375 L564-566) : rangée, bord haut 1px, séparateurs 1px, chiffres 26px */
+.hero-stats{display:flex;margin-top:32px;padding-top:24px;border-top:1px solid var(--cream-15);gap:0;flex-wrap:wrap}
+.stat{padding:0 18px 0 0;position:relative}
+.stat:first-child{padding-left:0}
+.stat:not(:first-child)::before{content:'';position:absolute;left:0;top:0;width:1px;height:28px;background:var(--cream-15)}
+.stat strong{display:block;font-family:var(--font-body);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--cream);line-height:1.1}
+.stat span{display:block;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-60);margin-top:4px}
+.scroll-ind{position:absolute;bottom:clamp(14px,2.5vh,40px);left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-60);background:none;border:0;cursor:pointer}
+/* scroll-ind réel : « Défiler » + ligne verticale animée (index.html L161-162) */
+.scroll-line{width:1px;height:40px;background:rgba(245,239,227,.12);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent);animation:scrollLine 2s cubic-bezier(.22,.61,.36,1) infinite}
+@keyframes scrollLine{0%{top:-100%}55%{top:100%}100%{top:100%}}
+
+/* ═══ FILM — LE SOCLE UNIQUE (moteur natif, zéro JS de scroll) ═══
+   #film = son propre scroller plein écran, snap MANDATORY : 1 geste = 1 écran.
+   Le navigateur gère barre d'URL, momentum, 120 Hz, Data Saver — nativement. */
+main#film{height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior-y:auto;background:var(--bg-deep);scrollbar-width:none}
+main#film::-webkit-scrollbar{display:none}
+.sn{position:relative;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:var(--bg-deep)}
+.snv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-deep)}
+/* FLOU fin de clip — verbatim desktop (L232) : la dernière image devient toile de fond floutée
+   pour DÉMARQUER la carte produit. Le scale ne travaille QUE ici — jamais pendant la lecture. */
+.snv.blur{filter:blur(13px) brightness(.9) saturate(1.03);transform:scale(1.05);transition:filter .8s ease,transform .8s ease}
+/* 01/09 (GO Boss #1) : scène 0 — push-in miroir desktop (transform GPU, ultra net) */
+@keyframes kbScene0{from{transform:scale(1)}to{transform:scale(1.14)}}
+.sn[data-scene="0"] .snv{transform-origin:56% 44%;animation:kbScene0 12s linear forwards}
+@media (prefers-reduced-motion:reduce){.sn[data-scene="0"] .snv{animation:none}} /* 01/09 P2 (revue LongCat) : respecter reduced-motion */
+/* 02/09 (Boss, GO) : scène 11 AUTONOMIE — travelling qui SUIT la boule verte fluo.
+   Mesuré frame par frame (s11_nuit_mob2.mp4, 5s) : la boule entre à DROITE (~98%) à 0,2s et
+   touche la batterie de l'aile gauche (~34%) vers 3,5s → traversée réelle ≈ 3,3s.
+   Pan 97%→35% en 2,8s ease-out (la caméra arrive juste avant la boule), `forwards` = fini
+   sur la batterie (plus de boucle infinie désynchronisée). object-position de BASE 97% :
+   l'image de garde est déjà cadrée à droite → zéro saut au démarrage. */
+.sn[data-scene="11"] .snv{object-position:97% 50%;will-change:object-position;animation:panAutonomie 2.8s ease-out forwards}
+@keyframes panAutonomie{
+  0%{object-position:97% 50%}
+  100%{object-position:35% 50%}
+}
+@media (prefers-reduced-motion:reduce){.sn[data-scene="11"] .snv{animation:none}}
+.sn-scrim{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,17,26,.5) 0%,rgba(10,17,26,0) 26%,rgba(10,17,26,0) 40%,rgba(10,17,26,.82) 82%,rgba(10,17,26,.94) 100%)}
+.sn-body{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 16px 22px}
+.sn-txt{width:min(88vw,340px)}
+/* Placement typo = règle desktop .film-scene (index.html L172-176) :
+   num ACCENT + ligne 48px après, h2 display + shadow, p crème .94 + shadow */
+.sn-txt .num{display:flex;align-items:center;gap:12px;font-size:.66rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.sn-txt .num::after{content:'';flex:none;width:44px;height:1px;background:rgba(201,162,84,.35)}
+.sn-txt .hour{color:inherit;letter-spacing:.15em}
+
+/* ═══ TIMELINE journée 07:00→23:00 — VERBATIM site réel (index.html L237-241, padding mobile MF-05 L865) ═══
+   Absente du clone v1 = delta majeur : sur le site réel @375 la ligne du temps vit SOUS la nav
+   pendant TOUT le film. Ici : sticky dans #film (0 hauteur) → persiste scène après scène,
+   disparaît naturellement avec le film. MAJ heure/ligne/soleil SANS listener scroll :
+   par IO, à chaque activation de scène (heure canonique desktop). */
+.film-tl-sticky{position:sticky;top:0;z-index:30;height:0;overflow:visible}
+.film-tl{position:absolute;top:0;left:0;right:0;padding:66px 20px 0;display:flex;align-items:center;gap:16px;pointer-events:none}
+.film-tl .tl-h{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-60);font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 1px 4px rgba(6,10,16,.9)}
+.film-tl .tl-track{flex:1;height:2px;background:rgba(245,239,227,.15);position:relative;border-radius:2px;overflow:hidden}
+.film-tl .tl-fill{position:absolute;left:0;top:0;height:100%;width:0;background:var(--accent)}
+.film-tl .tl-sun{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9b8,#e9a13d 70%);position:absolute;top:-6px;left:0;margin-left:-7px}
+.sn-txt h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,6.5vw,2.1rem);letter-spacing:-.02em;line-height:1.08;margin-bottom:8px;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.sn-txt h2 em{font-style:italic;font-weight:500;color:var(--accent)}
+/* t67 Boss 31/08 : la dernière ligne débordait sous le drapeau d'assistance (7 écrans touchés).
+   La colonne p s'arrête AVANT la zone agents (drapeau x≥305, bouton i x≥325) → le texte
+   passe à la ligne, jamais écrasé, jamais coupé, à aucune définition. */
+.sn-txt p{color:rgba(245,239,227,.94);font-size:.95rem;max-width:min(40ch,calc(100% - 64px));text-shadow:0 1px 10px rgba(0,0,0,.6)}
+/* hotspot ≠ CTA carte : pastille produit RÉELLE (cf .hotspot verbatim plus bas) */
+
+/* Carte produit = EXACTEMENT le code visuel .pc-canvas desktop (P0 revue vision) :
+   verre sombre, bord crème, eyebrow/chips/valeur crème, CTA outline doré */
+.card{width:min(88vw,340px);color:var(--cream);border-radius:16px;overflow:hidden;text-align:left;
+  background:linear-gradient(165deg,rgba(16,24,34,.38),rgba(13,21,32,.16));
+  border:1px solid rgba(245,239,227,.14);
+  backdrop-filter:blur(16px) saturate(1.05);-webkit-backdrop-filter:blur(16px) saturate(1.05);
+  box-shadow:0 22px 55px rgba(0,0,0,.30)}
+.card-img{height:148px;background-size:cover;background-position:center;background-color:#0f1621}
+.card-body{padding:12px 14px 14px}
+.eyebrow{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.card-body h3{font-family:var(--font-display);font-weight:600;font-size:1.02rem;letter-spacing:-.01em;margin:3px 0 7px;color:#f5efe3}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chips span{font-size:.64rem;font-weight:500;letter-spacing:.04em;color:rgba(245,239,227,.72);
+  background:rgba(245,239,227,.05);border:1px solid rgba(245,239,227,.16);padding:4px 9px;border-radius:999px}
+.val{font-size:.84rem;font-weight:600;color:rgba(245,239,227,.80);margin-bottom:9px;text-wrap:pretty}
+.card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.card-cta{display:inline-block;padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;text-decoration:none;
+  color:var(--accent);background:rgba(201,162,84,.10);border:1px solid rgba(201,162,84,.36)}
+/* TEMPO desktop (index.html L2248) : la carte n'apparaît JAMAIS pendant la vidéo —
+   seulement au REPOS de la scène (clip terminé / photo HD armée). Même logique ici :
+   cachée à l'entrée de scène, révélée à `ended`. */
+.sn .card{opacity:0;transform:translateY(26px);pointer-events:none;
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.sn .card.on{opacity:1;transform:translateY(0);pointer-events:auto}
+/* HOTSPOT = verbatim index.html L310-317 (site réel) — pastille produit réelle, PAS un style inventé.
+   En flux (pas en absolu --x/--y) : mobile.html pose la pilule SOUS la carte, dans l'ordre
+   carte → hotspot → texte = l'équivalent du slot fixe MF-05 du site réel 31/08. */
+.hotspot{display:flex;align-items:center;gap:10px;background:none;border:0;cursor:pointer;padding:0}
+.hotspot .hs-ring{position:relative;width:14px;height:14px;flex-shrink:0}
+.hotspot .hs-ring::before{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(201,162,84,.6)}
+.hotspot .hs-ring::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:1px solid rgba(201,162,84,.6);animation:hsPulse 2.2s cubic-bezier(.16,1,.3,1) infinite}
+.hotspot:focus-visible .hs-ring::before{transform:scale(1.35)}
+@keyframes hsPulse{0%{transform:scale(.6);opacity:1}70%{transform:scale(1.5);opacity:0}100%{transform:scale(1.5);opacity:0}}
+.hotspot .hs-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(13,21,32,.72);border:1px solid rgba(201,162,84,.3);padding:5px 11px;border-radius:999px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);white-space:nowrap}
+
+/* REC / POV — scènes 10-11 */
+.osd{position:absolute;top:89px;left:14px;font:600 .62rem/1.7 ui-monospace,monospace;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.7);display:none;pointer-events:none}  /* 01/09 (Boss) : baissé de 64px → 89px — le badge REC/CAM était écrasé par la timeline 07H-23H */
+.sn.pov .osd{display:block}
+.osd .rec{color:#e07070;letter-spacing:.12em}
+.osd .rec i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e07070;margin-right:5px;animation:blink 1.1s infinite}
+@keyframes blink{0%,60%{opacity:1}70%,100%{opacity:.25}}
+
+/* Panneaux intercalés (Avant/Après, Réalisations, Preuve sociale) — montage VERBATIM PC :
+   pas de page blanche — image de la scène en toile de fond FLOUTÉE + voile radial
+   (.act-panel.on L179/L618 desktop) + carte en verre sombre (.act-inner L180 desktop) */
+.sn-panel{scroll-snap-align:start;scroll-snap-stop:always;min-height:100dvh;display:flex;align-items:center;position:relative;background:var(--bg-deep)}
+.panel-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(16px) brightness(.55) saturate(1.05);transform:scale(1.1)}
+.panel-veil{position:absolute;inset:0;background:radial-gradient(130% 130% at 50% 45%,rgba(10,14,20,.28),rgba(10,14,20,.52))}
+.pin{position:relative;width:min(88vw,400px);margin:0 auto;padding:26px 20px 24px;border:1px solid rgba(245,239,227,.14);border-radius:22px;
+  background:linear-gradient(165deg,rgba(16,24,34,.40),rgba(13,21,32,.18));backdrop-filter:blur(18px) saturate(1.06);-webkit-backdrop-filter:blur(18px) saturate(1.06);
+  box-shadow:0 24px 70px rgba(0,0,0,.32);color:var(--cream)}
+.pin .eyebrow{color:var(--accent);margin-bottom:5px;display:block}
+.pin h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.4rem,6.2vw,1.9rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:16px;color:#fff}
+.pin h2 em{font-style:italic;font-weight:400;color:var(--accent)}
+/* Avant/Après : slider tactile (input range, zéro bibliothèque) */
+.ba-frame{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(13,21,32,.18)}
+.ba-img{position:absolute;inset:0;background-size:260%;background-position:50% 16%}
+.ba-apres{clip-path:inset(0 50% 0 0)}
+.ba-handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--paper);box-shadow:0 0 0 1px rgba(13,21,32,.3);pointer-events:none}
+.ba-handle:after{content:'⇔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+  background:var(--paper);color:var(--ink);font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(13,21,32,.4)}
+.ba-label{position:absolute;top:10px;font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(13,21,32,.7);color:var(--paper);padding:4px 9px;border-radius:999px}
+.ba-label.avant{left:10px}.ba-label.apres{right:10px}
+.ba-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+/* Réalisations : 3 cartes empilées */
+.pcard{position:relative;display:block;border-radius:14px;overflow:hidden;color:var(--paper);text-decoration:none;aspect-ratio:16/7;margin-bottom:10px}
+.pcard .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.pcard .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,21,32,0) 30%,rgba(13,21,32,.75))}
+.pcard-chip{position:absolute;top:10px;right:10px;background:rgba(201,162,84,.9);color:#141d29;font-size:.62rem;font-weight:700;padding:4px 9px;border-radius:999px}
+.pcard .body{position:absolute;left:14px;bottom:10px}
+.pcard h3{font-family:var(--font-display);font-size:1rem}
+.pcard .loc{font-size:.72rem;color:rgba(245,239,227,.75)}
+.realize-cta{display:inline-block;margin-top:10px;padding:11px 18px;border-radius:999px;background:transparent;border:1px solid rgba(245,239,227,.45);color:#f5efe3;font-size:.82rem;font-weight:600;text-decoration:none}
+/* Preuve sociale — cartes en VERRE sombre verbatim desktop (.tcard L391-397 = verre crème sur film ;
+   le tcard BLANC ne concerne que les sections crème #services/#tarifs, scopé .sec .tcard plus bas) */
+.sn-panel .tcard{border:1px solid rgba(245,239,227,.14);border-radius:14px;padding:14px 16px;margin-bottom:10px;background:rgba(245,239,227,.05)}
+.sn-panel .tcard .stars{color:var(--accent);font-size:.85rem;letter-spacing:.1em;margin-bottom:6px}
+.sn-panel .tcard p{font-size:.9rem;color:rgba(245,239,227,.85);font-style:italic;margin-bottom:10px}
+.sn-panel .tcard strong{display:block;font-size:13px;color:var(--cream)}  /* 01/09 (Boss) : initiales supprimées — nom + ville empilés, style PC */
+.sn-panel .tcard .author span{display:block;font-size:11px;color:var(--cream-60)}
+/* tcard des sections crème (méthode/contact) — style papier inchangé */
+.sec .tcard{background:#FBF8F1;border:1px solid rgba(13,21,32,.12);border-radius:16px;box-shadow:none;padding:20px}  /* 01/09 (Boss) : design PC (index.html L705-736) — aéré, texte dégagé de l'encadrement */
+.sec .tcard .stars{color:#6F5320;letter-spacing:2px;margin-bottom:10px}
+.sec .tcard p{color:rgba(13,21,32,.72);margin-bottom:14px}
+.sec .tcard .author strong{display:block;font-size:13px;color:rgba(13,21,32,.92)}
+.sec .tcard .author span{display:block;font-size:11px;color:rgba(13,21,32,.55)}
+
+/* Finale — dernier écran du film */
+.sn-finale{scroll-snap-align:start;scroll-snap-stop:always;min-height:100dvh;justify-content:center;flex-direction:column;display:flex;
+  gap:13px;padding:64px 22px 30px;background:linear-gradient(180deg,var(--bg) 0%,var(--bg-deep) 100%);text-align:center}
+.finale-logo{display:flex;align-items:center;gap:10px}
+.finale-logo img{height:38px;width:auto}   /* idem nav : ratio natif conservé */
+.finale-logo .name{font-family:var(--font-display);font-weight:700;letter-spacing:.1em;font-size:.9rem}
+.finale-p{color:var(--cream-80);font-size:.9rem}
+.finale-btn{display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#c9a254,#d4b87a);color:#141d29;
+  font-weight:700;font-size:.9rem;text-decoration:none;box-shadow:0 14px 40px rgba(201,162,84,.3)}
+.finale-tel{display:block;text-decoration:none}
+.finale-tel strong{display:block;font-size:1.3rem;color:var(--cream)}
+.finale-tel span{font-size:.75rem;color:var(--cream-60)}
+.finale-serv{color:var(--cream-40);font-size:.75rem;letter-spacing:.04em}
+.finale-serv i{font-style:normal;color:var(--accent);margin:0 5px}
+.finale-foot{color:var(--cream-40);font-size:.7rem;line-height:1.8}
+.next-link{display:inline-block;color:var(--accent);font-size:.85rem;text-decoration:none;border:1px solid rgba(201,162,84,.4);
+  border-radius:999px;padding:10px 18px}
+
+/* ═══ RAIL points — le réel @375 le CACHE (index.html L580 .rail{display:none}) : miroir exact ═══ */
+.rail{display:none;position:fixed;right:4px;top:50%;transform:translateY(-50%);z-index:90;flex-direction:column;gap:2px;
+  opacity:0;pointer-events:none;visibility:hidden;transition:opacity .3s,visibility .3s}
+.rail.show{opacity:1;pointer-events:auto;visibility:visible}
+.rail .rd{width:26px;height:24px;border-radius:50%;background:transparent;border:0;padding:0;cursor:pointer;position:relative;
+  display:flex;align-items:center;justify-content:center}
+.rail .rd span{font:600 .5rem/1 ui-monospace,monospace;letter-spacing:.05em;color:rgba(245,239,227,.38);
+  margin-right:2px;transition:color .3s;text-shadow:0 1px 4px rgba(6,10,16,.9),0 0 2px rgba(6,10,16,.9)}
+.rail .rd i{width:5px;height:5px;border-radius:50%;background:rgba(245,239,227,.30);transition:background .3s;
+  box-shadow:0 0 3px rgba(6,10,16,.9)}
+.rail .rd.on span{color:var(--accent)}
+.rail .rd.on i{background:var(--accent);box-shadow:0 0 6px rgba(201,162,84,.8)}
+
+/* ═══ SHEET détail (contenu hotspot = HS_DATA desktop) + voile ═══
+   Boss 31/08 : fini le gros bloc BLANC — la sheet = le .detail-panel desktop (L323-L343) :
+   verre sombre rgba(13,21,32,.58) + blur 22, textes crème, specs/listes/CTA verbatim desktop. */
+.dim{position:fixed;inset:0;z-index:110;background:rgba(6,10,16,.6);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.dim.on{opacity:1;visibility:visible}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:120;color:var(--cream);border-radius:20px 20px 0 0;
+  max-height:78dvh;overflow-y:auto;padding:20px 20px 28px;transform:translateY(103%);visibility:hidden;
+  transition:transform .32s cubic-bezier(.2,.8,.2,1),visibility .32s;box-shadow:0 -12px 40px rgba(0,0,0,.4);
+  background:rgba(13,21,32,.58);backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15);
+  border:1px solid rgba(245,239,227,.16);border-bottom:0}
+.sheet.open{transform:translateY(0);visibility:visible}
+.sheet-close{position:sticky;top:0;float:right;width:32px;height:32px;border-radius:50%;border:0;background:rgba(245,239,227,.12);color:#f5efe3;font-size:.95rem;cursor:pointer}
+.sheet .eyebrow{font-size:.66rem;letter-spacing:.18em;color:var(--accent)}
+/* 15/10 : visuel produit MARSTEK dans la sheet (parité desktop — revue C8) */
+.prod-img{width:100%;max-height:150px;object-fit:contain;border-radius:14px;border:1px solid rgba(245,239,227,.14);background:rgba(245,239,227,.05);margin-bottom:12px}
+.sheet h3{font-family:var(--font-display);font-weight:700;font-size:1.3rem;letter-spacing:-.01em;margin:4px 0 6px;color:#f5efe3}
+.dsub{font-size:.85rem;color:rgba(245,239,227,.85);line-height:1.55;margin-bottom:14px;text-wrap:pretty}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+.spec{padding:9px 11px;border:1px solid rgba(245,239,227,.14);border-radius:12px;background:rgba(245,239,227,.06)}
+.spec b{display:block;font-size:1rem;color:#fff;font-variant-numeric:tabular-nums;margin-bottom:2px}
+.spec span{font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--cream-60)}
+.dtitle{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-60);margin:16px 0 9px;display:flex;align-items:center;gap:12px}
+.dtitle::after{content:'';flex:1;height:1px;background:rgba(245,239,227,.14)}
+.dlist{list-style:none;display:flex;flex-direction:column;gap:6px}
+.dlist li{position:relative;padding-left:16px;font-size:.85rem;color:rgba(245,239,227,.85);line-height:1.5}
+.dlist li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:1px;background:var(--accent)}
+.dlist li.star{color:#fff;font-weight:600}
+.detail-cta{display:block;margin-top:20px;text-align:center;font-size:.88rem;font-weight:600;color:#f5efe3;background:transparent;
+  border:1px solid rgba(245,239,227,.45);padding:11px;border-radius:999px;text-decoration:none;transition:background .3s,border-color .3s}
+
+/* ═══ HUB ASSISTANCE CLIENT — miroir hub desktop (index.html L702-746, format mobile) :
+     drapeau suisse, requêtes métier → scènes, requête personnalisée, Appeler/RDV/WhatsApp.
+     z-index > mnav (99) : le drapeau reste visible PAR-DESSUS le menu burger comme le FAB réel. */
+.hub{position:fixed;bottom:18px;right:14px;z-index:101}
+/* Boss 31/08 : replié = LOGO SUISSE SEUL (drapeau, bas à droite) — au tap, le panneau se déploie.
+   Aucune pastille texte sur l'agent (delta revue DeepSeek P0 résolu par l'ordre). */
+.hub-btn{display:flex;align-items:center;justify-content:center;width:56px;height:56px;padding:0;border-radius:14px;
+  background:none;border:0;padding:0;cursor:pointer;color:var(--cream);font-size:14px;
+  animation:hubPulse 2.6s ease-in-out infinite;transition:transform .25s}
+.hub-btn:hover{transform:translateY(-2px);border-color:rgba(201,162,84,.55)}
+.hub-btn .hub-flag{width:44px;height:44px;border-radius:11px}
+.hub-flag{width:44px;height:44px;border-radius:11px;flex:none;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+.hub-flag svg{display:block;width:100%;height:100%}
+@keyframes hubPulse{0%,100%{box-shadow:0 14px 40px rgba(0,0,0,.45),0 0 0 0 rgba(245,239,227,.25)}50%{box-shadow:0 14px 40px rgba(0,0,0,.45),0 0 0 14px rgba(245,239,227,0)}}
+.hub-panel{position:fixed;bottom:88px;right:14px;z-index:102;width:calc(100vw - 28px);max-height:76dvh;overflow-y:auto;display:none;
+  border:1px solid rgba(245,239,227,.16);border-radius:20px;color:var(--cream);
+  background:rgba(13,20,28,.72);backdrop-filter:blur(22px) saturate(1.1);-webkit-backdrop-filter:blur(22px) saturate(1.1);
+  box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.hub-panel.open{display:block}
+.hub-head{display:flex;align-items:center;gap:12px;padding:16px 16px 14px;background:linear-gradient(135deg,rgba(20,28,40,.5),rgba(28,40,56,.42));border-bottom:1px solid rgba(245,239,227,.1)}
+.hub-head .hub-flag{width:34px;height:34px;border-radius:9px}
+.hub-head h4{font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:2px}
+.hub-head p{font-size:.68rem;color:var(--cream-80);line-height:1.35}
+.hub-close{margin-left:auto;width:30px;height:30px;border-radius:50%;border:0;background:rgba(245,239,227,.12);color:#f5efe3;font-size:.82rem;cursor:pointer}
+.hub-body{padding:14px 14px 16px}
+.hub-label{font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-60);margin-bottom:10px}
+.hub-q{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:11px 13px;margin-bottom:8px;border-radius:12px;
+  border:1px solid rgba(245,239,227,.15);background:rgba(255,255,255,.04);color:var(--cream);
+  font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:border-color .25s,background .25s}
+.hub-q:hover{border-color:rgba(245,239,227,.4);background:rgba(255,255,255,.07)}
+.hub svg{fill:none;stroke:#f5efe3;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.hub .hub-flag svg{fill:none;stroke:none}
+.hub-q svg{flex:none;width:20px;height:20px;opacity:.75}
+.hub-send svg{fill:none;stroke:#0d1520;stroke-width:2}
+.hub-form{display:flex;gap:8px;margin:14px 0 16px}
+.hub-form input{flex:1;min-width:0;height:44px;padding:0 13px;border-radius:12px;border:1px solid rgba(245,239,227,.15);
+  background:rgba(255,255,255,.05);color:var(--cream);font-family:'Inter',system-ui,sans-serif;font-size:14px}
+.hub-form input::placeholder{color:var(--cream-40)}
+.hub-form input:focus{outline:none;border-color:var(--accent)}
+.hub-send{width:44px;height:44px;flex:none;border:none;border-radius:12px;background:var(--accent);color:#0d1520;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.hub-send svg{width:17px;height:17px}
+.hub-action{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;margin-bottom:8px;border-radius:12px;
+  border:1px solid rgba(245,239,227,.2);background:rgba(255,255,255,.05);color:var(--cream);font-size:13px;font-weight:600;text-decoration:none}
+.hub-action .urgent{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+  border:1px solid rgba(201,162,84,.4);background:rgba(201,162,84,.1);padding:2px 7px;border-radius:999px}
+.hub-action.wa{background:#25D366;border-color:transparent;color:#fff}
+.hub-action.wa .urgent{color:#eafff3;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.18)}
+.hub-ack{display:none;padding:11px 13px;border-radius:12px;border:1px solid rgba(201,162,84,.35);background:rgba(201,162,84,.1);font-size:12.5px;line-height:1.5;color:var(--cream)}
+.hub-ack.open{display:block}
+
+/* ═══ SEO — bouton « i » + panneau Informations complètes (miroir verbatim réel L751-766,
+     format mobile : tiroir pleine largeur depuis la droite, au-dessus du drapeau hub) ═══ */
+/* t67 : style + position = réels verbatim (L751 base + override mobile L891 bottom:96 right:16) */
+.seo-btn{position:fixed;bottom:96px;right:16px;z-index:95;width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(245,239,227,.18);background:rgba(245,239,227,.1);color:rgba(245,239,227,.55);
+  font-size:13px;font-weight:600;cursor:pointer;opacity:.55;transition:opacity .25s}
+.seo-btn:hover,.seo-btn.on{opacity:1}
+.seo-panel{position:fixed;top:0;right:0;z-index:104;width:100vw;height:100dvh;display:flex;flex-direction:column;
+  background:rgba(13,21,32,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-left:1px solid rgba(245,239,227,.12);box-shadow:-24px 0 60px rgba(0,0,0,.5);
+  transform:translateX(101%);transition:transform .38s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.seo-panel.open{transform:translateX(0);pointer-events:auto}
+.seo-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(245,239,227,.1);background:rgba(30,48,72,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.seo-head h2{font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:.04em;color:#f5efe3}
+.seo-close{width:34px;height:34px;border-radius:50%;border:none;background:rgba(245,239,227,.1);color:#f5efe3;font-size:16px;cursor:pointer}
+.seo-scroll{flex:1;overflow-y:auto;padding:22px 22px 32px;-webkit-overflow-scrolling:touch}
+.seo-scroll h3{font-family:var(--font-display);font-size:.95rem;font-weight:700;letter-spacing:.05em;color:#f5efe3;margin:26px 0 10px;padding-top:18px;border-top:1px solid rgba(245,239,227,.08)}
+.seo-scroll h3:first-child{margin-top:0;padding-top:0;border-top:none}
+.seo-scroll p,.seo-scroll li{font-size:.86rem;line-height:1.65;color:rgba(245,239,227,.8)}
+.seo-scroll strong{color:#f5efe3}
+.seo-scroll ul{list-style:none;margin:0;padding:0}
+.seo-scroll li{padding:4px 0 4px 16px;position:relative}
+.seo-scroll li::before{content:'—';position:absolute;left:0;color:var(--accent);opacity:.7}
+.seo-scroll a{color:#f5efe3;text-decoration:underline;text-underline-offset:3px}
+
+/* ═══ SECTIONS APRÈS LE FILM (miroir desktop) ═══ */
+.sec{position:relative;padding:72px 22px;background:var(--paper);color:var(--ink)}
+.sec-dark{background:var(--bg-deep);color:var(--cream)}
+.sec-label{font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px}
+.h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.65rem,7vw,2.1rem);letter-spacing:-.02em;margin-bottom:14px}
+.h2 em{font-style:italic;font-weight:500;color:var(--bronze)}
+.tx{color:rgba(13,21,32,.72);font-size:.92rem;max-width:52ch}
+/* Méthode */
+.mstep{border-top:1px solid rgba(13,21,32,.12);padding:16px 0}
+.mstep .mnum{font-family:var(--font-display);font-weight:700;font-size:.8rem;color:var(--bronze)}
+.mstep h3{font-family:var(--font-display);font-size:1.08rem;margin:4px 0 6px}
+.mstep p{font-size:.88rem;color:rgba(13,21,32,.75);margin-bottom:8px}
+.mstep ul{list-style:none;margin-bottom:10px}
+.mstep ul li{position:relative;padding:3px 0 3px 16px;font-size:.82rem;color:rgba(13,21,32,.75)}
+.mstep ul li:before{content:'—';position:absolute;left:0;color:var(--bronze)}
+.mstep .cta{display:inline-block;padding:11px 18px;border-radius:999px;background:var(--bronze);color:var(--paper);font-size:.82rem;font-weight:600;text-decoration:none}
+/* badge « ⭐ Offert » = verbatim site réel (index.html L469) */
+.badge-or{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;letter-spacing:.05em;color:#6F5320;border:1px solid rgba(111,83,32,.4);background:#FBF8F1;padding:4px 11px;border-radius:999px;margin-left:10px;white-space:nowrap;vertical-align:middle}
+/* rangée d'avis = 1 colonne ≤768 (site réel index.html L390+L568) */
+.trow{display:grid;grid-template-columns:1fr;gap:12px;margin-top:24px}
+.urgence{margin-top:28px;background:var(--ink);color:var(--cream);border-radius:16px;padding:18px}
+.urgence h3{font-family:var(--font-display);font-size:1rem;margin-bottom:4px}
+.urgence p{font-size:.82rem;color:var(--cream-80);margin-bottom:12px}
+.urg-tel{display:inline-block;padding:11px 18px;border-radius:999px;background:linear-gradient(135deg,#c9a254,#d4b87a);color:#141d29;font-weight:700;font-size:.88rem;text-decoration:none}
+/* Services */
+.srow{display:block;text-decoration:none;border-top:1px solid rgba(13,21,32,.12);padding:15px 0}
+.srow .no{font-family:var(--font-display);font-weight:700;font-size:.72rem;color:var(--bronze)}
+.srow .tt{display:block;font-family:var(--font-display);font-weight:600;font-size:1.05rem;color:var(--ink);margin:2px 0 4px}
+.srow .desc{display:block;font-size:.83rem;color:rgba(13,21,32,.7)}
+.srow .go{display:inline-block;margin-top:6px;font-size:.78rem;font-weight:600;color:var(--bronze)}
+.srow[data-sim] .go{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:8px 16px;border-radius:999px;background:linear-gradient(135deg,#c9a254,#d4b87a);color:#0d1520;font-weight:700;box-shadow:0 6px 16px rgba(201,162,84,.3)}
+/* Cibles */
+.cibles-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cible{background:#fff;border:1px solid rgba(13,21,32,.08);border-radius:14px;padding:14px}
+.cible svg{width:24px;height:24px;stroke:var(--bronze);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;margin-bottom:8px}
+.cible h3{font-family:var(--font-display);font-size:.92rem;margin-bottom:3px}
+.cible p{font-size:.76rem;color:rgba(13,21,32,.7)}
+/* Marques */
+.brands-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.brand{font-family:var(--font-display);font-weight:600;font-size:.85rem;border:1px solid rgba(13,21,32,.15);border-radius:999px;padding:8px 15px}
+/* Boss 01/09 (#10) : FNAC = crédibilité Sofiane — phrase + GROS logo après la phrase, autres marques = pastilles texte */
+.agre-fnac{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px 18px;margin:26px 0 8px}
+.agre-fnac .agre-txt{font-family:var(--font-display);font-weight:700;font-size:1.18rem;letter-spacing:-.01em;color:var(--ink)}
+.agre-fnac img{height:56px;width:auto}
+/* FAQ */
+.faq{border-top:1px solid rgba(13,21,32,.1)}
+.faq-item{border-bottom:1px solid rgba(13,21,32,.1)}
+.faq-item summary{list-style:none;cursor:pointer;padding:15px 0;font-weight:600;font-size:.92rem;display:flex;justify-content:space-between;gap:12px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:after{content:'+';color:var(--bronze);font-weight:700;flex:none}
+.faq-item[open] summary:after{content:'–'}
+.faq-item .fa-in{padding:0 0 15px;font-size:.86rem;color:rgba(13,21,32,.75)}
+/* Contact */
+#contact .h2 em{color:var(--accent)}
+.contact-grid{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.contact-card{background:rgba(245,239,227,.05);border:1px solid rgba(245,239,227,.14);border-radius:14px;padding:16px}
+.contact-card h3{font-family:var(--font-display);font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-60);margin-bottom:6px}
+.contact-card .big a{font-family:var(--font-display);font-weight:600;font-size:1.3rem;color:var(--cream);text-decoration:none;overflow-wrap:anywhere}
+.contact-card p{font-size:.88rem;color:var(--cream-80)}
+.form{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+.field label{display:block;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-60);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;background:rgba(245,239,227,.06);border:1px solid rgba(245,239,227,.18);border-radius:10px;
+  padding:13px 14px;color:var(--cream);font-family:inherit;font-size:.95rem}
+.field textarea{min-height:96px;resize:vertical}
+/* Boss 01/09 (#9) : select « tout blanc » → même UI que les inputs (fond translucide, flèche custom, options lisibles) */
+.field select{-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23f5efe3' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;background-size:12px 8px;
+  padding-right:38px;cursor:pointer}
+.field select:focus{outline:none;border-color:rgba(245,239,227,.45);box-shadow:0 0 0 3px rgba(245,239,227,.08)}
+.field select option{background:#101a26;color:#f5efe3}
+.form-note{font-size:.82rem;color:var(--cream-60);line-height:1.6}
+/* Footer */
+.footer{position:relative;background:#0a111A;background:var(--bg-deep);color:var(--cream);padding:40px 22px 28px;overflow:hidden}
+/* filigrane maison = verbatim site réel (index.html L524-525) */
+.footer-filigrane{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.03;pointer-events:none}
+.footer-filigrane svg{width:600px}
+/* colonnes Services/Contact/Légal empilées comme le footer real (grid 1 col @375) */
+.footer .footer-col{margin-bottom:16px}
+.footer .footer-col h4{color:var(--accent);letter-spacing:.14em}
+.footer p{font-size:.82rem;color:var(--cream-60);margin:10px 0 18px;max-width:46ch}
+.footer h4{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.footer ul{list-style:none}
+.footer li{margin-bottom:6px}
+.footer a{color:var(--cream-80);text-decoration:none;font-size:.84rem}
+.footer-bottom{border-top:1px solid rgba(245,239,227,.1);margin-top:22px;padding-top:16px;font-size:.72rem;color:var(--cream-40)}
+/* ═══ COMPACTAGE PROGRESSIF (Boss : rien à couper, tout doit tenir) ═══
+   Base calibrée ≤812 de haut ; 2 paliers garantissent qu'AUCUN écran ne déborde,
+   même 667px (iPhone SE/8) — produits, chips, textes, CTA, hotspots TOUJOURS tous présents. */
+.sn-body{gap:10px;padding:0 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.card{width:min(86vw,330px)}
+.card-img{height:clamp(88px,22vh,148px)}
+.card-body{padding:10px 13px 12px}
+.card-body h3{font-size:.95rem;margin:2px 0 6px}
+.chips{gap:5px;margin-bottom:6px}
+.chips span{font-size:.6rem;padding:3px 8px}
+.val{font-size:.8rem;margin-bottom:8px}
+.card-cta{padding:9px 13px;font-size:.76rem}
+.hotspot .hs-label{font-size:9.5px;padding:4px 9px}
+.hotspot{margin-top:2px}
+.hotspot .hs-ring{width:11px;height:11px}
+.sn-txt h2{font-size:clamp(1.15rem,5.4vw,1.7rem);margin-bottom:4px}
+.sn-txt p{font-size:.85rem}
+.sn-txt .num{font-size:.6rem;margin-bottom:4px}
+/* Palier ≤720 de haut (petits smartphones) */
+@media (max-height:720px){
+  .sn-body{gap:7px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+  .card-img{height:76px}
+  .sn-txt h2{font-size:1.05rem}
+  .sn-txt p{font-size:.78rem}
+  .val{font-size:.72rem;margin-bottom:5px}
+  .card-cta{padding:7px 11px;font-size:.7rem}
+  .hotspot .hs-label{font-size:8.5px;padding:3px 8px}
+  .hotspot .hs-ring{width:9px;height:9px}
+  .sn-panel .pin{padding-top:64px}
+  .pin h2{font-size:1.15rem;margin-bottom:10px}
+  .pcard{aspect-ratio:16/5.5;margin-bottom:7px}
+  .tcard{padding:10px 13px;margin-bottom:8px}
+  .tcard p{font-size:.8rem;margin-bottom:7px}
+  .ba-frame{aspect-ratio:4/2.8}
+  .spec{padding:6px 7px}
+  .spec b{font-size:.72rem}
+}
+/* Palier très petits écrans ≤620 : tout reste, seulement plus dense */
+@media (max-height:620px){
+  .sn-body{gap:5px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+  .card-img{height:56px}
+  .sn-txt h2{font-size:.95rem}
+  .sn-txt p{font-size:.7rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-body{padding:7px 10px 9px}
+  .card-body h3{font-size:.8rem}
+  .chips span{font-size:.52rem;padding:2px 6px}
+  .card-cta{padding:6px 10px;font-size:.64rem}
+  .pcard{aspect-ratio:16/4.5;margin-bottom:5px}
+  .pin{padding-top:56px}
+}
+/* Bouton « démarrer » si autoplay refusé par le téléphone (Data Saver / économie) */
+.play-veil{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(6,10,16,.25)}
+.play-veil.show{display:flex}
+.play-veil button{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border:1px solid rgba(245,239,227,.4);border-radius:999px;
+  background:transparent;color:#fff;font-weight:700;font-size:.9rem;cursor:pointer;text-shadow:0 2px 10px rgba(0,0,0,.6)}  /* 01/09 (Boss) : PLUS de fond doré — bouton transparent, ne cache plus la scène */
+
+/* ═══ SIMULATEUR solaire — portage desktop (01/09) : miroir visuel, modal tactile ═══ */
+:root{--ease:cubic-bezier(.4,0,.2,1)}
+.sim-backdrop{position:fixed;inset:0;z-index:120;background:rgba(8,12,17,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+.sim-backdrop.on{opacity:1;pointer-events:auto}
+.sim-panel{position:fixed;top:47%;left:50%;z-index:121;width:min(520px,calc(100vw - 32px));max-height:92dvh;overflow:auto;padding:22px 20px 0;border-radius:22px;background:rgba(20,30,44,.62);backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15);border:1px solid rgba(245,239,227,.18);box-shadow:0 40px 110px rgba(0,0,0,.5);transform:translate(-50%,-50%) scale(.94);opacity:0;pointer-events:none;transition:transform .45s var(--ease),opacity .35s var(--ease);-webkit-overflow-scrolling:touch}
+.sim-panel.open{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto}
+.sim-panel h3{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:#fff;margin:4px 0 6px}
+.sim-panel .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.sim-sub{font-size:.86rem;color:var(--cream-80);margin-bottom:10px}
+.sim-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(245,239,227,.25);background:rgba(245,239,227,.1);color:#f5efe3;font-size:16px;cursor:pointer;z-index:2}
+.sim-field{margin-bottom:14px}
+.sim-field label{display:flex;justify-content:space-between;align-items:baseline;font-size:.78rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--cream-80);margin-bottom:8px}
+.sim-field output{font-variant-numeric:tabular-nums;font-size:1rem;font-weight:600;color:#fff;text-transform:none;letter-spacing:0}
+.sim-field input[type=range]{width:100%;height:10px;-webkit-appearance:none;appearance:none;border-radius:999px;background:linear-gradient(90deg,var(--accent) var(--p,30%),rgba(245,239,227,.18) var(--p,30%));outline:none}
+.sim-field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;border:5px solid var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.sim-results{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 10px}
+.sim-stat{padding:12px 8px;border-radius:14px;background:rgba(245,239,227,.06);border:1px solid rgba(245,239,227,.12);text-align:center}
+.sim-stat b{display:block;font-family:var(--font-display);font-size:clamp(.72rem,3.2vw,1.15rem);font-weight:700;color:#fff;font-variant-numeric:tabular-nums;margin-bottom:4px;white-space:nowrap}
+.sim-stat span{font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-60)}
+.sim-hl{background:rgba(201,162,84,.14);border-color:rgba(201,162,84,.42)}
+.sim-hl b{color:#e7cf9e}
+.sim-note{font-size:.7rem;line-height:1.5;color:var(--cream-60);margin-bottom:12px}
+.sim-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.sim-chip{font-family:var(--font-body);font-size:13px;font-weight:500;min-height:44px;display:inline-flex;align-items:center;justify-content:center;color:rgba(245,239,227,.85);background:rgba(245,239,227,.08);border:1px solid rgba(245,239,227,.22);padding:8px 14px;border-radius:999px;cursor:pointer;text-align:center;transition:background .25s,border-color .25s,color .25s}
+.sim-chip.on{background:var(--accent);border-color:var(--accent);color:#0d1520;font-weight:600}
+.sim-net{font-size:.82rem;line-height:1.55;color:var(--cream-80);text-align:center;margin:0 0 12px;font-variant-numeric:tabular-nums;padding:10px 14px;border-radius:12px;background:rgba(245,239,227,.05);border:1px solid rgba(245,239,227,.12)}
+.sim-net b{color:#e7cf9e;font-weight:600}
+.sim-cta{display:block;text-align:center;font-size:.92rem;font-weight:600;color:#0d1520;background:#f5efe3;padding:15px 20px 18px;border-radius:0 0 22px 22px;text-decoration:none;position:sticky;bottom:0;margin:8px -20px 0;box-shadow:0 -8px 18px rgba(20,30,44,.6)}
+/* BOUTON MA SIMULATION — rappel scène PV (01/09) : pilule or côté droit, pulse subtil */
+.sim-pv-btn{position:absolute;top:104px;left:50%;transform:translateX(-50%);z-index:8;display:inline-flex;align-items:center;gap:8px;padding:11px 16px 11px 12px;border-radius:999px;border:1px solid rgba(201,162,84,.55);background:rgba(251,248,241,.94);color:#0d1520;font-family:var(--font-display);font-weight:700;font-size:.7rem;letter-spacing:.05em;cursor:pointer;box-shadow:0 10px 28px rgba(13,21,32,.32);animation:simPulse 2.4s ease-in-out infinite}  /* 01/09 (Boss) : haut CENTRÉ, entre la timeline et la carte PV */
+.sim-pv-btn svg{width:15px;height:15px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@keyframes simPulse{0%,100%{box-shadow:0 10px 28px rgba(13,21,32,.32),0 0 0 0 rgba(201,162,84,.55)}50%{box-shadow:0 10px 28px rgba(13,21,32,.32),0 0 0 12px rgba(201,162,84,0)}}
+/* RAPPEL SIMULATEUR — encart entre méthode et services (01/09) */
+.sim-recall{padding:40px 16px}
+.sim-recall-card{padding:28px 22px;border-radius:22px;background:rgba(251,248,241,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(201,162,84,.3);box-shadow:0 20px 46px rgba(13,21,32,.09)}
+.sim-recall-txt .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.sim-recall-txt h2{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:#0d1520;margin:6px 0 10px;line-height:1.15}
+.sim-recall-txt h2 em{font-style:italic;font-weight:400;color:#8a6a2e}
+.sim-recall-txt p{color:rgba(13,21,32,.62);font-size:.9rem;line-height:1.55;margin-bottom:18px}
+.sim-recall-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;border-radius:999px;border:0;background:linear-gradient(135deg,#c9a254,#d4b87a);color:#0d1520;font-family:var(--font-display);font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 14px 30px rgba(201,162,84,.34)}
+.sim-recall-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:380px){.sim-results{grid-template-columns:1fr 1fr}.sim-stat b{font-size:1rem}}
+</style>
+<script type="application/ld+json"> {"@context":"https://schema.org","@type":"LocalBusiness","name":"Suisse Intervention","description":"Installation informatique, TV, Wi-Fi, photovoltaïque et vidéosurveillance à domicile.","address":{"@type":"PostalAddress","streetAddress":"Chemin du Grand-Clos 7","postalCode":"1896","addressLocality":"Vouvry","addressRegion":"Valais","addressCountry":"CH"},"telephone":"+41 79 856 78 90","email":"info@suisseintervention.ch","areaServed":["Vouvry","Monthey","Saint-Maurice","Valais","Vaud","Fribourg","Genève"],"openingHours":"Mo-Su 07:00-22:00","priceRange":"Sur devis","makesOffer":[ {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vente et installation d'ordinateurs et imprimantes"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Installation de télévision et rétroprojecteur"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Réseaux Wi-Fi, switch et câblage Ethernet"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Photovoltaïque clé en main avec onduleur et batterie"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vidéosurveillance et surveillance à distance"}}]} </script>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="#top" data-goto="hero">
+    <img src="logo-SOFIANE-1.png" alt="Drapeau suisse — Suisse Intervention">
+    <div class="brand-name">SUISSE INTERVENTION<small>VD · VS · FR · GE</small></div>
+  </a>
+  <!-- ☎ = miroir réel index.html L969 + L588 : seul le ☎ apparaît en mobile (numéro caché) -->
+  <a href="tel:+41798567890" class="nav-tel" aria-label="Appeler Suisse Intervention">☎</a>
+  <button class="burger" id="navBurger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+</nav>
+<!-- mnav = VERBATIM index.html L974-981 (mnav réel @375) — même lien " TV &amp; Multimédia " manquant -->
+<div class="mnav" id="mnav" aria-hidden="true">
+  <a href="#film" data-goto="scene:4">Informatique</a>
+  <a href="#film" data-goto="scene:7">TV &amp; Multimédia</a>
+  <a href="#film" data-goto="scene:5">Énergie solaire</a>
+  <a href="#film" data-goto="scene:9">Sécurité</a>
+  <a href="#contact" data-goto="sec:contact" class="mnav-cta">Prendre RDV</a>
+  <a href="tel:+41798567890" class="mnav-tel">☎&nbsp;+41 79 856 78 90</a>
+</div>
+
+<!-- RAIL points -->
+<div class="rail" id="rail" aria-hidden="true"></div>
+
+<!-- ═══ LE FILM — hero + 12 scènes + 3 panneaux + finale = 17 écrans snap 1:1 (Boss 31/08 :
+     chaque écran couvre SEUL l'écran — le hero vit dans le scroller à snap, plus de
+     transition à moitié ouverte entre le hero et le film) ═══ -->
+<main id="film">
+
+<!-- HERO = écran 0 -->
+<section class="hero sn-hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <!-- Boss 31/08 : césure française voulue — « Votre expert » / (retour ligne) / « Tech & Énergie »
+         (T majuscule à Tech, É majuscule à Énergie) ; le 2e paragraphe début SA ligne sur « Un seul » -->
+    <h1>Votre expert<br><em>Tech &amp; Énergie</em></h1>
+    <p class="lead">Un seul interlocuteur à Vouvry pour tout votre matériel<br>vente, installation et dépannage 7j/7 :</p>
+    <ul class="lead-list"><li>Informatique &amp; réseaux Wi-Fi</li><li>TV &amp; home cinéma</li><li>Photovoltaïque &amp; batteries</li><li>Vidéosurveillance &amp; sécurité</li></ul>
+    <div class="hero-ctas">
+      <button class="btn btn-glass" data-goto="scene:4">Informatique &amp; Sécurité</button>
+      <button class="btn btn-outline" data-goto="scene:5">Photovoltaïque &amp; Batteries</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong data-count="847">0</strong><span>Interventions</span></div>
+      <div class="stat"><strong data-count="340">0</strong><span>kCHF économisés</span></div>
+      <div class="stat"><strong data-count="99">0</strong><span>% Satisfaction</span></div>
+      <div class="stat"><strong data-count="12">0</strong><span>Ans d'expérience</span></div>
+    </div>
+  </div>
+  <button class="scroll-ind" data-goto="scene:0">Défiler<span class="scroll-line"></span></button>
+</section>
+
+  <!-- TIMELINE journée 07:00→23:00 — VERBATIM réel (index.html L1062-1066), sticky in-film.
+       Naturellement positionnée APRÈS le hero : n'apparaît qu'à partir de la scène 0. -->
+  <div class="film-tl-sticky" aria-hidden="true">
+    <div class="film-tl">
+      <span class="tl-h" id="tlHour">07:00</span>
+      <div class="tl-track"><span class="tl-sun" id="tlSun"></span><div class="tl-fill" id="tlFill"></div></div>
+      <span class="tl-h">23:00</span>
+    </div>
+  </div>
+
+  <!-- 0 · 07:00 Villa -->
+  <section class="sn" data-scene="0">
+    <video class="snv" data-src="videos/s1_villa_mob2.mp4" data-src-h265="videos/s1_villa_mob2_h265.mp4" poster="assets/banque/exterieurs/s0_villa_ancrage_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body"><div class="sn-txt">
+      <h2>Tous vos <em>équipements</em></h2>
+      <p>Informatique, sécurité, TV et solaire : installés et entretenus à domicile.</p>
+    </div></div>
+  </section>
+
+  <!-- 1 · 07:30 Réseau + carte -->
+  <section class="sn" data-scene="1">
+    <video class="snv" data-src="videos/s2_reseau_mob2.mp4" data-src-h265="videos/s2_reseau_mob2_h265.mp4" poster="assets/banque/interieurs/s2_reseau_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_routeur.png')"></div><div class="card-body">
+        <p class="eyebrow">Réseau</p><h3>Routeurs &amp; amplificateurs Wi-Fi</h3>
+        <div class="chips"><span>Couverture totale</span><span>Switch &amp; Ethernet</span><span>Config incluse</span></div>
+        <div class="val">Couverture optimale de toute la maison ou du bureau</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Équiper mon réseau →</a></div>
+      </div></div>
+      <div class="sn-txt">
+        <span class="num">Réseau</span> <!-- heure desktop = timeline -->
+        <h2>Réseaux &amp; <em>Wi-Fi</em></h2>
+        <p>Installation et configuration de réseaux informatiques et Wi-Fi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · 08:00 Survol -->
+  <section class="sn" data-scene="2">
+    <video class="snv" data-src="videos/s3_survol_mob2.mp4" data-src-h265="videos/s3_survol_mob2_h265.mp4" poster="assets/banque/exterieurs/s3_survol_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body"><div class="sn-txt">
+      <span class="num">Zone</span> <!-- heure desktop = timeline -->
+      <h2>Intervention dans votre <em>Canton</em></h2>
+      <p>Vaud, Valais, Fribourg, Genève. Le service de proximité est basé dans le Bas-Valais : Vouvry, Monthey, Saint-Maurice, Aigle. Interventions 7j/7, réactives, la même qualité dans vos quatre cantons.</p>
+    </div></div>
+  </section>
+
+  <!-- 3 · 09:00 Câblage + carte -->
+  <section class="sn" data-scene="3">
+    <video class="snv" data-src="videos/s3_reseau_mob2.mp4" data-src-h265="videos/s3_reseau_mob2_h265.mp4" poster="assets/banque/interieurs/s3_reseau_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_routeur_mesh.png')"></div><div class="card-body">
+        <p class="eyebrow">Réseau</p><h3>Câblage &amp; switch</h3>
+        <div class="chips"><span>Tirage de câbles</span><span>Réseau filaire</span><span>Stable &amp; sécurisé</span></div>
+        <div class="val">Un réseau propre et performant dans toute la propriété</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Câbler ma maison →</a></div>
+      </div></div>
+      <div class="sn-txt">
+        <span class="num">Câblage</span> <!-- heure desktop = timeline -->
+        <h2>Connexion <em>sans faille</em></h2>
+        <p>Routeurs optimisés, câblage structuré, couverture complète de la propriété.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · 09:30 Bureau + carte + hotspot -->
+  <section class="sn" data-scene="4">
+    <video class="snv" data-src="videos/s5_bureau_mob2.mp4" data-src-h265="videos/s5_bureau_mob2_h265.mp4" poster="assets/banque/interieurs/v_bureau_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_pc_workstation.png')"></div><div class="card-body">
+        <p class="eyebrow">Informatique</p><h3>Ordinateurs — vente &amp; installation</h3>
+        <div class="chips"><span>Neuf &amp; occasion</span><span>Transfert de données</span><span>Config A à Z</span></div>
+        <div class="val">Acheté où vous voulez — je m'occupe du reste</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Configurer mon PC →</a></div>
+      </div></div>
+      <button class="hotspot" data-hs="info"><span class="hs-ring"></span><span class="hs-label">En savoir +</span></button>
+      <div class="sn-txt">
+        <span class="num">Informatique</span> <!-- heure desktop = timeline -->
+        <h2>Dépannage <em>informatique</em></h2>
+        <p>Vente, installation et réparation : ordinateurs, smartphones, tablettes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · 12:00 Photovoltaïque + carte + hotspot -->
+  <section class="sn" data-scene="5">
+    <video class="snv" data-src="videos/s5_pv_mob2.mp4" data-src-h265="videos/s5_pv_mob2_h265.mp4" poster="assets/banque/exterieurs/s5_pv_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <button class="sim-pv-btn" data-sim="1" aria-label="Lancer ma simulation solaire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>MA SIMULATION</button>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_panneau_toiture.png')"></div><div class="card-body">
+        <p class="eyebrow">Photovoltaïque</p><h3>Systèmes PV clés en main</h3>
+        <div class="chips"><span>Panneaux haute performance</span><span>Onduleur hybride intelligent</span><span>Suivi temps réel</span></div>
+        <div class="val">Produisez, stockez, économisez — étude &amp; devis gratuit</div>
+        <div class="card-foot"><a class="card-cta" href="#contact" data-sim="1">Calculer ma toiture →</a></div>
+      </div></div>
+      <button class="hotspot" data-hs="pv"><span class="hs-ring"></span><span class="hs-label">Ma toiture solaire</span></button>
+      <div class="sn-txt">
+        <span class="num">Photovoltaïque</span> <!-- heure desktop = timeline -->
+        <h2>Installation <em>photovoltaïque</em></h2>
+        <p>Étude, dimensionnement, pose et mise en service de vos panneaux solaires.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANNEAU Avant / Après — montage PC : toile de fond floutée (ba_apres_toit) + voile + verre -->
+  <section class="sn-panel" data-actname="avant">
+    <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/ba_apres_toit.png')" aria-hidden="true"></div>
+    <div class="panel-veil" aria-hidden="true"></div>
+    <div class="pin">
+      <p class="eyebrow">Avant / Après</p>
+      <h2>De l'ancienne toiture à l'installation <em>solaire</em></h2>
+      <div class="ba-frame">
+        <div class="ba-img ba-avant" style="background-image:url('assets/banque/exterieurs/ba_avant_toit.png')"></div>
+        <div class="ba-img ba-apres" style="background-image:url('assets/banque/exterieurs/ba_apres_toit.png')"></div>
+        <span class="ba-label avant">Avant</span><span class="ba-label apres">Après</span>
+        <div class="ba-handle" id="baHandle"></div>
+        <input class="ba-range" id="baRange" type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · 15:00 Batterie + carte + hotspot -->
+  <section class="sn" data-scene="6">
+    <video class="snv" data-src="videos/s7_batterie_mob2.mp4" data-src-h265="videos/s7_batterie_mob2_h265.mp4" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_batterie.png')"></div><div class="card-body">
+        <p class="eyebrow">Batterie MARSTEK</p><h3>VENUS — batterie de stockage</h3>
+        <div class="chips"><span>2,56 → 15,36 kWh</span><span>Plug &amp; play</span><span>Retrofit sans travaux</span></div>
+        <div class="val">Agréée Suisse · compatible avec votre installation existante</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Découvrir la MARSTEK VENUS →</a></div>
+      </div></div>
+      <button class="hotspot" data-hs="venus"><span class="hs-ring"></span><span class="hs-label">Ma batterie</span></button>
+      <div class="sn-txt">
+        <span class="num">Batterie</span> <!-- heure desktop = timeline -->
+        <h2>Stockage <em>d'énergie</em></h2>
+        <p>Batteries 2,56 à 15,36 kWh : votre solaire consommé jour et nuit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · 18:00 Multimédia + carte + hotspot -->
+  <section class="sn" data-scene="7">
+    <video class="snv" data-src="videos/s7_tv_mob2.mp4" data-src-h265="videos/s7_tv_mob2_h265.mp4" poster="assets/banque/interieurs/v_salon_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_tv_oled.png')"></div><div class="card-body">
+        <p class="eyebrow">TV &amp; Audio</p><h3>TV &amp; home cinéma</h3>
+        <div class="chips"><span>Fixation murale ou pied</span><span>Barre de son</span><span>Écran motorisé</span></div>
+        <div class="val">Déjà acheté votre TV ? Je livre, j'installe, je configure</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Composer mon salon →</a></div>
+      </div></div>
+      <button class="hotspot" data-hs="multi"><span class="hs-ring"></span><span class="hs-label">Mon salon TV</span></button>
+      <div class="sn-txt">
+        <span class="num">Multimédia</span> <!-- heure desktop = timeline -->
+        <h2>TV &amp; <em>home cinéma</em></h2>
+        <p>Vente, installation murale, barres de son et systèmes audio sur mesure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANNEAU Réalisations — toile de fond floutée + voile + verre (montage PC) -->
+  <section class="sn-panel" data-actname="real">
+    <div class="panel-bg" style="background-image:url('assets/banque/lumieres/villa_S2_crepuscule.png')" aria-hidden="true"></div>
+    <div class="panel-veil" aria-hidden="true"></div>
+    <div class="pin">
+      <p class="eyebrow">Nos réalisations</p>
+      <h2>Nos installations <em>récentes</em></h2>
+      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/lumieres/villa_S2_crepuscule.png')"></div><div class="ov"></div><span class="pcard-chip">6,2 kWc</span><div class="body"><h3>Rénovation énergétique</h3><p class="loc">Vouvry</p></div></a>
+      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/exterieurs/v_toiture.png')"></div><div class="ov"></div><span class="pcard-chip">Clé en main</span><div class="body"><h3>Toiture photovoltaïque</h3><p class="loc">Monthey</p></div></a>
+      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/produits/v_batterie.png')"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
+      <a class="realize-cta" href="#contact">Demander une étude →</a>
+    </div>
+  </section>
+
+  <!-- 8 · 20:00 Famille -->
+  <section class="sn" data-scene="8">
+    <video class="snv" data-src="videos/s_famille_mob2.mp4" data-src-h265="videos/s_famille_mob2_h265.mp4" poster="assets/banque/interieurs/s_famille_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body"><div class="sn-txt">
+      <span class="num">Sérénité</span> <!-- heure desktop = timeline -->
+      <h2>Une famille<br><em>sereine</em></h2>
+      <p>Maison sécurisée et connectée : la soirée vous appartient, nous veillons.</p>
+    </div></div>
+  </section>
+
+  <!-- 9 · 22:15 Caméra + carte + hotspot -->
+  <section class="sn" data-scene="9">
+    <video class="snv" data-src="videos/s_camera_mob2.mp4" data-src-h265="videos/s_camera_mob2_h265.mp4" poster="assets/banque/exterieurs/s_camera_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_camera.png')"></div><div class="card-body">
+        <p class="eyebrow">Vidéosurveillance</p><h3>Caméra PoE 4K</h3>
+        <div class="chips"><span>Vision nocturne</span><span>Détection IA</span><span>Accès smartphone</span></div>
+        <div class="val">Installée, configurée et mise en service chez vous</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Sécuriser ma villa →</a></div>
+      </div></div>
+      <button class="hotspot" data-hs="secu"><span class="hs-ring"></span><span class="hs-label">Me protéger</span></button>
+      <div class="sn-txt">
+        <span class="num">Sécurité</span> <!-- heure desktop = timeline -->
+        <h2>Vidéosurveillance <em>HD</em></h2>
+        <p>Caméras et systèmes de sécurité installés, configurés, mis en service.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · 22:30 POV (REC) -->
+  <section class="sn pov" data-scene="10">
+    <video class="snv" data-src="videos/s10_pov_mob2.mp4" data-src-h265="videos/s10_pov_mob2_h265.mp4" poster="assets/banque/lumieres/s10_pov_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="osd">
+      <div class="rec"><i></i>REC</div>
+      <div><b>CAM 04</b> · Piscine / Jardin</div>
+      <div class="pov-ts"><span class="date">2026-08-30</span> <span class="pov-clock">22:34:07</span> LIVE</div>
+    </div>
+    <div class="sn-body"><div class="sn-txt">
+      <span class="num">Accès à distance</span> <!-- heure desktop = timeline -->
+      <h2>Surveillance <em>à distance</em></h2>
+      <p>Alertes en temps réel, visualisation depuis votre smartphone.</p>
+    </div></div>
+  </section>
+
+  <!-- PANNEAU Preuve sociale — toile de fond floutée (nuit villa) + voile + verre (montage PC) -->
+  <section class="sn-panel" data-actname="trust">
+    <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp')" aria-hidden="true"></div>
+    <div class="panel-veil" aria-hidden="true"></div>
+    <div class="pin">
+      <p class="eyebrow">Ils nous font confiance</p>
+      <h2>Avis <em>clients</em></h2>
+      <div class="tcard"><div class="stars">★★★★★</div><p>« Une installation impeccable, un suivi parfait. »</p><div class="author"><div><strong>Jean-Marc B.</strong><span>Vouvry</span></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p>« Rapide, professionnel, à l'écoute. »</p><div class="author"><div><strong>Sophie L.</strong><span>Monthey</span></div></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p>« La batterie a transformé notre consommation. »</p><div class="author"><div><strong>Marc R.</strong><span>Saint-Maurice</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- 11 · 23:00 Nuit (finale visuelle) -->
+  <section class="sn pov" data-scene="11">
+    <video class="snv" data-src="videos/s11_nuit_mob2.mp4" data-src-h265="videos/s11_nuit_mob2_h265.mp4" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp" muted playsinline preload="none"></video>
+    <div class="sn-scrim"></div>
+    <div class="osd">
+      <div class="rec"><i></i>REC</div>
+      <div><b>CAM 04</b> · Piscine / Jardin</div>
+      <div class="pov-ts"><span class="date">2026-08-30</span> <span class="pov-clock">23:11:42</span> LIVE</div>
+    </div>
+    <div class="sn-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/s3_batterie_4k.png')"></div><div class="card-body">
+        <p class="eyebrow">Autonomie</p><h3>Kit complet autonome</h3>
+        <div class="chips"><span>PV + batterie + suivi</span><span>Reprise &lt; 10 ms</span><span>Garantie 10 ans</span></div>
+        <div class="val">Maisons · villas · commerces · exploitations agricoles</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Demander une étude →</a></div>
+      </div></div>
+      <div class="sn-txt">
+        <span class="num">Autonomie</span> <!-- heure desktop = timeline -->
+        <h2>Indépendance <em>énergétique</em></h2>
+        <p>La batterie alimente la maison toute la nuit — reprise en moins de 10 ms.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALE -->
+  <section class="sn-finale" data-scene="finale">
+    <div class="finale-logo"><img src="logo-SOFIANE-1.png" alt="Suisse Intervention"><span class="name">SUISSE INTERVENTION</span></div>
+    <p class="finale-p">Informatique, sécurité, photovoltaïque et batteries.<br>Des solutions haut de gamme pour le Valais.</p>
+    <div><a class="finale-btn" href="#contact" data-goto="sec:contact">Demander votre intervention →</a></div>
+    <a class="finale-tel" href="tel:+41798567890"><strong>+41 79 856 78 90</strong><span>Réponse rapide, 7j/7</span></a>
+    <p class="finale-serv"><span>Informatique</span><i>·</i><span>Photovoltaïque</span><i>·</i><span>Batteries</span><i>·</i><span>TV &amp; home cinéma</span><i>·</i><span>Sécurité</span></p>
+    <a class="next-link" data-goto="sec:method">Découvrir notre méthode ↓</a>
+    <p class="finale-foot"><span>Chemin du Grand-Clos 7, 1896 Vouvry</span><br>© 2026 Suisse Intervention</p>
+  </section>
+</main>
+
+<!-- ═══ APRÈS LE FILM (le corps reprend son scroll naturel, hors du snap) ═══ -->
+<section class="sec" id="method" style="padding-top:56px">
+  <p class="sec-label">Notre méthode</p>
+  <h2 class="h2">Simple du premier appel<br><em>à la mise en service</em></h2>
+  <div class="mstep"><span class="mnum">01</span><h3>Vous appelez, on écoute</h3><p>Un seul interlocuteur : décrivez votre besoin, on vous conseille sur le matériel et la solution adaptée.</p><ul><li>Conseil personnalisé</li><li>Matériel du magasin de votre choix</li><li>Réponse rapide, 7j/7</li></ul><a class="cta" href="tel:+41798567890">Appeler maintenant →</a></div>
+  <div class="mstep"><span class="mnum">02</span><h3>Devis gratuit, sans surprise<span class="badge-or">⭐ Offert</span></h3><p>Étude personnalisée à domicile et devis clair — pour un PC, un Wi-Fi complet ou une toiture solaire.</p><ul><li>Étude &amp; dimensionnement offerts</li><li>Options expliquées simplement</li><li>Vous décidez, sans pression</li></ul><a class="cta" href="#contact">Demander mon devis →</a></div>
+  <div class="mstep"><span class="mnum">03</span><h3>Installation &amp; suivi</h3><p>Installation soignée à domicile, configuration complète, mise en service et suivi — vous n'avez qu'à profiter.</p><ul><li>Intervention 7j/7 sous 24 h</li><li>Config A à Z incluse</li><li>Suivi &amp; maintenance</li></ul><a class="cta" href="#contact">Prendre rendez-vous →</a></div>
+  <div class="urgence">
+    <h3>Urgence dépannage — 7j/7</h3>
+    <p>Panne de courant, réseau ou caméra : intervention sous 24 h à Vouvry, Monthey et Saint-Maurice.</p>
+    <div class="urg-ctas"><a class="urg-tel" href="tel:+41798567890">Appeler · +41 79 856 78 90</a></div>
+  </div>
+  <div class="trow">
+    <div class="tcard"><div class="stars">★★★★★</div><p>« Installation impeccable, explications claires et suivi parfait. »</p><div class="author"><div><strong>Jean-Marc B.</strong><span>Vouvry</span></div></div></div>
+    <div class="tcard"><div class="stars">★★★★★</div><p>« Du Wi-Fi partout dans la maison, même au jardin. »</p><div class="author"><div><strong>Sophie L.</strong><span>Monthey</span></div></div></div>
+    <div class="tcard"><div class="stars">★★★★★</div><p>« La batterie de stockage a transformé notre consommation. »</p><div class="author"><div><strong>Marc R.</strong><span>Saint-Maurice</span></div></div></div>
+  </div>
+</section>
+
+<!-- RAPPEL SIMULATEUR — entre méthode et services (01/09) : accroche commerciale -->
+<section class="sec sim-recall">
+  <div class="sim-recall-card">
+    <div class="sim-recall-txt">
+      <p class="eyebrow">Simulation gratuite</p>
+      <h2>Combien votre toiture <em>peut-elle rapporter ?</em></h2>
+      <p>Estimez en 30 secondes la puissance conseillée, la production et le prix — selon votre canton, votre facture et votre projet.</p>
+    </div>
+    <button class="sim-recall-btn" data-sim="1" aria-label="Lancer ma simulation solaire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>Lancer ma simulation</button>
+  </div>
+</section>
+
+<section class="sec" id="services" style="background:#F3EFE5">
+  <p class="sec-label">Nos services</p>
+  <h2 class="h2">Informatique, sécurité<br><em>&amp; énergie solaire</em></h2>
+  <p class="tx" style="margin-bottom:16px">De la vente à la mise en service, nous réalisons l'installation complète — cliquez sur un service pour le voir en scène.</p>
+  <a class="srow" href="#film" data-goto="scene:4"><span class="no">01</span><span class="tt">Ordinateurs &amp; imprimantes</span><span class="desc">Vente neuf &amp; occasion, installation à domicile, configuration complète — bureautique, gaming, graphisme.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="#film" data-goto="scene:1"><span class="no">02</span><span class="tt">Réseaux &amp; Wi-Fi</span><span class="desc">Routeurs, amplificateurs, switch, tirage de câbles Ethernet propre et sécurisé.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="#film" data-goto="scene:7"><span class="no">03</span><span class="tt">TV &amp; rétroprojecteur</span><span class="desc">Fixation murale ou plafond, écran fixe ou motorisé, barre de son, réglages image &amp; son.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="#contact" data-sim="1"><span class="no">04</span><span class="tt">Photovoltaïque</span><span class="desc">Panneaux, onduleur hybride intelligent, suivi temps réel — maisons, villas, commerces, exploitations agricoles, immeubles.</span><span class="go">Calculer ma toiture →</span></a>
+  <a class="srow" href="#film" data-goto="scene:6"><span class="no">05</span><span class="tt">Batteries</span><span class="desc">Stockage 2,56 à 15,36 kWh — batteries de ce type, rétrofit sur installation existante sans travaux.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="#film" data-goto="scene:4"><span class="no">06</span><span class="tt">Transfert de données</span><span class="desc">Fichiers, photos, logiciels, e-mails, favoris : de l'ancien PC vers le nouveau, rien ne se perd.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="#film" data-goto="scene:9"><span class="no">07</span><span class="tt">Vidéosurveillance</span><span class="desc">Caméras PoE 4K, alarmes, alertes en temps réel, accès smartphone.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="tel:+41798567890"><span class="no">08</span><span class="tt">Dépannage express 7j/7</span><span class="desc">Diagnostic, réparation et mise en service à domicile — intervention sous 24 h.</span><span class="go">Appeler maintenant →</span></a>
+</section>
+
+<section class="sec" id="cibles">
+  <p class="sec-label">Pour qui ?</p>
+  <h2 class="h2">Une solution pour <em>chaque bâtiment</em></h2>
+  <p class="tx">Du studio à l'exploitation agricole, chaque installation est dimensionnée sur mesure.</p>
+  <div class="cibles-grid">
+    <div class="cible"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg><h3>Maisons</h3><p>Panneaux &amp; batterie pour les particuliers.</p></div>
+    <div class="cible"><svg viewBox="0 0 24 24"><path d="M3 12h18M4 12V21h16V12M10 21v-5h4v5M8 12L12 3l4 9"/></svg><h3>Villas</h3><p>Autoconsommation silencieuse, chauffe &amp; recharge.</p></div>
+    <div class="cible"><svg viewBox="0 0 24 24"><path d="M4 5h16v3H4zM4 8l1 12h14l1-12M9 21v-9h6v9"/></svg><h3>Bâtiments &amp; commerces</h3><p>Réduction des charges, image responsable.</p></div>
+    <div class="cible"><svg viewBox="0 0 24 24"><path d="M3 20V10l9-6 9 6v10M7 20v-7h10v7M7 13h10"/></svg><h3>Exploitations agricoles</h3><p>Larges toitures, gros volumes de production.</p></div>
+    <div class="cible"><svg viewBox="0 0 24 24"><path d="M4 21V6a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v15M15 10h4a1 1 0 0 1 1 1v10M4 21h16M7 9h3M7 13h3M7 17h3"/></svg><h3>Immeubles</h3><p>Énergie collective, parties communes.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="marques" style="background:#F3EFE5;text-align:center">
+  <p class="sec-label">Acheté n'importe où</p>
+  <p class="tx" style="margin:0 auto">Vous achetez dans le magasin de votre choix — je livre, j'installe et je configure chez vous, quelle que soit la marque.</p>
+  <div class="agre-fnac"><span class="agre-txt">Prestataire technique agréé <strong>Fnac</strong></span><img src="assets/marques/fnac.svg" alt="Logo Fnac — Suisse Intervention, prestataire technique agréé" width="54" height="56"></div>
+  <div class="brands-row"><span class="brand">Interdiscount</span><span class="brand">Fust</span><span class="brand">MediaMarkt</span><span class="brand">Conforama</span><span class="brand" style="border-style:dashed">ou tout autre magasin</span></div>
+</section>
+
+<section class="sec" id="faq">
+  <p class="sec-label" style="text-align:center">FAQ</p>
+  <h2 class="h2" style="text-align:center">Questions <em>fréquentes</em></h2>
+  <div class="faq">
+    <details class="faq-item"><summary>Installez-vous des panneaux sur tous les types de toiture ?</summary><div class="fa"><div class="fa-in"><p>Oui — tuiles, tôle ou toit plat : nous étudions chaque toiture et réalisons l'installation adaptée, après étude et dimensionnement.</p></div></div></details>
+    <details class="faq-item"><summary>Les batteries sont-elles compatibles avec une installation existante ?</summary><div class="fa"><div class="fa-in"><p>Oui — plug &amp; play : la batterie se raccorde sur une simple prise secteur, sans modifier votre installation. Nous vérifions la compatibilité de votre onduleur avant tout devis.</p></div></div></details>
+    <details class="faq-item"><summary>Pouvez-vous acheter mon matériel à ma place ?</summary><div class="fa"><div class="fa-in"><p>Oui : achetez où vous voulez (Fnac, Interdiscount, Fust, MediaMarkt, Conforama…) ou laissez-nous conseiller le modèle adapté — nous nous occupons de la livraison, de l'installation et de la configuration complète.</p></div></div></details>
+    <details class="faq-item"><summary>Installez-vous des TV et des rétroprojecteurs ?</summary><div class="fa"><div class="fa-in"><p>Oui : fixation murale ou sur pied, écran de projection fixe ou motorisé, branchements (box, consoles, lecteurs), réglages image et son, intégration d'une barre de son.</p></div></div></details>
+    <details class="faq-item"><summary>Quelle est la durée d'une installation photovoltaïque ?</summary><div class="fa"><div class="fa-in"><p>2 à 5 jours ouvrables selon la taille du chantier, une fois l'étude validée — mise en service incluse.</p></div></div></details>
+    <details class="faq-item"><summary>Intervenez-vous en urgence en cas de panne ?</summary><div class="fa"><div class="fa-in"><p>Oui : dépannage rapide à domicile ou à distance. Appelez le +41 79 856 78 90.</p></div></div></details>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="contact">
+  <p class="sec-label" style="color:var(--accent)">Parlons de votre projet</p>
+  <h2 class="h2">Demandez votre <em style="color:var(--accent)">intervention</em></h2>
+  <div class="contact-grid">
+    <div class="contact-card"><h3>Nous appeler</h3><div class="big"><a href="tel:+41798567890">+41 79 856 78 90</a></div></div>
+    <div class="contact-card"><h3>Nous écrire</h3><div class="big"><a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a></div></div>
+    <div class="contact-card"><h3>Nous rencontrer</h3><p>Chemin du Grand-Clos 7<br>1896 Vouvry, Valais</p></div>
+    <form class="form" id="contactForm" novalidate>
+      <div class="field"><label for="cf-nom">Nom complet</label><input id="cf-nom" name="nom" type="text" placeholder="Votre nom" required autocomplete="name"></div>
+      <div class="field"><label for="cf-tel">Téléphone</label><input id="cf-tel" name="tel" type="tel" placeholder="+41 79 000 00 00" required autocomplete="tel"></div>
+      <div class="field"><label for="cf-service">Service concerné</label><select id="cf-service" name="service"><option>Informatique &amp; Sécurité</option><option>Photovoltaïque &amp; Batteries</option><option>Autre</option></select></div>
+      <div class="field"><label for="cf-projet">Votre projet</label><textarea id="cf-projet" name="message" placeholder="Décrivez votre besoin…" required></textarea></div>
+      <button class="btn btn-gold" type="submit">Envoyer la demande</button>
+      <p class="form-note" id="contactNote" hidden></p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <!-- filigrane maison SVG = verbatim site réel (index.html L1414-1416) -->
+  <div class="footer-filigrane">
+    <svg viewBox="0 0 400 200" fill="none" stroke="currentColor" stroke-width="1"><path d="M60 190 L60 100 L120 70 L200 90 L280 70 L340 100 L340 190Z"></path><rect x="120" y="90" width="80" height="30"></rect><rect x="200" y="90" width="80" height="30"></rect></svg>
+  </div>
+  <div class="finale-logo" style="justify-content:flex-start"><img src="logo-SOFIANE-1.png" alt="Suisse Intervention"><span class="name">SUISSE INTERVENTION</span></div>
+  <p>Informatique, sécurité, photovoltaïque et batteries. Des solutions haut de gamme pour les particuliers et les PME du Valais.</p>
+  <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">Informatique</a></li><li><a href="#services">Photovoltaïque</a></li><li><a href="#services">Batteries</a></li></ul></div>
+  <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+41798567890">+41 79 856 78 90</a></li><li><a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a></li><li><a href="#top">Chemin du Grand-Clos 7, Vouvry</a></li></ul></div>
+  <div class="footer-col"><h4>Légal</h4><ul><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="confidentialite.html">Confidentialité</a></li><li><a href="conditions.html">Conditions</a></li></ul></div>
+  <div class="footer-bottom"><p>© 2026 Suisse Intervention · Chemin du Grand-Clos 7, 1896 Vouvry · CHE-299.440.840 · <a href="index.html?desktop=1">Version ordinateur</a></p></div>
+</footer>
+
+<!-- ═══ HUB CHAT — ASSISTANCE CLIENT (miroir index.html L1512-1548) : drapeau suisse, requêtes
+     vers les scènes, requête personnalisée, Appeler / RDV / WhatsApp. Deltas assumés :
+     l'entrée « Étudier ma toiture » pointe #contact (le simulateur reste desktop-only). ═══ -->
+<!-- SEO — « i » + Informations complètes (miroir verbatim réél L1431-1482 ; DeepSeek P0 : absent du clone) -->
+<!-- t67 : accès admin DISCRET = verbatim réel L2431 (le « pictogramme gris » des revues vision) -->
+<a href="admin.php" id="adminAccess" aria-label="Admin" title="Admin" style="position:fixed;bottom:6px;left:6px;z-index:300;width:12px;height:12px;font-size:9px;line-height:12px;text-align:center;color:rgba(245,239,227,.18);opacity:.35;transition:opacity .3s,color .3s;text-decoration:none">⚙</a>
+<button class="seo-btn" id="seoBtn" aria-label="Informations complètes" aria-expanded="false" aria-controls="seoPanel">i</button>
+<aside class="seo-panel" id="seoPanel" aria-hidden="true">
+  <div class="seo-head">
+    <h2>Informations complètes</h2>
+    <button class="seo-close" id="seoClose" aria-label="Fermer le panneau">✕</button>
+  </div>
+  <div class="seo-scroll">
+    <h3>Suisse Intervention — informatique, TV &amp; photovoltaïque à Vouvry</h3>
+    <p>Suisse Intervention est votre spécialiste de l'<strong>installation informatique à Vouvry</strong> et de l'<strong>énergie solaire en Valais</strong>, siège social et atelier au Chemin du Grand-Clos 7 (1896 Vouvry). Domaine d'intervention : cantons de Vaud, Valais, Fribourg &amp; Genève — vente, installation, configuration et dépannage à domicile : ordinateurs et imprimantes, réseaux Wi-Fi et switch, téléviseurs et rétroprojecteurs, vidéosurveillance et panneaux photovoltaïques avec batterie de stockage.</p>
+    <p>Vous cherchez un <strong>installateur TV à Monthey</strong> ou un <strong>dépannage informatique à Saint-Maurice</strong> ? J'interviens 7j/7 dans tout le Chablais et au-delà : Vouvry, Monthey, Collombey-Muraz, Port-Valais, Vionnaz, Saint-Maurice, Aigle, puis les cantons de Vaud, Valais, Fribourg et Genève (VD · VS · FR · GE).</p>
+    <p>Pour une <strong>installation photovoltaïque clés en main</strong> — panneaux haute performance, onduleur hybride intelligent, batterie de stockage plug &amp; play rétrofitable sans travaux — l'étude personnalisée et le devis sont gratuits. Vous n'avez qu'à appeler, je m'occupe du reste.</p>
+
+    <h3>Zones d'intervention détaillées</h3>
+    <ul>
+      <li><strong>Vouvry</strong> — commune de base : intervention express, stock de matériel courant sur place.</li>
+      <li><strong>Monthey</strong> — informatique, TV, Wi-Fi et photovoltaïque, dépannage 7j/7.</li>
+      <li><strong>Collombey-Muraz &amp; Port-Valais</strong> — installations réseau, caméras et solaire.</li>
+      <li><strong>Saint-Maurice &amp; Vionnaz</strong> — vente et installation à domicile, transfert de données.</li>
+      <li><strong>Aigle et tout le Chablais</strong> — villas, appartements, commerces et exploitations agricoles.</li>
+      <li><strong>VD · VS · FR · GE</strong> — interventions planifiées dans les quatre cantons.</li>
+    </ul>
+
+    <h3>Services détaillés</h3>
+    <ul>
+      <li><strong>Informatique</strong> — vente (Fnac, Interdiscount, Fust, MediaMarkt, Conforama ou en ligne), installation et configuration A à Z, imprimantes et scanners, transfert de données ancien PC → nouveau, dépannage à domicile.</li>
+      <li><strong>Réseaux &amp; Wi-Fi</strong> — routeurs et amplificateurs, couverture optimale de toute la maison ou du bureau, switch, tirage de câbles Ethernet propre et sécurisé.</li>
+      <li><strong>TV &amp; rétroprojecteur</strong> — fixation murale ou sur pied, branchements et configuration (box, consoles, lecteurs), réglages image et son, barre de son, écran de projection fixe ou motorisé.</li>
+      <li><strong>Photovoltaïque &amp; batteries</strong> — systèmes clés en main « produisez, stockez, économisez », onduleur hybride intelligent, batterie de stockage plug &amp; play compatible avec votre installation existante, suivi temps réel sur app.</li>
+      <li><strong>Vidéosurveillance</strong> — caméras PoE 4K, vision nocturne, détection IA, surveillance à distance et alertes temps réel.</li>
+    </ul>
+
+    <h3>Mots-clés longue traîne</h3>
+    <p>Installateur informatique Vouvry, dépannage informatique Monthey, installation TV Saint-Maurice, rétroprojecteur Valais, installation Wi-Fi maison Aigle, tirage câbles Ethernet Chablais, photovoltaïque clés en main Valais, batterie solaire plug and play, onduleur hybride intelligent, kit solaire autonome exploitation agricole, vidéosurveillance Vouvry, caméras 4K Monthey, informatique à domicile VD VS FR GE.</p>
+
+    <h3>FAQ complète</h3>
+    <ul>
+      <li><strong>Intervenez-vous chez moi ?</strong> — Oui : à domicile dans tout le Chablais (Vouvry, Monthey, Saint-Maurice, Aigle…) et dans les cantons VD · VS · FR · GE.</li>
+      <li><strong>Le devis est-il gratuit ?</strong> — Oui : étude personnalisée et devis gratuits, sans engagement, avant toute installation.</li>
+      <li><strong>Pouvez-vous acheter le matériel à ma place ?</strong> — Oui, dans le magasin de votre choix ou en ligne ; je conseille le modèle adapté à vos besoins et je m'occupe de tout.</li>
+      <li><strong>La batterie solaire est-elle rétrofitable ?</strong> — Oui : plug &amp; play sur simple prise secteur, sans modifier votre installation existante.</li>
+      <li><strong>Dépannage le week-end ?</strong> — Oui : urgence 7j/7, intervention sous 24 h, un seul interlocuteur.</li>
+    </ul>
+
+    <h3>Liens utiles</h3>
+    <ul>
+      <li><a href="#contact" data-goto="sec:contact">Prendre rendez-vous — devis gratuit</a></li>
+      <li><a href="#film" data-goto="scene:5">Découvrir la solution photovoltaïque</a></li>
+    </ul>
+    <p style="margin-top:16px"><strong>Suisse Intervention</strong> — Chemin du Grand-Clos 7, 1896 Vouvry · <a href="tel:+41798567890">+41 79 856 78 90</a> · <a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a> · 7j/7.</p>
+  </div>
+</aside>
+
+<div class="hub" id="hub">
+  <button class="hub-btn" id="hubBtn" aria-label="Assistance client — ouvrir l'assistance" aria-expanded="false">
+    <span class="hub-flag" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#DA291C"/><path d="M10.6 4.5h2.8v6.1h6.1v2.8h-6.1v6.1h-2.8v-6.1H4.5v-2.8h6.1z" fill="#fff"/></svg></span>
+  </button>
+  <div class="hub-panel" id="hubPanel">
+    <div class="hub-head">
+      <span class="hub-flag" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#DA291C"/><path d="M10.6 4.5h2.8v6.1h6.1v2.8h-6.1v6.1h-2.8v-6.1H4.5v-2.8h6.1z" fill="#fff"/></svg></span>
+      <div>
+        <h4>Assistance Suisse Intervention</h4>
+        <p>Un seul interlocuteur — 7j/7 · VD·VS·FR·GE</p>
+      </div>
+      <button class="hub-close" id="hubClose" aria-label="Fermer l'assistance">✕</button>
+    </div>
+    <div class="hub-body">
+      <!-- 01/09 (GO Boss #6) : WhatsApp + actions en TÊTE du panneau — visibles dès la 1ʳᵉ page -->
+      <a href="https://wa.me/41798567890" class="hub-action wa">WhatsApp direct<span class="urgent">réponse rapide</span></a>
+      <a href="tel:+41798567890" class="hub-action">Appeler maintenant<span class="urgent">7j/7</span></a>
+      <a href="#contact" data-goto="sec:contact" class="hub-action">Prendre RDV<span class="urgent">Devis gratuit</span></a>
+      <p class="hub-label">Votre projet ?</p>
+      <button class="hub-q" data-goto="scene:4"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8.5 21h7M12 17.5V21"/></svg>Ordinateur &amp; dépannage</button>
+      <button class="hub-q" data-goto="scene:7"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="14" rx="2"/><path d="M9 9.5l5 3.2-5 3.2z"/></svg>Installation TV &amp; rétroprojecteur</button>
+      <button class="hub-q" data-goto="scene:5"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg>Panneaux solaires &amp; batterie</button>
+      <button class="hub-q" data-sim="1"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>Étudier ma toiture</button>
+      <button class="hub-q" data-goto="scene:9"><svg viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5"/><path d="M15.5 11l6-3.5v9l-6-3.5"/></svg>Caméras &amp; sécurité</button>
+      <div class="hub-form">
+        <input id="hubInput" type="text" placeholder="Ou écrivez votre demande…" aria-label="Votre demande personnalisée">
+        <button class="hub-send" id="hubSend" aria-label="Envoyer la demande"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+      </div>
+      <div class="hub-ack" id="hubAck"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VOILE + SHEET détail hotspot -->
+<div class="dim" id="dim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="sheet-close" id="sheetClose" aria-label="Fermer">✕</button>
+  <div id="sheetBody"></div>
+</aside>
+
+<!-- SIMULATEUR solaire — portage desktop (01/09) : modal tactile, miroir visuel -->
+<div class="sim-backdrop" id="simBackdrop"></div>
+<div class="sim-panel" id="simPanel" role="dialog" aria-modal="true" aria-labelledby="simTitle" aria-hidden="true">
+  <button class="sim-close" id="simClose" aria-label="Fermer le simulateur">✕</button>
+  <p class="eyebrow">Simulation gratuite</p>
+  <h3 id="simTitle">Combien pourriez-vous économiser ?</h3>
+  <p class="sim-sub">3 réponses, une estimation : votre canton, votre facture, votre projet. Tout se recalcule en direct.</p>
+  <div class="sim-field">
+    <label id="simZonesL">Votre canton</label>
+    <div class="sim-chips" id="simZones" role="radiogroup" aria-labelledby="simZonesL">
+      <button type="button" class="sim-chip" data-r="1000" aria-pressed="false">Vaud</button>
+      <button type="button" class="sim-chip on" data-r="1150" aria-pressed="true">Valais</button>
+      <button type="button" class="sim-chip" data-r="1000" aria-pressed="false">Fribourg</button>
+      <button type="button" class="sim-chip" data-r="1000" aria-pressed="false">Genève</button>
+    </div>
+  </div>
+  <div class="sim-field">
+    <label for="simBill">Facture d'électricité mensuelle <output id="simBillOut">150 CHF</output></label>
+    <input type="range" id="simBill" min="50" max="500" step="10" value="150">
+  </div>
+  <div class="sim-field">
+    <label id="simOrientsL">Orientation de la toiture</label>
+    <div class="sim-chips" id="simOrients" role="radiogroup" aria-labelledby="simOrientsL">
+      <button type="button" class="sim-chip on" data-f="1" aria-pressed="true">Sud — idéale</button>
+      <button type="button" class="sim-chip" data-f="0.85" aria-pressed="false">Est / Ouest — très bien</button>
+      <button type="button" class="sim-chip" data-f="0.65" aria-pressed="false">Nord / autre</button>
+    </div>
+  </div>
+  <div class="sim-field">
+    <label id="simOptsL">Votre projet de vie</label>
+    <div class="sim-chips" id="simOpts" aria-labelledby="simOptsL">
+      <button type="button" class="sim-chip" data-opt="bat" aria-pressed="false">Batterie MARSTEK +10,2 kWh</button>
+      <button type="button" class="sim-chip" data-opt="ve" aria-pressed="false">Voiture électrique</button>
+      <button type="button" class="sim-chip" data-opt="pac" aria-pressed="false">Pompe à chaleur</button>
+    </div>
+  </div>
+  <div class="sim-results">
+    <div class="sim-stat"><b id="simKwc">—</b><span>Puissance conseillée</span></div>
+    <div class="sim-stat"><b id="simProd">—</b><span>Production / an</span></div>
+    <div class="sim-stat sim-hl"><b id="simSave">—</b><span>Économies / an</span></div>
+  </div>
+  <p class="sim-net" id="simNet">—</p>
+  <p class="sim-note">Base : 800 CHF par panneau de 490 Wc posé · électricité 25 c./kWh · rendement 1 000–1 150 kWh/kWc/an selon le canton · batterie MARSTEK en option · estimation non contractuelle, l'étude gratuite affine ces chiffres.</p>
+  <a class="sim-cta" href="#contact" data-goto="sec:contact" id="simContact">Recevoir mon étude gratuite →</a>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   mobile.html — moteur UNIQUEMENT événementiel (aucun listener scroll/touchmove).
+   4 responsabilités : ① gérer les vidéos par IntersectionObserver, ② navigation
+   (burger + rail + data-goto → scrollTo natif qui atterrit SUR un point de snap),
+   ③ sheets (hotspots / Avant-Après), ④ config.json + formulaire mailto + journal.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
+
+  /* 01/09 (Boss) : DOUBLE SOURCE — HEVC (mobile) si supporté, sinon fallback H.264.
+     On pré-sélectionne la source avant le moteur vidéo (playV lit data-src). */
+  (function(){
+    var hevc = false;
+    try { hevc = !!document.createElement('video').canPlayType('video/mp4;codecs="hvc1"'); } catch(e){}
+    if (hevc) {
+      document.querySelectorAll('video[data-src-h265]').forEach(function(v){ v.dataset.src = v.dataset.srcH265; });
+    }
+  })();
+
+  var film = document.getElementById('film');
+  var sns = Array.prototype.slice.call(film.querySelectorAll('.sn, .sn-hero, .sn-panel, .sn-finale'));
+  var railEl = document.getElementById('rail');
+
+  /* ── ① VIDÉOS — IntersectionObserver, seul propriétaire du cycle de vie ──
+     Principe DeepSeek : au load, AUCUN octet de vidéo (preload none, pas de src).
+     Ratio > 0,55 visible → attacher la source + play(). Sortie → pause + détacher
+     (libère le réseau). Jamais de pilotage par scroll event. */
+
+  /* Boss 01/09 (#6) : REFRESH renvoie au début du site (pas de reprise navigateur) */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('load', function(){ window.scrollTo(0, 0); });
+
+  /* ── ①bis Boss 01/09 (#12) : 1ʳᵉ scène = DÉMARRAGE AUTOMATIQUE ──
+     La photo hero reste le poster instantané (0 ko au boot), mais on PRÉCHARGE
+     la 1ʳᵉ vidéo au load (hors IO) pour que la scène 1 joue sans attendre le scroll. */
+  window.addEventListener('load', function(){
+    var first = film.querySelector('.sn video');
+    if (first && first.getAttribute('data-src') && !first.getAttribute('src')){
+      first.setAttribute('preload', 'auto');   /* 01/09 (Boss) : préchargement RÉEL du hero (sinon preload=none bloque le téléchargement) */
+      first.setAttribute('src', first.getAttribute('data-src'));
+      first.load();
+    }
+  });
+  var activeV = null;
+  function playV(v){
+    if (!v) return;
+    v.classList.remove('blur');   /* (re)lecture = la toile de fond redevient nette */
+    if (!v.getAttribute('src')){
+      /* P2 DeepSeek : source unique (attribut src), pas de <source> enfant redondant */
+      v.setAttribute('src', v.getAttribute('data-src'));
+      try { v.load(); } catch(e){}
+    }
+    /* TEMPO desktop (index.html L2248) : carte révélée UNIQUEMENT au repos de la scène —
+       clip fini ('ended' = arrêt sur dernière image) — JAMAIS pendant la lecture.
+       'error' = même issue (la scène n'est jamais_otage du réseau). */
+    if (!v.dataset.cardWired){
+      v.dataset.cardWired = '1';
+      v.addEventListener('ended', function(){
+        var sn = v.closest('.sn') || v.parentElement;
+        var card = sn.querySelector('.card');
+        if (card) card.classList.add('on');
+        /* Boss 31/08 : FLOU gaussien en fin de clip — démarque la carte (verbatim desktop) */
+        v.classList.add('blur');
+        if (window.__mfL) window.__mfL('TEMPO', 'clip fini — carte révélée scn=' + (sn.dataset ? sn.dataset.scene : '?'));
+      });
+      v.addEventListener('error', function(){
+        var sn = v.closest('.sn') || v.parentElement;
+        var card = sn.querySelector('.card');
+        if (card) card.classList.add('on');
+        v.classList.add('blur');
+      });
+      /* 02/09 (GO Boss) : scène 11 — le travelling redémarre EXACTEMENT quand le clip
+         (re)démarre du début (currentTime ~0). Jamais sur une reprise mi-clip (pause
+         hors écran) : le pan reste synchronisé avec la boule verte à chaque passage. */
+      var sn11 = v.closest('.sn');
+      if (sn11 && sn11.dataset && sn11.dataset.scene === '11'){
+        v.addEventListener('play', function(){
+          if (v.currentTime < 0.12){
+            v.style.animation = 'none';
+            void v.offsetWidth;
+            v.style.animation = '';
+          }
+        });
+      }
+    }
+    var pr = v.play();
+    if (pr && pr.catch) pr.catch(function(){
+      /* Data Saver / autoplay bloqué : le voile ▶ arme le geste ; si le geste tarde,
+         la carte s'ouvre quand même — la scène n'est jamais otage du réseau. */
+      var body = v.closest('.sn') || v.parentElement;
+      var veil = body.querySelector('.play-veil');
+      v.pause();
+      v.classList.add('blur');   /* la carte arrive sur un fond flouté, même en échec autoplay */
+      /* carte révélée aussi ici (échec lecture) — logique desktop : carte = repos */
+      var card = body.querySelector('.card');
+      if (card) card.classList.add('on');
+      if (veil) veil.classList.add('show');
+      if (window.__mfL) window.__mfL('START', 'autoplay refusé — voile ▶ + carte');
+    });
+  }
+  function stopV(v){
+    if (!v) return;
+    try { v.pause(); } catch(e){}
+    v.classList.remove('blur');   /* la toile de fond se défloute au départ de la scène */
+    if (v.getAttribute('src')){
+      v.removeAttribute('src');
+      while (v.firstChild) v.removeChild(v.firstChild);
+      try { v.load(); } catch(e){}
+    }
+    /* reset TEMPO : la carte se renomme, la séquence repart à zéro au retour */
+    var sn = v.closest('.sn');
+    if (sn){
+      var card = sn.querySelector('.card');
+      if (card) card.classList.remove('on');
+    }
+  }
+  /* 01/09 (Boss) : PRÉCHARGEMENT ANTICIPÉ — dès qu'une scène approche, on charge ses
+     voisines en arrière-plan (sans les jouer) pour un scroll fluide, façon YouTube. */
+  function preloadV(v){
+    if (!v || v.getAttribute('src')) return;
+    var src = v.getAttribute('data-src');
+    if (!src) return;
+    v.setAttribute('preload', 'auto');   /* sinon preload="none" bloque le téléchargement */
+    v.setAttribute('src', src);
+    try { v.load(); } catch(e){}
+  }
+  function preloadNeighbors(current){
+    var i = sns.indexOf(current);
+    if (i < 0) return;
+    var j = i + 1;
+    while (j < sns.length && j <= i + 2){           /* +1 et +2 (fling rapide) */
+      var s = sns[j];
+      if (s && s.querySelector) { var nv = s.querySelector('.snv'); if (nv) preloadV(nv); }
+      j++;
+    }
+    if (i > 0){                                      /* -1 (retour arrière) */
+      var pv = sns[i-1].querySelector ? sns[i-1].querySelector('.snv') : null;
+      if (pv) preloadV(pv);
+    }
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      var v = en.target.querySelector('.snv');
+      if (!v) return;
+      if (en.isIntersecting){
+        preloadNeighbors(en.target);                 /* pré-charge les voisines dès l'approche */
+        if (en.intersectionRatio >= 0.55){
+          if (activeV && activeV !== v) stopV(activeV);
+          activeV = v;
+          /* TEMPO desktop : à l'entrée de scène la carte est TOUTE MASQUÉE — la vidéo d'abord */
+          var card = en.target.querySelector('.card');
+          if (card) card.classList.remove('on');
+          playV(v);
+          if (window.__mfL) window.__mfL('VID', 'scn' + en.target.dataset.scene + ' ratio=' + en.intersectionRatio.toFixed(2) + ' play');
+        }
+      } else if (v === activeV && en.intersectionRatio < 0.3){
+        stopV(v);
+      }
+    });
+  }, { root: film, threshold: [0, 0.3, 0.55] });
+  sns.forEach(function(sn){
+    io.observe(sn);
+    /* voile ▶ par section vidéo (injecté une fois, caché par défaut) */
+    if (sn.querySelector('.snv')){
+      var veil = document.createElement('div');
+      veil.className = 'play-veil';
+      veil.innerHTML = '<button type="button">▶&nbsp;Démarrer le film</button>';
+      veil.addEventListener('click', function(){
+        veil.classList.remove('show');
+        var card = sn.querySelector('.card');
+        if (card) card.classList.remove('on');
+        playV(sn.querySelector('.snv'));
+        if (window.__mfL) window.__mfL('START', 'geste utilisateur — reprise lecture');
+      });
+      sn.appendChild(veil);
+    }
+  });
+
+  /* ── Scène ACTIVE (rail + journal) — même principe, aucun code de scroll ──
+     RAIL PARITÉ desktop : 6 points NUMÉROTÉS 01-06 (comme la colonne droite PC),
+     l'écran actif allume le point correspondant (répartition par bande). */
+  var rds = [];
+  var NDOTS = 6;
+  for (var _r = 0; _r < NDOTS; _r++){
+    (function(k){
+      var d = document.createElement('button');
+      d.className = 'rd';
+      d.innerHTML = '<span>0' + (k + 1) + '</span><i></i>';
+      d.setAttribute('aria-label', 'Chapitre ' + (k + 1));
+      d.addEventListener('click', function(){
+        goTo(Math.min(sns.length - 1, Math.round(k * sns.length / NDOTS)));
+      });
+      railEl.appendChild(d); rds.push(d);
+    })(_r);
+  }
+  var ioActive = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting && en.intersectionRatio >= 0.6){
+        var i = sns.indexOf(en.target);
+        var dot = Math.min(NDOTS - 1, Math.round(i * NDOTS / sns.length));
+        rds.forEach(function(d, k){ d.classList.toggle('on', k === dot); });
+        /* TIMELINE site réel (index.html L1781+L2285) : label d'heure CANONIQUE par scène
+           (HOURS[] desktop, même tableau) + ligne dorée / soleil à la progression de l'écran.
+           Aucun listener scroll : la MAJ vit dans cet IO (1 seule par snap). */
+        var tlH = document.getElementById('tlHour'), tlF = document.getElementById('tlFill'), tlS = document.getElementById('tlSun');
+        if (tlH){
+          var HOURS = ['07:00','07:30','08:00','09:00','09:30','12:00','15:00','18:00','20:00','22:15','22:30','23:00'];
+          var sc = en.target.dataset.scene;
+          if (sc != null && HOURS[+sc] != null){ tlH.textContent = HOURS[+sc]; }
+          else if (en.target.dataset.scene == null){
+            /* écran sans heure (hero, panneau Avant/Après, Réalisations, Avis) : garde le label de la scène précédente */
+          }
+          /* hero = écran 0 → 0% ; scène/panneau s → (i-1) étapes scènes sur (len-2) */
+          var fr = en.target.classList.contains('sn-hero') ? 0 : (i - 1) / Math.max(1, sns.length - 2);
+          if (tlF) tlF.style.width = (Math.max(0, Math.min(1, fr)) * 100).toFixed(1) + '%';
+          if (tlS) tlS.style.cssText = 'position:absolute;top:-6px;left:' + (Math.max(0, Math.min(1, fr)) * 100).toFixed(1) + '%;margin-left:-7px';
+        }
+        if (window.__mfL) window.__mfL('SCN', '#' + i + ' (' + (en.target.dataset.scene != null ? 'scene ' + en.target.dataset.scene : en.target.dataset.actname || 'finale') + ')');
+      }
+    });
+  }, { root: film, threshold: 0.6 });
+  sns.forEach(function(sn){ ioActive.observe(sn); });
+
+  /* rail visible + clip PAUSÉ quand le film est hors écran (le film scrolle au-delà :
+     la scène active ne doit pas continuer à consommer réseau/batterie) */
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      var vis = es[0].isIntersecting;
+      railEl.classList.toggle('show', vis);
+      if (!vis && activeV) stopV(activeV);
+      else if (vis && activeV){
+        /* P1 DeepSeek : ne rejouer QUE si la scène active occupe toujours ≥50% du film */
+        var sn = activeV.closest('.sn');
+        if (sn){
+          var sr = sn.getBoundingClientRect(), f2 = film.getBoundingClientRect();
+          var visH = Math.min(sr.bottom, f2.bottom) - Math.max(sr.top, f2.top);
+          if (visH > film.clientHeight * 0.5) playV(activeV);
+        }
+      }
+    }, { threshold: 0.4 }).observe(film);
+  }
+
+  /* ── ② NAVIGATION — scrollTo natif vers le point de snap (jamais de tween JS) ── */
+  function scrollToSn(el){
+    if (!el) return;
+    /* P0 DeepSeek : depuis le hero ou les sections post-film, ramener D'ABORD la
+       boîte film dans le viewport (scroll fenêtre), PUIS scroller l'intérieur du film */
+    var fr = film.getBoundingClientRect();
+    if (fr.top > innerHeight * 0.4 || fr.bottom < innerHeight * 0.6){
+      window.scrollTo({ top: window.scrollY + fr.top - 68, behavior: 'smooth' });
+    }
+    /* offsetTop = coordonnées DOCUMENT (le film n'est pas positionné) → recalculer
+       relativement au scroller : rect cible - rect film + scroll courant */
+    var top = el.getBoundingClientRect().top - film.getBoundingClientRect().top + film.scrollTop;
+    /* Chromium : scrollTo smooth + snap mandatory = l'animation est annulée au 1er frame
+       par le re-snap. On désactive le snap le temps du trajet, on le réarme à
+       scrollend — l'arrivée est DÉJÀ un point de snap, donc le réarmement ne bouge pas. */
+    if ('onscrollend' in window){
+      var rearm = function(){
+        film.style.scrollSnapType = '';
+        film.removeEventListener('scrollend', rearm);
+        clearTimeout(scrollToSn._t);
+      };
+      film.addEventListener('scrollend', rearm);
+      clearTimeout(scrollToSn._t);
+      scrollToSn._t = setTimeout(rearm, 900);   /* filet : snap jamais désactivé durablement */
+      film.style.scrollSnapType = 'none';
+    }
+    film.scrollTo({ top: top, behavior: 'smooth' });
+  }
+  function goTo(i){ scrollToSn(sns[i]); closeMnav(); }
+  /* data-goto="scene:N" = numéro DE SCÈNE (desktop STORY) — les tableaux intercalés
+     occupent des indexes sns, on résout donc par data-scene */
+  function goToScene(n){
+    var t = null;
+    for (var k = 0; k < sns.length; k++){ if (sns[k].dataset.scene === String(n)){ t = sns[k]; break; } }
+    scrollToSn(t || sns[n]); closeMnav();
+  }
+  function gotoSec(id){ var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); closeMnav(); }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-goto]'); if (!t) return;
+    e.preventDefault();
+    var g = t.getAttribute('data-goto');
+    if (g === 'hero'){ scrollToSn(sns[0]); closeMnav(); }   /* hero = écran 0 du film */
+    else if (g === 'film'){ goTo(0); }
+    else if (g.indexOf('scene:') === 0){ goToScene(+g.slice(6)); }
+    else if (g.indexOf('sec:') === 0){ gotoSec(g.slice(4)); }
+  });
+  function closeMnav(){ mnav.classList.remove('on'); burger.classList.remove('on'); burger.setAttribute('aria-expanded', 'false'); mnav.setAttribute('aria-hidden', 'true'); }
+  var burger = document.getElementById('navBurger'), mnav = document.getElementById('mnav');
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = mnav.classList.toggle('on');
+    burger.classList.toggle('on', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    mnav.setAttribute('aria-hidden', open ? 'false' : 'true');
+  });
+
+  /* Compteurs hero (identiques desktop) */
+  document.querySelectorAll('.stat strong[data-count]').forEach(function(el){
+    var top = parseInt(el.getAttribute('data-count'), 10);
+    new IntersectionObserver(function(es, ob){ if (!es[0].isIntersecting) return; ob.disconnect();
+      var t0 = null;
+      function step(ts){ if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1200); el.textContent = Math.round(top * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }, { threshold: 0.4 }).observe(el);
+  });
+
+  /* ── ③ AVANT/APRÈS — input range natif (tactile parfait) ── */
+  var baR = document.getElementById('baRange'), baH = document.getElementById('baHandle');
+  if (baR && baH){
+    baR.addEventListener('input', function(){
+      var p = +baR.value;
+      baH.style.left = p + '%';
+      document.querySelector('.ba-apres').style.clipPath = 'inset(0 ' + (100 - p) + '% 0 0)';
+    });
+  }
+
+  /* ── HOTSPOTS — sheet plein écran, contenu HS_DATA (verbatim desktop) ── */
+  var HS_DATA = {
+    venus: {
+      eyebrow: 'Batterie', title: 'MARSTEK VENUS — batterie de stockage',
+      img: 'assets/marques/marstek-venus.jpg',
+      sub: "La batterie MARSTEK VENUS, agréée pour la distribution en Suisse : modulaire empilable, 2,56 à 15,36 kWh. Stockez votre production solaire pour la consommer jour et nuit — ajout possible sur installation existante.",
+      specs: [['480×320 mm','Empreinte au sol'],['2,56→15,36','kWh (1→6 modules)'],['LiFePO₄ 51,2V','Chimie stable'],['90%','Profondeur décharge'],['6 000','Cycles (10 000+ annoncés)'],['10 ans','Garantie'],['dès 7 500 CHF','Batterie 10 kWh posée'],['2,2–2,5 kW','Puissance AC'],['<10 ms','Reprise EPS'],['4 × 4 000 W','MPPT solaires'],['IP65','Indoor & outdoor']],
+      listTitle: 'Nos services solaires',
+      list: ['Étude et dimensionnement','Réalisation clé en main','Installation panneaux','Installation de batteries ⭐','Autoconsommation','Ajout de batteries sur existant','Compatibilité onduleurs','Optimisation autoconsommation','Conseil, dimensionnement, installation, mise en service'],
+      star: 3, cta: 'Découvrir la MARSTEK VENUS →'
+    },
+    pv: {
+      eyebrow: 'Photovoltaïque', title: 'Installation photovoltaïque',
+      sub: "Installation clé en main : étude et dimensionnement, pose des panneaux, batteries et mise en service.",
+      specs: [],
+      listTitle: 'Nos 9 prestations solaires',
+      list: ['Étude et dimensionnement','Réalisation clé en main','Installation panneaux','Installation de batteries ⭐','Autoconsommation','Ajout de batteries sur existant','Compatibilité onduleurs','Optimisation autoconsommation','Conseil, dimensionnement, installation, mise en service'],
+      star: 3, cta: 'Calculer ma toiture →'
+    },
+    info: {
+      eyebrow: 'Informatique', title: 'Informatique & dépannage',
+      sub: 'Vente, installation, configuration et réparation : ordinateurs, parcs informatiques, smartphones et tablettes.',
+      specs: [],
+      listTitle: 'Nos prestations informatiques',
+      list: ["Installation et gestion de parcs informatiques","Vente, installation, configuration et réparation d'ordinateurs",'Vente et réparation de smartphones et tablettes','Installation et configuration de réseaux informatiques et Wi-Fi','Installation de systèmes de vidéosurveillance et caméras','Installation de systèmes de sécurité','Vente et configuration de téléviseurs','Installation murale de TV','Installation et configuration de systèmes audio / home cinéma','Configuration complète des équipements et mise en service','Dépannage et assistance informatique'],
+      cta: 'Demander de l’aide →'
+    },
+    multi: {
+      eyebrow: 'Multimédia', title: 'TV & home cinéma',
+      sub: "Vente et configuration de téléviseurs, installation murale, systèmes audio et home cinéma sur mesure.",
+      specs: [],
+      listTitle: 'Nos prestations multimédia',
+      list: ['Vente et configuration de téléviseurs','Installation murale de TV','Installation et configuration de systèmes audio / home cinéma','Configuration complète des équipements et mise en service'],
+      cta: 'Configurer mon salon →'
+    },
+    secu: {
+      eyebrow: 'Sécurité', title: 'Vidéosurveillance & sécurité',
+      sub: 'Installation de caméras HD et de systèmes de sécurité, configuration complète et mise en service.',
+      specs: [],
+      listTitle: 'Nos prestations sécurité',
+      list: ['Installation de systèmes de vidéosurveillance et caméras','Installation de systèmes de sécurité','Configuration complète et mise en service','Alertes et accès à distance'],
+      cta: 'Sécuriser ma villa →'
+    }
+  };
+  var sheet = document.getElementById('sheet'), sheetBody = document.getElementById('sheetBody'), dim = document.getElementById('dim');
+  var lastFocus = null;
+  /* P1 DeepSeek : Échap ferme la sheet + focus retourné */
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
+  /* GO conditionnel DeepSeek : focus trap — Tab reste CYCLIQUE dans la sheet */
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Tab' || !sheet.classList.contains('open')) return;
+    var f = sheet.querySelectorAll('a[href],button:not([disabled])');
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    else if (!sheet.contains(document.activeElement)){ e.preventDefault(); first.focus(); }
+  });
+  function openSheet(key){
+    var d = HS_DATA[key]; if (!d) return;
+    sheetBody.innerHTML =
+      (d.img ? '<img class="prod-img" src="' + d.img + '" alt="' + d.title + '" loading="lazy">' : '') +
+      '<p class="eyebrow">' + d.eyebrow + '</p><h3>' + d.title + '</h3><p class="dsub">' + d.sub + '</p>' +
+      (d.specs.length ? '<div class="spec-grid">' + d.specs.map(function(s){ return '<div class="spec"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>'; }).join('') + '</div>' : '') +
+      '<div class="dtitle">' + d.listTitle + '</div><ul class="dlist">' +
+      d.list.map(function(it, i){ return '<li' + (i === d.star ? ' class="star"' : '') + '>' + it + '</li>'; }).join('') + '</ul>' +
+      '<a class="detail-cta" href="#contact">' + d.cta + '</a>';
+    lastFocus = document.activeElement;
+    sheet.classList.add('open'); sheet.setAttribute('aria-hidden', 'false'); dim.classList.add('on');
+    document.getElementById('sheetClose').focus();
+    if (window.__mfL) window.__mfL('SHEET', 'open ' + key);
+  }
+  function closeSheet(){
+    sheet.classList.remove('open'); sheet.setAttribute('aria-hidden', 'true'); dim.classList.remove('on');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.addEventListener('click', function(e){ var t = e.target.closest('[data-hs]'); if (t){ openSheet(t.getAttribute('data-hs')); } });
+  /* P1 DeepSeek : un CTA de la sheet ferme l'overlay avant de naviguer */
+  sheet.addEventListener('click', function(e){ if (e.target.closest('.detail-cta')) closeSheet(); });
+  document.getElementById('sheetClose').addEventListener('click', closeSheet);
+  dim.addEventListener('click', closeSheet);
+
+  /* ── HUB ASSISTANCE — ouverture/fermeture + requête personnalisée → mail pré-rempli (miroir desktop) ── */
+  (function(){
+    var hubBtn = document.getElementById('hubBtn'); if (!hubBtn) return;
+    var panel = document.getElementById('hubPanel');
+    var openHub = function(o){
+      panel.classList.toggle('open', o);
+      hubBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
+    };
+    openHub(false);
+    document.getElementById('hubClose').addEventListener('click', function(){ openHub(false); });
+    hubBtn.addEventListener('click', function(){ openHub(!panel.classList.contains('open')); });
+    /* un vol scène / CTA depuis une requête ferme le panneau */
+    panel.addEventListener('click', function(e){ if (e.target.closest('.hub-q, .hub-action')) openHub(false); });
+    /* requête personnalisée → mail pré-rempli (leads capturables sans backend, miroir desktop L2369-2377) */
+    var input = document.getElementById('hubInput'), send = document.getElementById('hubSend'), ack = document.getElementById('hubAck');
+    function sendHub(){
+      var v = (input.value || '').trim(); if (!v){ input.focus(); return; }
+      var body = 'Demande via l\'assistance : ' + v;
+      window.location.href = 'mailto:info@suisseintervention.ch?subject=' + encodeURIComponent('Demande via l\'assistance — Suisse Intervention') + '&body=' + encodeURIComponent(body);
+      ack.textContent = 'Merci — votre demande s’ouvre dans votre messagerie. Réponse sous 2 h.';
+      ack.classList.add('open');
+    }
+    send.addEventListener('click', sendHub);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); sendHub(); } });
+    if (window.__mfL) window.__mfL('BOOT', 'HUB assistance branché');
+  })();
+
+  /* ── SEO « i » — panneau Informations complètes (miroir réel L2397-2407) ── */
+  (function(){
+    var seoBtn = document.getElementById('seoBtn'); if (!seoBtn) return;
+    var seoPanel = document.getElementById('seoPanel');
+    function seoToggle(open){
+      seoPanel.classList.toggle('open', open);
+      seoPanel.setAttribute('aria-hidden', String(!open));
+      seoBtn.classList.toggle('on', open);
+      seoBtn.setAttribute('aria-expanded', String(open));
+      seoBtn.textContent = open ? '✕' : 'i';
+      if (open) seoPanel.querySelector('.seo-scroll').scrollTop = 0;
+    }
+    seoToggle(false);
+    seoBtn.addEventListener('click', function(){ seoToggle(!seoPanel.classList.contains('open')); });
+    document.getElementById('seoClose').addEventListener('click', function(){ seoToggle(false); });
+    seoPanel.addEventListener('click', function(e){ if (e.target.closest('[data-goto]')) seoToggle(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && seoPanel.classList.contains('open')) seoToggle(false); });
+  })();
+
+  /* Horloge POV qui tourne UNIQUEMENT quand le film est à l'écran (P2 DeepSeek) */
+  var filmVis = true;
+  new IntersectionObserver(function(es){ filmVis = es[0].isIntersecting; }, { threshold: 0.2 }).observe(film);
+  var pvClocks = document.querySelectorAll('.pov-clock');
+  if (pvClocks.length){
+    setInterval(function(){
+      if (!filmVis) return;
+      var d = new Date();
+      var z = function(n){ return (n < 10 ? '0' : '') + n; };
+      var s = z(d.getHours()) + ':' + z(d.getMinutes()) + ':' + z(d.getSeconds());
+      pvClocks.forEach(function(el){ el.textContent = s; });
+    }, 1000);
+  }
+
+  /* ── ④ config.json (assistance client, éditable par admin.php) ── */
+  (function(){
+    var DEFAUT = { telephone_href: '+41798567890', telephone: '+41 79 856 78 90', email: 'info@suisseintervention.ch' };
+    fetch('config.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(c){
+      if (!c) return;
+      if (!c.telephone_href && c.telephone) c.telephone_href = c.telephone.replace(/[^0-9+]/g, '');
+      var telHref = c.telephone_href || DEFAUT.telephone_href, tel = c.telephone || DEFAUT.telephone, mail = c.email || DEFAUT.email;
+      var waHref = c.whatsapp_token ? 'https://wa.me/' + c.whatsapp_token : 'https://wa.me/' + telHref;
+      document.querySelectorAll('a[href^="tel:"]').forEach(function(a){ a.setAttribute('href', 'tel:' + telHref); });
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){ a.setAttribute('href', 'mailto:' + mail); });
+      document.querySelectorAll('a[href^="https://wa.me"]').forEach(function(a){ a.setAttribute('href', waHref); });
+      /* remplacement UNIQUEMENT des text nodes, MAIS DANS TOUT L'ARBRE du lien
+         (Boss 01/09 #2 : le n° dans .finale-tel est dans <strong> — childNodes direct
+         ne voyait que le <a> racine → le texte affiché ne bougeait jamais.
+         Jamais textContent — leçon 30/08 : écrase strong/span). */
+      document.querySelectorAll('a').forEach(function(a){
+        var nodes = [];
+        var walker = document.createTreeWalker(a, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(function(n){
+          if (!n.nodeValue) return;
+          var v = n.nodeValue;
+          if (v.indexOf(DEFAUT.telephone) !== -1) n.nodeValue = v.split(DEFAUT.telephone).join(tel);
+          v = n.nodeValue;
+          if (v.indexOf(DEFAUT.email) !== -1) n.nodeValue = v.split(DEFAUT.email).join(mail);
+        });
+      });
+    }).catch(function(){});
+  })();
+
+  /* Formulaire → mail pré-rempli (même logique desktop, leads capturables sans backend) */
+  (function(){
+    var f = document.getElementById('contactForm'); if (!f) return;
+    var note = document.getElementById('contactNote');
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var nom = (f.nom.value || '').trim(), tel = (f.tel.value || '').trim(), msg = (f.message.value || '').trim();
+      if (!nom || !tel || !msg){ f.reportValidity(); return; }
+      var body = 'Nom : ' + nom + '\nTéléphone : ' + tel + '\nService : ' + f.service.value + '\n\n' + msg;
+      var subj = 'Demande d’intervention — ' + nom;
+      window.location.href = 'mailto:info@suisseintervention.ch?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+      var esc = nom.replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; });
+      note.innerHTML = 'Merci ' + esc + ' — votre demande s’ouvre dans votre messagerie (<strong>info@suisseintervention.ch</strong>).<br>Urgent ? Appelez le <a href="tel:+41798567890">+41 79 856 78 90</a>.';
+      note.hidden = false;
+      if (window.__mfL) window.__mfL('FORM', 'mailto envoyé — ' + nom);
+    });
+  })();
+
+  /* ── JOURNAL TÉLÉPHONE (même outil que l'index) ──
+     Toujours actif ici (page mobile dédiée) ; appui LONG sur le burger → copie. */
+  try {
+    var LG = (window.__mfLog = []);
+    window.__mfL = function(tag, m){
+      LG.push((performance.now() / 1000).toFixed(1) + 's ' + tag + ' ' + m);
+      if (LG.length > 400) LG.splice(0, 100);
+    };
+    var vids = document.querySelectorAll('video.snv');
+    ['error', 'abort', 'stalled'].forEach(function(ev){
+      vids.forEach(function(v){ v.addEventListener(ev, function(){
+        window.__mfL('VID', ev + ' scn=' + (v.closest('.sn') ? v.closest('.sn').dataset.scene : '?') + ' rs=' + v.readyState + (v.error ? ' ERR=' + v.error.code : ''));
+      }); });
+    });
+    vids.forEach(function(v){
+      v.addEventListener('playing', function(){ window.__mfL('VID', 'playing scn=' + v.closest('.sn').dataset.scene + ' w=' + v.videoWidth); });
+      v.addEventListener('ended', function(){ window.__mfL('VID', 'ended scn=' + v.closest('.sn').dataset.scene); });
+    });
+    var obs = function(el, name){
+      if (!el) return; var seen = '';
+      new MutationObserver(function(){
+        var st = (el.classList.contains('on') || el.classList.contains('open')) ? 'ON' : 'off';
+        if (st !== seen){ seen = st; window.__mfL(name, st); }
+      }).observe(el, { attributes: true, attributeFilter: ['class'] });
+    };
+    obs(sheet, 'SHEET'); obs(mnav, 'MNAV'); obs(dim, 'VOILE');
+    sns.forEach(function(s){ if (s.querySelector('.snv')) obs(s, 'SCN' + s.dataset.scene); });
+    ['touchstart', 'click'].forEach(function(ev){
+      document.addEventListener(ev, function(e){
+        var t = e.target.closest ? e.target.closest('a,button,.card') : null;
+        window.__mfL('TAP', ev + ' → ' + (t ? (t.className || t.tagName) : (e.target.tagName || '?')));
+      }, { passive: true });
+    });
+    var bur2 = document.getElementById('navBurger'), timer = null;
+    var endT = function(){ clearTimeout(timer); timer = null; };
+    bur2.addEventListener('touchstart', function(){ timer = setTimeout(function(){ timer = null; exportLog(); }, 650); }, { passive: true });
+    bur2.addEventListener('touchmove', endT, { passive: true });
+    bur2.addEventListener('touchend', endT, { passive: true });
+    function exportLog(){
+      window.__mfL('EXPORT', 'appui long burger');
+      var ov = document.createElement('div');
+      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(6,10,16,.96);display:flex;flex-direction:column;padding:14px;gap:10px';
+      var title = document.createElement('div');
+      title.style.cssText = 'color:#C9A96A;font:700 13px system-ui;letter-spacing:.08em';
+      title.textContent = 'JOURNAL MOBILE — copie et envoie à Claude';
+      var ta = document.createElement('textarea');
+      ta.style.cssText = 'flex:1;width:100%;background:#0d1520;color:#e8e2d4;border:1px solid #2a3648;border-radius:10px;padding:10px;font:11px/1.5 ui-monospace,monospace;white-space:pre';
+      ta.setAttribute('readonly', '');
+      ta.value = LG.join('\n');
+      var row = document.createElement('div'); row.style.cssText = 'display:flex;gap:10px';
+      var cp = document.createElement('button');
+      cp.style.cssText = 'flex:1;padding:13px;border:0;border-radius:10px;background:#C9A96A;color:#141d29;font:700 14px system-ui';
+      cp.textContent = '📋 Copier';
+      cp.addEventListener('click', function(){
+        try { navigator.clipboard.writeText(LG.join('\n')); cp.textContent = '✓ Copié'; } catch(e){ cp.textContent = 'utilise la zone'; }
+        setTimeout(function(){ cp.textContent = '📋 Copier'; }, 1800);
+      });
+      var cl = document.createElement('button');
+      cl.style.cssText = 'flex:1;padding:13px;border:0;border-radius:10px;background:#1e2a45;color:#f5efe3;font:700 14px system-ui';
+      cl.textContent = 'Fermer';
+      cl.addEventListener('click', function(){ ov.remove(); });
+      row.appendChild(cp); row.appendChild(cl);
+      ov.appendChild(title); ov.appendChild(ta); ov.appendChild(row);
+      document.body.appendChild(ov);
+    }
+  } catch(e){}
+
+  /* ═══ SIMULATEUR solaire — portage desktop (01/09) : calcSim + modal tactile ═══ */
+  var simPanel = document.getElementById('simPanel'), simBackdrop = document.getElementById('simBackdrop');
+  var simBill = document.getElementById('simBill'), simBillOut = document.getElementById('simBillOut');
+  var simKwc = document.getElementById('simKwc'), simProd = document.getElementById('simProd'), simSave = document.getElementById('simSave');
+  var simZones = document.getElementById('simZones'), simOrients = document.getElementById('simOrients'), simOpts = document.getElementById('simOpts');
+  var simNet = document.getElementById('simNet');
+  /* 15/10 (Boss, retour client Sofiane) : BAREME PANNEAUX — 800 CHF par panneau
+     de 490 Wc, SANS batterie (MARSTEK = option explicite). Ex. client : 20 panneaux
+     ≈ 16'000 CHF. Production/économie inchangées (LUMEN §6). */
+  function chipOn(wrap){ var c = wrap.querySelector('.sim-chip.on'); return c ? c : wrap.querySelector('.sim-chip'); }
+  function optOn(k){ var b = simOpts.querySelector('[data-opt="' + k + '"]'); return b && b.classList.contains('on'); }
+  function calcSim(){
+    var bill = +simBill.value;
+    var zr = +chipOn(simZones).dataset.r;
+    var f = +chipOn(simOrients).dataset.f;
+    var bat = optOn('bat'), ve = optOn('ve'), pac = optOn('pac');
+    var conso0 = bill * 12 / 0.25;
+    var extra = 1; if (ve) extra += 0.35; if (pac) extra += 1;
+    var conso = conso0 * extra;
+    var kwcRaw = conso / zr;
+    var kwc = Math.max(2.5, Math.min(20, kwcRaw));
+    var panels = Math.max(1, Math.ceil(kwc / 0.49));
+    var prod = kwc * zr * f;
+    var auto = bat ? 0.72 : ((ve || pac) ? 0.52 : 0.42);
+    var eco = prod * (auto * 0.28 + (1 - auto) * 0.11);
+    var price = panels * 800 + (bat ? 7500 : 0);
+    var amo = price / Math.max(eco, 1);
+    simBillOut.textContent = bill + ' CHF';
+    simBill.style.setProperty('--p', ((bill - 50) / 450 * 100) + '%');
+    simKwc.textContent = (panels * 0.49).toFixed(1).replace('.', ',') + ' kWc';
+    simProd.textContent = Math.round(prod).toLocaleString('fr-CH') + ' kWh';
+    simSave.textContent = Math.round(eco).toLocaleString('fr-CH') + ' CHF';
+    simNet.innerHTML = 'Prix estimé ≈ <b>CHF ' + Math.round(price).toLocaleString('fr-CH') +
+      '</b> (' + panels + ' panneaux × 800 CHF' + (bat ? ', batterie MARSTEK incluse' : ', hors batterie') +
+      '). Estimation non contractuelle — l\'étude gratuite affine ces chiffres.' +
+      (kwcRaw > 20 ? ' <span style="color:#e7cf9e">Votre besoin dépasse 20 kWc — l\'étude gratuite dimensionne au-delà.</span>' : '');
+  }
+  simBill.addEventListener('input', calcSim);
+  [simZones, simOrients].forEach(function(wrap){
+    wrap.addEventListener('click', function(e){
+      var b = e.target.closest('.sim-chip'); if (!b) return;
+      var kids = this.querySelectorAll('.sim-chip');
+      kids.forEach(function(c){ c.classList.remove('on'); c.setAttribute('aria-pressed','false'); });
+      b.classList.add('on'); b.setAttribute('aria-pressed','true');
+      calcSim();
+    });
+  });
+  simOpts.addEventListener('click', function(e){
+    var b = e.target.closest('.sim-chip'); if (!b) return;
+    b.classList.toggle('on');
+    b.setAttribute('aria-pressed', b.classList.contains('on') ? 'true' : 'false');
+    calcSim();
+  });
+  function openSim(){ simPanel.classList.add('open'); simPanel.setAttribute('aria-hidden','false'); simBackdrop.classList.add('on'); }
+  function closeSim(){ simPanel.classList.remove('open'); simBackdrop.classList.remove('on'); simPanel.setAttribute('aria-hidden','true'); }
+  document.getElementById('simClose').addEventListener('click', closeSim);
+  simBackdrop.addEventListener('click', closeSim);
+  document.getElementById('simContact').addEventListener('click', closeSim);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeSim(); });
+  document.addEventListener('click', function(e){ var t = e.target.closest('[data-sim]'); if (t){ e.preventDefault(); if (typeof closeSheet === 'function') closeSheet(); openSim(); } });
+  calcSim();
+
+  if (window.__mfL) window.__mfL('BOOT', 'mobile.html v1 — ' + sns.length + ' écrans snap, ' + document.querySelectorAll('video.snv').length + ' clips IO');
+})();
+</script>
+</body>
+</html>
