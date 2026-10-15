@@ -2907,11 +2907,20 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
   var L=document.getElementById('loader');
   if(!L) return;
   var bar=document.getElementById('ldBar'), txt=document.getElementById('ldTxt'), dom=document.getElementById('ldDom');
-  var done=false, t0=performance.now();
+  var done=false, finishing=false, bgAsked=false, bgShownAt=0, t0=performance.now();
   document.documentElement.classList.add('ld-lock');
   function setBar(p){ if(bar) bar.style.width=Math.max(8,Math.min(100,p))+'%'; }
   function setTxt(s){ if(txt) txt.textContent=s; }
-  function finish(){ if(done) return; done=true; setBar(100); setTxt('Bienvenue');
+  /* sortie : si la photo de fond a ete demandee, on la laisse s'installer 350 ms
+     (borne 900 ms). Sans photo demandee (3G / liaison lente) on sort tout de suite. */
+  function finish(){ if(done||finishing) return;
+    if(!bgAsked){ reveal(); return; }
+    finishing=true; var t0=performance.now();
+    var iv=setInterval(function(){
+      var vu = bgShownAt ? performance.now()-bgShownAt : 0;
+      if(vu>=350 || performance.now()-t0>=900){ clearInterval(iv); reveal(); }
+    }, 40); }
+  function reveal(){ if(done) return; done=true; setBar(100); setTxt('Bienvenue');
     /* duree visible mini 700 ms (depuis le debut de navigation) : jamais de flash */
     var hold=Math.max(0, 700-(performance.now()-t0));
     setTimeout(function(){
@@ -2935,13 +2944,12 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
        - sinon REPLI apres le jalon hero (p2) -> le decor ne vole jamais sa bande
          passante a l'essentiel.
      Sur 3G le jalon hero n'arrive pas avant le filet -> ZERO octet de decor (mesure). */
-  var bgAsked=false;
   function loadBg(){
     var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked) return;   /* deja demande ou ecran sorti : ZERO octet */
     bgAsked=true;
     var u='assets/banque/exterieurs/loader-paysage.webp?v=20261016c';
     var im=new Image();
-    function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); }
+    function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); bgShownAt=performance.now(); }
     /* priorite HAUTE : mesure du 15/10 — en priorite basse la requete n'aboutissait jamais
        (affamee derriere le film) et l'ecran se levait avant l'image. */
     try { im.fetchPriority='high'; } catch(e){}
