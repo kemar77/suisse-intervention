@@ -1955,7 +1955,7 @@ html.ld-lock{overflow:hidden}
          a l'essentiel.
      Sur liaison lente aucun des deux n'aboutit avant la sortie -> ZERO octet (mesure). */
   function loadBg(){
-    var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked) return;   /* deja demande ou ecran sorti : ZERO octet */
+    var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked||window.__ldSkipped) return;   /* saute, deja demande ou ecran sorti : ZERO octet */
     bgAsked=true;
     var u='assets/banque/exterieurs/loader-paysage-mob.webp?v=20261016e';
     var im=new Image();
@@ -1980,7 +1980,7 @@ html.ld-lock{overflow:hidden}
      leur src n'est pose qu'au window.load (plus bas dans ce fichier) : leur canplay ne peut
      donc pas arriver avant. La borne de 5 s EST ce qui libere l'ecran — c'est voulu. */
   var p3=new Promise(function(res){
-    var v=document.querySelector('.film-vid[data-v="0"], video'); if(!v) { setBar(96); return res(); }   /* 3e regard : viser la 1re scene, pas la 1re video du DOM */
+    var v=document.querySelector('.film-vid[data-v="0"], video'); if(!v) { setBar(96); return res(); }   /* 3e regard : viser la 1re SCENE (bureau). Sur mobile il n'y a pas de .film-vid : le repli `video` tombe sur la 1re video du DOM, qui EST la scene 0. */
     var ended=false;
     function ok(){ if(ended) return; ended=true; setBar(96); res(); }
     if(v.readyState>=3) return ok();
