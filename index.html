@@ -269,7 +269,7 @@ img{max-width:100%;display:block}
 .film-vid.blur{filter:brightness(.88) saturate(1.03);transform:scale(1.05);transition:opacity .45s ease,filter .8s ease,transform .8s ease} /* 15/10 (client) : flou retiré — la dernière frame reste NETTE en toile de fond des panneaux (seul un léger assombrissement subsiste pour la lisibilité) */
 /* 01/09 (GO Boss #1) : scène 0 — léger push-in cinéma vers la maison/fenêtre pendant le clip.
    Option A (zoom moteur) : transform GPU sur la vidéo native → ultra net garanti (aucune
-   régénération), finit à 1.12 sur l'axe façade/fenêtre ; le .blur au dénouement garde son rôle. */
+   régénération), finit à 1.12 sur l'axe façade/fenêtre ; 15/10 : le .blur ne floute plus (client) — il assombrit seulement. */
 @keyframes kbScene0{from{transform:scale(1)}to{transform:scale(1.12)}}
 .film-poster.on[data-p="0"]{transform-origin:56% 44%;animation:kbScene0 12s linear forwards}
 .film-vid.on[data-v="0"]{transform-origin:56% 44%;animation:kbScene0 12s linear forwards}
@@ -687,7 +687,6 @@ img{max-width:100%;display:block}
 }
 /* ═══ CHOIX BOSS 28/08 (arrangés proprement) ═══ */
 /* Logo Sofiane (croix suisse pixel) — SANS le filtre blanc, il garde ses couleurs */
-.nav .logo-img{filter:none;object-fit:contain}
 /* Numéro de contact : texte pro sobre (Boss 28/08 — fin du gros rectangle rouge) */
 /* ═══ PALETTE BOSS 28/08 — blanc cassé dominant, bleu par intermittence ═══
    Le bleu nuit garde le CINÉMA (film, contact, footer, nav) = l'intermittence.
