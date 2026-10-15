@@ -2,7 +2,7 @@
   "telephone": "+41 79 908 92 95",
   "telephone_href": "+41799089295",
   "email": "info@suisseintervention.ch",
-  "whatsapp_token": "",
-  "whatsapp_connected": false,
-  "updated_at": ""
+  "whatsapp_token": "41799089295",
+  "whatsapp_connected": true,
+  "updated_at": "2026-10-15"
 }
