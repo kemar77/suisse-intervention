@@ -649,6 +649,17 @@ html.ld-lock{overflow:hidden}
     <p class="ld-txt" id="ldTxt">Préparation de votre visite…</p>
   </div>
 </div>
+<script>
+/* Saut immediat de l'ecran : cable DES LE PARSE, juste apres l'ecran. Sur liaison lente le
+   script de fin de <body> n'arrive qu'a ~19 s (mesure 3G) : un clic avant cela ne faisait rien
+   et l'ecran restait jusqu'au filet CSS (16,4 s). Ce bloc ne depend de rien d'autre. */
+(function(){var L=document.getElementById('loader');if(!L)return;
+  function s(){L.classList.add('ld-out');document.documentElement.classList.remove('ld-lock');
+    window.__ldSkipped=true;}   /* memorise le saut : l'ecran ne doit plus etre verrouille ensuite */
+  L.addEventListener('click',s);
+  addEventListener('keydown',function(e){if(e.key==='Escape')s();});})();
+</script>
+<div class="film-grain"></div>
 
 <nav class="nav" id="nav">
   <a class="nav-brand" href="#top" data-goto="hero">
@@ -712,7 +723,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 0 · 07:00 Villa -->
   <section class="sn" data-scene="0">
-    <video class="snv" data-src="videos/s1_villa_mob2.mp4" data-src-h265="videos/s1_villa_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s0_villa_ancrage_poster_mob.webp?v=20261016b" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s1_villa_mob2.mp4?v=20261016c" data-src-h265="videos/s1_villa_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s0_villa_ancrage_poster_mob.webp?v=20261016b" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <h2>Tous vos <em>équipements</em></h2>
@@ -722,7 +733,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 1 · 07:30 Réseau + carte -->
   <section class="sn" data-scene="1">
-    <video class="snv" data-src="videos/s2_reseau_mob2.mp4" data-src-h265="videos/s2_reseau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s2_reseau_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s2_reseau_mob2.mp4?v=20261016c" data-src-h265="videos/s2_reseau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s2_reseau_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_routeur.png')"></div><div class="card-body">
@@ -741,7 +752,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 2 · 08:00 Survol -->
   <section class="sn" data-scene="2">
-    <video class="snv" data-src="videos/s3_survol_mob2.mp4" data-src-h265="videos/s3_survol_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s3_survol_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s3_survol_mob2.mp4?v=20261016c" data-src-h265="videos/s3_survol_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s3_survol_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <span class="num">Zone</span> <!-- heure desktop = timeline -->
@@ -752,7 +763,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 3 · 09:00 Câblage + carte -->
   <section class="sn" data-scene="3">
-    <video class="snv" data-src="videos/s3_reseau_mob2.mp4" data-src-h265="videos/s3_reseau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s3_reseau_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s3_reseau_mob2.mp4?v=20261016c" data-src-h265="videos/s3_reseau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s3_reseau_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_routeur_mesh.png')"></div><div class="card-body">
@@ -771,7 +782,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 4 · 09:30 Bureau + carte + hotspot -->
   <section class="sn" data-scene="4">
-    <video class="snv" data-src="videos/s5_bureau_mob2.mp4" data-src-h265="videos/s5_bureau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/v_bureau_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s5_bureau_mob2.mp4?v=20261016c" data-src-h265="videos/s5_bureau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/v_bureau_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_pc_workstation.png')"></div><div class="card-body">
@@ -791,7 +802,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 5 · 12:00 Photovoltaïque + carte + hotspot -->
   <section class="sn" data-scene="5">
-    <video class="snv" data-src="videos/s5_pv_mob2.mp4" data-src-h265="videos/s5_pv_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s5_pv_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s5_pv_mob2.mp4?v=20261016c" data-src-h265="videos/s5_pv_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s5_pv_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <button class="sim-pv-btn" data-sim="1" aria-label="Lancer ma simulation solaire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>MA SIMULATION</button>
     <div class="sn-body">
@@ -829,7 +840,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 6 · 15:00 Batterie + carte + hotspot -->
   <section class="sn" data-scene="6">
-    <video class="snv" data-src="videos/s7_batterie_mob2.mp4" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261016c" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_batterie.png')"></div><div class="card-body">
@@ -849,7 +860,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 7 · 18:00 Multimédia + carte + hotspot -->
   <section class="sn" data-scene="7">
-    <video class="snv" data-src="videos/s7_tv_mob2.mp4" data-src-h265="videos/s7_tv_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/v_salon_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s7_tv_mob2.mp4?v=20261016c" data-src-h265="videos/s7_tv_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/v_salon_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_tv_oled.png')"></div><div class="card-body">
@@ -883,7 +894,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 8 · 20:00 Famille -->
   <section class="sn" data-scene="8">
-    <video class="snv" data-src="videos/s_famille_mob2.mp4" data-src-h265="videos/s_famille_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s_famille_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s_famille_mob2.mp4?v=20261016c" data-src-h265="videos/s_famille_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s_famille_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <span class="num">Sérénité</span> <!-- heure desktop = timeline -->
@@ -894,7 +905,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 9 · 22:15 Caméra + carte + hotspot -->
   <section class="sn" data-scene="9">
-    <video class="snv" data-src="videos/s_camera_mob2.mp4" data-src-h265="videos/s_camera_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s_camera_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s_camera_mob2.mp4?v=20261016c" data-src-h265="videos/s_camera_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s_camera_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_camera.png')"></div><div class="card-body">
@@ -914,7 +925,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 10 · 22:30 POV (REC) -->
   <section class="sn pov" data-scene="10">
-    <video class="snv" data-src="videos/s10_pov_mob2.mp4" data-src-h265="videos/s10_pov_mob2_h265.mp4?v=20261016c" poster="assets/banque/lumieres/s10_pov_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s10_pov_mob2.mp4?v=20261016c" data-src-h265="videos/s10_pov_mob2_h265.mp4?v=20261016c" poster="assets/banque/lumieres/s10_pov_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="osd">
       <div class="rec"><i></i>REC</div>
@@ -943,7 +954,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 11 · 23:00 Nuit (finale visuelle) -->
   <section class="sn pov" data-scene="11">
-    <video class="snv" data-src="videos/s11_nuit_mob2.mp4" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261016c" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="osd">
       <div class="rec"><i></i>REC</div>
@@ -1878,14 +1889,18 @@ html.ld-lock{overflow:hidden}
 (function(){
   var L=document.getElementById('loader');
   if(!L) return;
-  /* C1 (revue du 15/10) : sur liaison lente le script s'execute APRES que le filet CSS ait
-     retire l'ecran. Dans ce cas on ne verrouille rien et on ne fait rien — sinon on ajoute
-     html.ld-lock a une page deja visible et le defilement reste bloque ~10 s (mesure : gel
-     29669-18970 ms sur 3G bureau). C'est le filet CSS qui finit le travail. */
-  if(performance.now()>9000 || getComputedStyle(L).visibility==='hidden') return;
   var bar=document.getElementById('ldBar'), txt=document.getElementById('ldTxt'), dom=document.getElementById('ldDom');
   var done=false, finishing=false, bgAsked=false, bgShownAt=0, t0=performance.now();
-  document.documentElement.classList.add('ld-lock');
+  /* N2 : on ne court-circuite plus TOUT sur lien lent (l'ecran restait fige a 8 % de barre
+     pendant ~12 s, lu comme un bug) — on saute seulement le VERROU. Le filet du verrou est
+     arme AVANT de le poser (3e regard) : si une exception survient ensuite, elle desarmerait
+     tous les filets suivants ; le defilement revient quand meme. Et on ne verrouille pas si
+     l'ecran est deja retire par le filet CSS — c'etait le gel de page mesure a 10,7 s. */
+  var tard = performance.now()>9000 || getComputedStyle(L).visibility==='hidden' || window.__ldSkipped;
+  if(!tard){
+    setTimeout(function(){ document.documentElement.classList.remove('ld-lock'); }, Math.max(0, 12000-performance.now()));
+    document.documentElement.classList.add('ld-lock');
+  }
   function setBar(p){ if(bar) bar.style.width=Math.max(8,Math.min(100,p))+'%'; }
   /* C7 (revue) : sur liaison rapide les 3 textes d'etape se succedaient en ~64 ms -> annonces
      lecteur d'ecran hachees. On ne reprend pas la main avant 500 ms (sauf 'Bienvenue'). */
@@ -1893,12 +1908,12 @@ html.ld-lock{overflow:hidden}
   function setTxt(s, force){ var now=performance.now(); if(!force && now-lastTxt<500) return; lastTxt=now; if(txt) txt.textContent=s; }
   /* sortie : si la photo de fond a ete demandee, on la laisse s'installer 350 ms
      (borne 900 ms). Sans photo demandee (3G / liaison lente) on sort tout de suite. */
-  function finish(user){ if(done||finishing) return;
-    if(user || !bgAsked){ reveal(); return; }   /* clic/Echap : on sort tout de suite */
-    finishing=true; var t0=performance.now();
+  function finish(){ if(done||finishing) return;
+    if(!bgAsked){ reveal(); return; }
+    finishing=true; var tf=performance.now();   /* tf : ne pas masquer le t0 de l'IIFE (3e regard) */
     var iv=setInterval(function(){
       var vu = bgShownAt ? performance.now()-bgShownAt : 0;
-      if(vu>=350 || performance.now()-t0>=900){ clearInterval(iv); reveal(); }
+      if(vu>=350 || performance.now()-tf>=900){ clearInterval(iv); reveal(); }
     }, 40); }
   function reveal(){ if(done) return; done=true; setBar(100); setTxt('Bienvenue', true);
     var hold=Math.max(0, 700-(performance.now()-t0));
@@ -1912,12 +1927,10 @@ html.ld-lock{overflow:hidden}
     if(dom){ dom.style.opacity='0'; setTimeout(function(){ dom.textContent=DOMS[di]; dom.style.opacity='1'; }, 180); } }, 2100);
   if(dom) dom.textContent=DOMS[0];
   /* C2 (revue) : le filet etait ancre a l'EXECUTION du script — sur 3G il tombait a ~29 s au
-     lieu de 10 s. Ancre sur la NAVIGATION, et un second filet (12 s) qui retire le verrou quoi
-     qu'il arrive : le defilement ne peut plus rester bloque. */
+     lieu de 10 s. Il est desormais ancre sur la NAVIGATION (le filet du verrou, lui, est arme
+     plus haut, avant que le verrou ne soit pose). */
   var guard=setTimeout(finish, Math.max(0, 10000-performance.now()));
-  setTimeout(function(){ document.documentElement.classList.remove('ld-lock'); }, Math.max(0, 12000-performance.now()));
-  L.addEventListener('click', function(){ finish(true); });
-  addEventListener('keydown', function(e){ if(e.key==='Escape') finish(true); });
+
   /* jalon 1 — polices du 1er ecran : document.fonts.load() DECLENCHE le telechargement
      (document.fonts.ready seul resout avant que les polices soient demandees — mesure du 15/10). */
   function fLoad(spec){ try { return document.fonts.load(spec,'A').catch(function(){}); } catch(e){ return Promise.resolve(); } }
@@ -1935,13 +1948,15 @@ html.ld-lock{overflow:hidden}
   function loadBg(){
     var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked) return;   /* deja demande ou ecran sorti : ZERO octet */
     bgAsked=true;
-    var u='assets/banque/exterieurs/loader-paysage-mob.webp?v=20261015b';
+    var u='assets/banque/exterieurs/loader-paysage-mob.webp?v=20261016e';
     var im=new Image();
     function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); bgShownAt=performance.now(); }
     /* priorite HAUTE : mesure du 15/10 — en priorite basse la requete n'aboutissait jamais
        (affamee derriere le film) et l'ecran se levait avant l'image. */
     try { im.fetchPriority='high'; } catch(e){}
-    im.src=u; im.onload=show; im.onerror=function(){ if(im.decode) im.decode().then(show,show); };
+    /* N4 : sur erreur on ne compte PAS le decor comme affiche (sinon +350 ms de sortie
+       pour une image absente) — on rend la main tout de suite. */
+    im.src=u; im.onload=show; im.onerror=function(){ bgAsked=false; };
   }
   /* C4 (revue) : les 250 ms de garde faisaient perdre la course au decor sur bureau
      (`done` basculait avant). `loadBg` teste deja `done` : plus de minuterie. */
@@ -1956,7 +1971,7 @@ html.ld-lock{overflow:hidden}
      leur src n'est pose qu'au window.load (plus bas dans ce fichier) : leur canplay ne peut
      donc pas arriver avant. La borne de 5 s EST ce qui libere l'ecran — c'est voulu. */
   var p3=new Promise(function(res){
-    var v=document.querySelector('.film-vid, video'); if(!v) { setBar(96); return res(); }
+    var v=document.querySelector('.film-vid[data-v="0"], video'); if(!v) { setBar(96); return res(); }   /* 3e regard : viser la 1re scene, pas la 1re video du DOM */
     var ended=false;
     function ok(){ if(ended) return; ended=true; setBar(96); res(); }
     if(v.readyState>=3) return ok();

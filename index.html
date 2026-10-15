@@ -1024,6 +1024,16 @@ html.ld-lock{overflow:hidden}
     <p class="ld-txt" id="ldTxt">Préparation de votre visite…</p>
   </div>
 </div>
+<script>
+/* Saut immediat de l'ecran : cable DES LE PARSE, juste apres l'ecran. Sur liaison lente le
+   script de fin de <body> n'arrive qu'a ~19 s (mesure 3G) : un clic avant cela ne faisait rien
+   et l'ecran restait jusqu'au filet CSS (16,4 s). Ce bloc ne depend de rien d'autre. */
+(function(){var L=document.getElementById('loader');if(!L)return;
+  function s(){L.classList.add('ld-out');document.documentElement.classList.remove('ld-lock');
+    window.__ldSkipped=true;}   /* memorise le saut : l'ecran ne doit plus etre verrouille ensuite */
+  L.addEventListener('click',s);
+  addEventListener('keydown',function(e){if(e.key==='Escape')s();});})();
+</script>
 <div class="film-grain"></div>
 
 <nav class="nav" id="nav">
@@ -2906,14 +2916,18 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
 (function(){
   var L=document.getElementById('loader');
   if(!L) return;
-  /* C1 (revue du 15/10) : sur liaison lente le script s'execute APRES que le filet CSS ait
-     retire l'ecran. Dans ce cas on ne verrouille rien et on ne fait rien — sinon on ajoute
-     html.ld-lock a une page deja visible et le defilement reste bloque ~10 s (mesure : gel
-     29669-18970 ms sur 3G bureau). C'est le filet CSS qui finit le travail. */
-  if(performance.now()>9000 || getComputedStyle(L).visibility==='hidden') return;
   var bar=document.getElementById('ldBar'), txt=document.getElementById('ldTxt'), dom=document.getElementById('ldDom');
   var done=false, finishing=false, bgAsked=false, bgShownAt=0, t0=performance.now();
-  document.documentElement.classList.add('ld-lock');
+  /* N2 : on ne court-circuite plus TOUT sur lien lent (l'ecran restait fige a 8 % de barre
+     pendant ~12 s, lu comme un bug) — on saute seulement le VERROU. Le filet du verrou est
+     arme AVANT de le poser (3e regard) : si une exception survient ensuite, elle desarmerait
+     tous les filets suivants ; le defilement revient quand meme. Et on ne verrouille pas si
+     l'ecran est deja retire par le filet CSS — c'etait le gel de page mesure a 10,7 s. */
+  var tard = performance.now()>9000 || getComputedStyle(L).visibility==='hidden' || window.__ldSkipped;
+  if(!tard){
+    setTimeout(function(){ document.documentElement.classList.remove('ld-lock'); }, Math.max(0, 12000-performance.now()));
+    document.documentElement.classList.add('ld-lock');
+  }
   function setBar(p){ if(bar) bar.style.width=Math.max(8,Math.min(100,p))+'%'; }
   /* C7 (revue) : sur liaison rapide les 3 textes d'etape se succedaient en ~64 ms -> annonces
      lecteur d'ecran hachees. On ne reprend pas la main avant 500 ms (sauf 'Bienvenue'). */
@@ -2921,12 +2935,12 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
   function setTxt(s, force){ var now=performance.now(); if(!force && now-lastTxt<500) return; lastTxt=now; if(txt) txt.textContent=s; }
   /* sortie : si la photo de fond a ete demandee, on la laisse s'installer 350 ms
      (borne 900 ms). Sans photo demandee (3G / liaison lente) on sort tout de suite. */
-  function finish(user){ if(done||finishing) return;
-    if(user || !bgAsked){ reveal(); return; }   /* clic/Echap : on sort tout de suite */
-    finishing=true; var t0=performance.now();
+  function finish(){ if(done||finishing) return;
+    if(!bgAsked){ reveal(); return; }
+    finishing=true; var tf=performance.now();   /* tf : ne pas masquer le t0 de l'IIFE (3e regard) */
     var iv=setInterval(function(){
       var vu = bgShownAt ? performance.now()-bgShownAt : 0;
-      if(vu>=350 || performance.now()-t0>=900){ clearInterval(iv); reveal(); }
+      if(vu>=350 || performance.now()-tf>=900){ clearInterval(iv); reveal(); }
     }, 40); }
   function reveal(){ if(done) return; done=true; setBar(100); setTxt('Bienvenue', true);
     /* duree visible mini 700 ms (depuis le debut de navigation) : jamais de flash */
@@ -2943,12 +2957,10 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
     if(dom){ dom.style.opacity='0'; setTimeout(function(){ dom.textContent=DOMS[di]; dom.style.opacity='1'; }, 180); } }, 2100);
   if(dom) dom.textContent=DOMS[0];
   /* C2 (revue) : le filet etait ancre a l'EXECUTION du script — sur 3G il tombait a ~29 s au
-     lieu de 10 s. Ancre sur la NAVIGATION, et un second filet (12 s) qui retire le verrou quoi
-     qu'il arrive : le defilement ne peut plus rester bloque. */
+     lieu de 10 s. Il est desormais ancre sur la NAVIGATION (le filet du verrou, lui, est arme
+     plus haut, avant que le verrou ne soit pose). */
   var guard=setTimeout(finish, Math.max(0, 10000-performance.now()));
-  setTimeout(function(){ document.documentElement.classList.remove('ld-lock'); }, Math.max(0, 12000-performance.now()));
-  L.addEventListener('click', function(){ finish(true); });
-  addEventListener('keydown', function(e){ if(e.key==='Escape') finish(true); });
+
   /* fond PHOTO (decor) — hors du chemin critique. Deux declencheurs seulement :
        - `gatePolices()` : jalon polices < 2,5 s (le VRAI debit ; le temps d'arrivee du HTML
          ne dit rien, il est compresse et servi par un CDN — mesure du 15/10) ;
@@ -2964,7 +2976,9 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
     /* priorite HAUTE : mesure du 15/10 — en priorite basse la requete n'aboutissait jamais
        (affamee derriere le film) et l'ecran se levait avant l'image. */
     try { im.fetchPriority='high'; } catch(e){}
-    im.src=u; im.onload=show; im.onerror=function(){ if(im.decode) im.decode().then(show,show); };
+    /* N4 : sur erreur on ne compte PAS le decor comme affiche (sinon +350 ms de sortie
+       pour une image absente) — on rend la main tout de suite. */
+    im.src=u; im.onload=show; im.onerror=function(){ bgAsked=false; };
   }
   /* C4 (revue) : les 250 ms de garde faisaient perdre la course au decor sur bureau
      (`done` basculait avant). `loadBg` teste deja `done` : plus de minuterie. */
@@ -2987,7 +3001,7 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
     im.src=hero; }).then(function(){ maybeBg(); });
   /* jalon 3 — 1re video, BORNEE : jamais plus de 5 s d'attente (2,0 Mo = 5 s en 4G, 40 s en 3G) */
   var p3=new Promise(function(res){
-    var v=document.querySelector('.film-vid, video'); if(!v) { setBar(96); return res(); }
+    var v=document.querySelector('.film-vid[data-v="0"], video'); if(!v) { setBar(96); return res(); }   /* 3e regard : viser la 1re scene, pas la 1re video du DOM */
     var ended=false;
     function ok(){ if(ended) return; ended=true; setBar(96); res(); }
     if(v.readyState>=3) return ok();
