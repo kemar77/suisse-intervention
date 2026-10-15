@@ -2958,7 +2958,7 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
   function loadBg(){
     var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked) return;   /* deja demande ou ecran sorti : ZERO octet */
     bgAsked=true;
-    var u='assets/banque/exterieurs/loader-paysage.webp?v=20261016c';
+    var u='assets/banque/exterieurs/loader-paysage.webp?v=20261016e';
     var im=new Image();
     function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); bgShownAt=performance.now(); }
     /* priorite HAUTE : mesure du 15/10 — en priorite basse la requete n'aboutissait jamais
