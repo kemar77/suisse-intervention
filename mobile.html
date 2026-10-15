@@ -541,8 +541,11 @@ main#film::-webkit-scrollbar{display:none}
   .sn-txt p{font-size:.78rem}
   .val{font-size:.72rem;margin-bottom:5px}
   .card-cta{padding:7px 11px;font-size:.7rem}
-  .hotspot .hs-label{font-size:11.5px;padding:4px 9px}
-  .hotspot .hs-ring{width:14px;height:14px}
+  /* 16/10 : ces deux lignes ANNULaient la demande du client (« EN SAVOIR + plus visible »)
+     sur les telephones a ecran court — elles remettaient 11,5 px / 14 px, soit moins que
+     l'ancienne valeur. On garde le gain sans elargir : 12 px / 16 px. */
+  .hotspot .hs-label{font-size:12px;padding:3px 10px}
+  .hotspot .hs-ring{width:16px;height:16px}
   .sn-panel .pin{padding-top:64px}
   .pin h2{font-size:1.15rem;margin-bottom:10px}
   .pcard{aspect-ratio:16/5.5;margin-bottom:7px}
