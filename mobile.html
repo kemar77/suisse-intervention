@@ -29,6 +29,8 @@
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/Inter-600.woff2') format('woff2')}
 @font-face{font-family:'Inter Tight';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/InterTight-600.woff2') format('woff2')}
 @font-face{font-family:'Inter Tight';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/InterTight-700.woff2') format('woff2')}
+/* 15/10 : police d'affichage du titre — Bungee Outline (OFL), équivalent libre de Zelvane */
+@font-face{font-family:'Bungee Outline';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/BungeeOutline-Regular.woff2') format('woff2')}
 :root{
   --bg:#0d1520; --bg-deep:#0a111a; --surface:#121b28; --night:#1e2a45;
   --cream:#f5efe3; --cream-80:rgba(245,239,227,.80); --cream-60:rgba(245,239,227,.60); --cream-40:rgba(245,239,227,.40);
@@ -96,8 +98,8 @@ button{font-family:inherit}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,26,.55) 0%,rgba(10,17,26,.1) 34%,rgba(10,17,26,.88) 78%,var(--bg-deep) 100%)}
 .hero-content{position:relative;max-width:560px}
 /* h1 + lead = calibrage VERBATIM réel @375 (index.html L567 + L74) : h1 clamp(2.2rem,12vw,4rem), lead 19px */
-.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.2rem,12vw,4rem);letter-spacing:-.03em;line-height:1.02;margin-bottom:clamp(16px,2.6vh,28px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
-.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.hero h1{font-family:'Bungee Outline','Inter Tight',var(--font-display);font-weight:400;font-size:clamp(1.4rem,6.8vw,2.6rem);letter-spacing:.01em;line-height:1.12;margin-bottom:clamp(16px,2.6vh,28px);text-shadow:0 2px 4px rgba(0,0,0,.75),0 3px 18px rgba(0,0,0,.6)}
+.hero h1 em{font-style:normal;font-weight:400;color:var(--accent);letter-spacing:.01em}
 .hero .lead{color:var(--cream-80);font-size:19px;line-height:1.6;max-width:65ch;margin-bottom:22px}
 .lead-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;padding:0}
 .lead-list li{position:relative;padding-left:16px;font-size:.9rem;color:var(--cream-80);line-height:1.6}
@@ -138,7 +140,7 @@ main#film::-webkit-scrollbar{display:none}
 .snv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-deep)}
 /* FLOU fin de clip — verbatim desktop (L232) : la dernière image devient toile de fond floutée
    pour DÉMARQUER la carte produit. Le scale ne travaille QUE ici — jamais pendant la lecture. */
-.snv.blur{filter:blur(13px) brightness(.9) saturate(1.03);transform:scale(1.05);transition:filter .8s ease,transform .8s ease}
+.snv.blur{filter:brightness(.88) saturate(1.03);transform:scale(1.05);transition:filter .8s ease,transform .8s ease}
 /* 01/09 (GO Boss #1) : scène 0 — push-in miroir desktop (transform GPU, ultra net) */
 @keyframes kbScene0{from{transform:scale(1)}to{transform:scale(1.14)}}
 .sn[data-scene="0"] .snv{transform-origin:56% 44%;animation:kbScene0 12s linear forwards}
@@ -212,12 +214,12 @@ main#film::-webkit-scrollbar{display:none}
    En flux (pas en absolu --x/--y) : mobile.html pose la pilule SOUS la carte, dans l'ordre
    carte → hotspot → texte = l'équivalent du slot fixe MF-05 du site réel 31/08. */
 .hotspot{display:flex;align-items:center;gap:10px;background:none;border:0;cursor:pointer;padding:0}
-.hotspot .hs-ring{position:relative;width:14px;height:14px;flex-shrink:0}
-.hotspot .hs-ring::before{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(201,162,84,.6)}
-.hotspot .hs-ring::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:1px solid rgba(201,162,84,.6);animation:hsPulse 2.2s cubic-bezier(.16,1,.3,1) infinite}
+.hotspot .hs-ring{position:relative;width:18px;height:18px;flex-shrink:0}
+.hotspot .hs-ring::before{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px rgba(201,162,84,.75)}
+.hotspot .hs-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1.5px solid var(--accent);animation:hsPulse 2.2s cubic-bezier(.16,1,.3,1) infinite}
 .hotspot:focus-visible .hs-ring::before{transform:scale(1.35)}
 @keyframes hsPulse{0%{transform:scale(.6);opacity:1}70%{transform:scale(1.5);opacity:0}100%{transform:scale(1.5);opacity:0}}
-.hotspot .hs-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(13,21,32,.72);border:1px solid rgba(201,162,84,.3);padding:5px 11px;border-radius:999px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);white-space:nowrap}
+.hotspot .hs-label{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(13,21,32,.88);border:1px solid rgba(201,162,84,.6);padding:7px 13px;border-radius:999px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);white-space:nowrap;box-shadow:0 5px 16px rgba(0,0,0,.35)}
 
 /* REC / POV — scènes 10-11 */
 .osd{position:absolute;top:89px;left:14px;font:600 .62rem/1.7 ui-monospace,monospace;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.7);display:none;pointer-events:none}  /* 01/09 (Boss) : baissé de 64px → 89px — le badge REC/CAM était écrasé par la timeline 07H-23H */
@@ -345,7 +347,7 @@ main#film::-webkit-scrollbar{display:none}
 .hub-btn:hover{transform:translateY(-2px);border-color:rgba(201,162,84,.55)}
 .hub-btn .hub-flag{width:44px;height:44px;border-radius:11px}
 .hub-flag{width:44px;height:44px;border-radius:11px;flex:none;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.35)}
-.hub-flag svg{display:block;width:100%;height:100%}
+.hub-flag svg,.hub-flag img{display:block;width:100%;height:100%;object-fit:contain}
 @keyframes hubPulse{0%,100%{box-shadow:0 14px 40px rgba(0,0,0,.45),0 0 0 0 rgba(245,239,227,.25)}50%{box-shadow:0 14px 40px rgba(0,0,0,.45),0 0 0 14px rgba(245,239,227,0)}}
 .hub-panel{position:fixed;bottom:88px;right:14px;z-index:102;width:calc(100vw - 28px);max-height:76dvh;overflow-y:auto;display:none;
   border:1px solid rgba(245,239,227,.16);border-radius:20px;color:var(--cream);
@@ -386,9 +388,9 @@ main#film::-webkit-scrollbar{display:none}
 /* ═══ SEO — bouton « i » + panneau Informations complètes (miroir verbatim réel L751-766,
      format mobile : tiroir pleine largeur depuis la droite, au-dessus du drapeau hub) ═══ */
 /* t67 : style + position = réels verbatim (L751 base + override mobile L891 bottom:96 right:16) */
-.seo-btn{position:fixed;bottom:96px;right:16px;z-index:95;width:30px;height:30px;border-radius:50%;
-  border:1px solid rgba(245,239,227,.18);background:rgba(245,239,227,.1);color:rgba(245,239,227,.55);
-  font-size:13px;font-weight:600;cursor:pointer;opacity:.55;transition:opacity .25s}
+.seo-btn{position:fixed;bottom:96px;right:16px;z-index:95;width:38px;height:38px;border-radius:50%;
+  border:1.5px solid rgba(201,162,84,.55);background:rgba(13,21,32,.6);color:#f5efe3;
+  font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.32);opacity:.92;transition:opacity .25s}
 .seo-btn:hover,.seo-btn.on{opacity:1}
 .seo-panel{position:fixed;top:0;right:0;z-index:104;width:100vw;height:100dvh;display:flex;flex-direction:column;
   background:rgba(13,21,32,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -506,9 +508,9 @@ main#film::-webkit-scrollbar{display:none}
 .chips span{font-size:.6rem;padding:3px 8px}
 .val{font-size:.8rem;margin-bottom:8px}
 .card-cta{padding:9px 13px;font-size:.76rem}
-.hotspot .hs-label{font-size:9.5px;padding:4px 9px}
+.hotspot .hs-label{font-size:11px;padding:5px 10px}
 .hotspot{margin-top:2px}
-.hotspot .hs-ring{width:11px;height:11px}
+.hotspot .hs-ring{width:15px;height:15px}
 .sn-txt h2{font-size:clamp(1.15rem,5.4vw,1.7rem);margin-bottom:4px}
 .sn-txt p{font-size:.85rem}
 .sn-txt .num{font-size:.6rem;margin-bottom:4px}
@@ -593,17 +595,17 @@ main#film::-webkit-scrollbar{display:none}
 .sim-recall-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:380px){.sim-results{grid-template-columns:1fr 1fr}.sim-stat b{font-size:1rem}}
 </style>
-<script type="application/ld+json"> {"@context":"https://schema.org","@type":"LocalBusiness","name":"Suisse Intervention","description":"Installation informatique, TV, Wi-Fi, photovoltaïque et vidéosurveillance à domicile.","address":{"@type":"PostalAddress","streetAddress":"Chemin du Grand-Clos 7","postalCode":"1896","addressLocality":"Vouvry","addressRegion":"Valais","addressCountry":"CH"},"telephone":"+41 79 856 78 90","email":"info@suisseintervention.ch","areaServed":["Vouvry","Monthey","Saint-Maurice","Valais","Vaud","Fribourg","Genève"],"openingHours":"Mo-Su 07:00-22:00","priceRange":"Sur devis","makesOffer":[ {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vente et installation d'ordinateurs et imprimantes"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Installation de télévision et rétroprojecteur"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Réseaux Wi-Fi, switch et câblage Ethernet"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Photovoltaïque clé en main avec onduleur et batterie"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vidéosurveillance et surveillance à distance"}}]} </script>
+<script type="application/ld+json"> {"@context":"https://schema.org","@type":"LocalBusiness","name":"Suisse Intervention","description":"Installation informatique, TV, Wi-Fi, photovoltaïque et vidéosurveillance à domicile.","address":{"@type":"PostalAddress","streetAddress":"Chemin du Grand-Clos 7","postalCode":"1896","addressLocality":"Vouvry","addressRegion":"Valais","addressCountry":"CH"},"telephone":"+41 79 908 92 95","email":"info@suisseintervention.ch","areaServed":["Vouvry","Monthey","Saint-Maurice","Valais","Vaud","Fribourg","Genève"],"openingHours":"Mo-Su 07:00-22:00","priceRange":"Sur devis","makesOffer":[ {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vente et installation d'ordinateurs et imprimantes"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Installation de télévision et rétroprojecteur"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Réseaux Wi-Fi, switch et câblage Ethernet"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Photovoltaïque clé en main avec onduleur et batterie"}}, {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vidéosurveillance et surveillance à distance"}}]} </script>
 </head>
 <body>
 
 <nav class="nav" id="nav">
   <a class="nav-brand" href="#top" data-goto="hero">
-    <img src="logo-SOFIANE-1.png" alt="Drapeau suisse — Suisse Intervention">
+    <img src="assets/logo/logo-suisse-intervention.webp" alt="Suisse Intervention — logo officiel">
     <div class="brand-name">SUISSE INTERVENTION<small>VD · VS · FR · GE</small></div>
   </a>
   <!-- ☎ = miroir réel index.html L969 + L588 : seul le ☎ apparaît en mobile (numéro caché) -->
-  <a href="tel:+41798567890" class="nav-tel" aria-label="Appeler Suisse Intervention">☎</a>
+  <a href="tel:+41799089295" class="nav-tel" aria-label="Appeler Suisse Intervention">☎</a>
   <button class="burger" id="navBurger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
 </nav>
 <!-- mnav = VERBATIM index.html L974-981 (mnav réel @375) — même lien " TV &amp; Multimédia " manquant -->
@@ -613,7 +615,7 @@ main#film::-webkit-scrollbar{display:none}
   <a href="#film" data-goto="scene:5">Énergie solaire</a>
   <a href="#film" data-goto="scene:9">Sécurité</a>
   <a href="#contact" data-goto="sec:contact" class="mnav-cta">Prendre RDV</a>
-  <a href="tel:+41798567890" class="mnav-tel">☎&nbsp;+41 79 856 78 90</a>
+  <a href="tel:+41799089295" class="mnav-tel">☎&nbsp;+41 79 908 92 95</a>
 </div>
 
 <!-- RAIL points -->
@@ -639,8 +641,7 @@ main#film::-webkit-scrollbar{display:none}
       <button class="btn btn-outline" data-goto="scene:5">Photovoltaïque &amp; Batteries</button>
     </div>
     <div class="hero-stats">
-      <div class="stat"><strong data-count="847">0</strong><span>Interventions</span></div>
-      <div class="stat"><strong data-count="340">0</strong><span>kCHF économisés</span></div>
+      <div class="stat"><strong>Plus de 500</strong><span>Interventions</span></div>
       <div class="stat"><strong data-count="99">0</strong><span>% Satisfaction</span></div>
       <div class="stat"><strong data-count="12">0</strong><span>Ans d'expérience</span></div>
     </div>
@@ -915,10 +916,10 @@ main#film::-webkit-scrollbar{display:none}
 
   <!-- FINALE -->
   <section class="sn-finale" data-scene="finale">
-    <div class="finale-logo"><img src="logo-SOFIANE-1.png" alt="Suisse Intervention"><span class="name">SUISSE INTERVENTION</span></div>
+    <div class="finale-logo"><img src="assets/logo/logo-suisse-intervention.webp" alt="Suisse Intervention"><span class="name">SUISSE INTERVENTION</span></div>
     <p class="finale-p">Informatique, sécurité, photovoltaïque et batteries.<br>Des solutions haut de gamme pour le Valais.</p>
     <div><a class="finale-btn" href="#contact" data-goto="sec:contact">Demander votre intervention →</a></div>
-    <a class="finale-tel" href="tel:+41798567890"><strong>+41 79 856 78 90</strong><span>Réponse rapide, 7j/7</span></a>
+    <a class="finale-tel" href="tel:+41799089295"><strong>+41 79 908 92 95</strong><span>Réponse rapide, 7j/7</span></a>
     <p class="finale-serv"><span>Informatique</span><i>·</i><span>Photovoltaïque</span><i>·</i><span>Batteries</span><i>·</i><span>TV &amp; home cinéma</span><i>·</i><span>Sécurité</span></p>
     <a class="next-link" data-goto="sec:method">Découvrir notre méthode ↓</a>
     <p class="finale-foot"><span>Chemin du Grand-Clos 7, 1896 Vouvry</span><br>© 2026 Suisse Intervention</p>
@@ -929,13 +930,13 @@ main#film::-webkit-scrollbar{display:none}
 <section class="sec" id="method" style="padding-top:56px">
   <p class="sec-label">Notre méthode</p>
   <h2 class="h2">Simple du premier appel<br><em>à la mise en service</em></h2>
-  <div class="mstep"><span class="mnum">01</span><h3>Vous appelez, on écoute</h3><p>Un seul interlocuteur : décrivez votre besoin, on vous conseille sur le matériel et la solution adaptée.</p><ul><li>Conseil personnalisé</li><li>Matériel du magasin de votre choix</li><li>Réponse rapide, 7j/7</li></ul><a class="cta" href="tel:+41798567890">Appeler maintenant →</a></div>
+  <div class="mstep"><span class="mnum">01</span><h3>Vous appelez, on écoute</h3><p>Un seul interlocuteur : décrivez votre besoin, on vous conseille sur le matériel et la solution adaptée.</p><ul><li>Conseil personnalisé</li><li>Matériel du magasin de votre choix</li><li>Réponse rapide, 7j/7</li></ul><a class="cta" href="tel:+41799089295">Appeler maintenant →</a></div>
   <div class="mstep"><span class="mnum">02</span><h3>Devis gratuit, sans surprise<span class="badge-or">⭐ Offert</span></h3><p>Étude personnalisée à domicile et devis clair — pour un PC, un Wi-Fi complet ou une toiture solaire.</p><ul><li>Étude &amp; dimensionnement offerts</li><li>Options expliquées simplement</li><li>Vous décidez, sans pression</li></ul><a class="cta" href="#contact">Demander mon devis →</a></div>
   <div class="mstep"><span class="mnum">03</span><h3>Installation &amp; suivi</h3><p>Installation soignée à domicile, configuration complète, mise en service et suivi — vous n'avez qu'à profiter.</p><ul><li>Intervention 7j/7 sous 24 h</li><li>Config A à Z incluse</li><li>Suivi &amp; maintenance</li></ul><a class="cta" href="#contact">Prendre rendez-vous →</a></div>
   <div class="urgence">
     <h3>Urgence dépannage — 7j/7</h3>
     <p>Panne de courant, réseau ou caméra : intervention sous 24 h à Vouvry, Monthey et Saint-Maurice.</p>
-    <div class="urg-ctas"><a class="urg-tel" href="tel:+41798567890">Appeler · +41 79 856 78 90</a></div>
+    <div class="urg-ctas"><a class="urg-tel" href="tel:+41799089295">Appeler · +41 79 908 92 95</a></div>
   </div>
   <div class="trow">
     <div class="tcard"><div class="stars">★★★★★</div><p>« Installation impeccable, explications claires et suivi parfait. »</p><div class="author"><div><strong>Jean-Marc B.</strong><span>Vouvry</span></div></div></div>
@@ -967,7 +968,7 @@ main#film::-webkit-scrollbar{display:none}
   <a class="srow" href="#film" data-goto="scene:6"><span class="no">05</span><span class="tt">Batteries</span><span class="desc">Stockage 2,56 à 15,36 kWh — batteries de ce type, rétrofit sur installation existante sans travaux.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="#film" data-goto="scene:4"><span class="no">06</span><span class="tt">Transfert de données</span><span class="desc">Fichiers, photos, logiciels, e-mails, favoris : de l'ancien PC vers le nouveau, rien ne se perd.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="#film" data-goto="scene:9"><span class="no">07</span><span class="tt">Vidéosurveillance</span><span class="desc">Caméras PoE 4K, alarmes, alertes en temps réel, accès smartphone.</span><span class="go">Voir en scène →</span></a>
-  <a class="srow" href="tel:+41798567890"><span class="no">08</span><span class="tt">Dépannage express 7j/7</span><span class="desc">Diagnostic, réparation et mise en service à domicile — intervention sous 24 h.</span><span class="go">Appeler maintenant →</span></a>
+  <a class="srow" href="tel:+41799089295"><span class="no">08</span><span class="tt">Dépannage express 7j/7</span><span class="desc">Diagnostic, réparation et mise en service à domicile — intervention sous 24 h.</span><span class="go">Appeler maintenant →</span></a>
 </section>
 
 <section class="sec" id="cibles">
@@ -999,7 +1000,7 @@ main#film::-webkit-scrollbar{display:none}
     <details class="faq-item"><summary>Pouvez-vous acheter mon matériel à ma place ?</summary><div class="fa"><div class="fa-in"><p>Oui : achetez où vous voulez (Fnac, Interdiscount, Fust, MediaMarkt, Conforama…) ou laissez-nous conseiller le modèle adapté — nous nous occupons de la livraison, de l'installation et de la configuration complète.</p></div></div></details>
     <details class="faq-item"><summary>Installez-vous des TV et des rétroprojecteurs ?</summary><div class="fa"><div class="fa-in"><p>Oui : fixation murale ou sur pied, écran de projection fixe ou motorisé, branchements (box, consoles, lecteurs), réglages image et son, intégration d'une barre de son.</p></div></div></details>
     <details class="faq-item"><summary>Quelle est la durée d'une installation photovoltaïque ?</summary><div class="fa"><div class="fa-in"><p>2 à 5 jours ouvrables selon la taille du chantier, une fois l'étude validée — mise en service incluse.</p></div></div></details>
-    <details class="faq-item"><summary>Intervenez-vous en urgence en cas de panne ?</summary><div class="fa"><div class="fa-in"><p>Oui : dépannage rapide à domicile ou à distance. Appelez le +41 79 856 78 90.</p></div></div></details>
+    <details class="faq-item"><summary>Intervenez-vous en urgence en cas de panne ?</summary><div class="fa"><div class="fa-in"><p>Oui : dépannage rapide à domicile ou à distance. Appelez le +41 79 908 92 95.</p></div></div></details>
   </div>
 </section>
 
@@ -1007,7 +1008,7 @@ main#film::-webkit-scrollbar{display:none}
   <p class="sec-label" style="color:var(--accent)">Parlons de votre projet</p>
   <h2 class="h2">Demandez votre <em style="color:var(--accent)">intervention</em></h2>
   <div class="contact-grid">
-    <div class="contact-card"><h3>Nous appeler</h3><div class="big"><a href="tel:+41798567890">+41 79 856 78 90</a></div></div>
+    <div class="contact-card"><h3>Nous appeler</h3><div class="big"><a href="tel:+41799089295">+41 79 908 92 95</a></div></div>
     <div class="contact-card"><h3>Nous écrire</h3><div class="big"><a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a></div></div>
     <div class="contact-card"><h3>Nous rencontrer</h3><p>Chemin du Grand-Clos 7<br>1896 Vouvry, Valais</p></div>
     <form class="form" id="contactForm" novalidate>
@@ -1026,10 +1027,10 @@ main#film::-webkit-scrollbar{display:none}
   <div class="footer-filigrane">
     <svg viewBox="0 0 400 200" fill="none" stroke="currentColor" stroke-width="1"><path d="M60 190 L60 100 L120 70 L200 90 L280 70 L340 100 L340 190Z"></path><rect x="120" y="90" width="80" height="30"></rect><rect x="200" y="90" width="80" height="30"></rect></svg>
   </div>
-  <div class="finale-logo" style="justify-content:flex-start"><img src="logo-SOFIANE-1.png" alt="Suisse Intervention"><span class="name">SUISSE INTERVENTION</span></div>
+  <div class="finale-logo" style="justify-content:flex-start"><img src="assets/logo/logo-suisse-intervention.webp" alt="Suisse Intervention"><span class="name">SUISSE INTERVENTION</span></div>
   <p>Informatique, sécurité, photovoltaïque et batteries. Des solutions haut de gamme pour les particuliers et les PME du Valais.</p>
   <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">Informatique</a></li><li><a href="#services">Photovoltaïque</a></li><li><a href="#services">Batteries</a></li></ul></div>
-  <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+41798567890">+41 79 856 78 90</a></li><li><a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a></li><li><a href="#top">Chemin du Grand-Clos 7, Vouvry</a></li></ul></div>
+  <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+41799089295">+41 79 908 92 95</a></li><li><a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a></li><li><a href="#top">Chemin du Grand-Clos 7, Vouvry</a></li></ul></div>
   <div class="footer-col"><h4>Légal</h4><ul><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="confidentialite.html">Confidentialité</a></li><li><a href="conditions.html">Conditions</a></li></ul></div>
   <div class="footer-bottom"><p>© 2026 Suisse Intervention · Chemin du Grand-Clos 7, 1896 Vouvry · CHE-299.440.840 · <a href="index.html?desktop=1">Version ordinateur</a></p></div>
 </footer>
@@ -1088,17 +1089,17 @@ main#film::-webkit-scrollbar{display:none}
       <li><a href="#contact" data-goto="sec:contact">Prendre rendez-vous — devis gratuit</a></li>
       <li><a href="#film" data-goto="scene:5">Découvrir la solution photovoltaïque</a></li>
     </ul>
-    <p style="margin-top:16px"><strong>Suisse Intervention</strong> — Chemin du Grand-Clos 7, 1896 Vouvry · <a href="tel:+41798567890">+41 79 856 78 90</a> · <a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a> · 7j/7.</p>
+    <p style="margin-top:16px"><strong>Suisse Intervention</strong> — Chemin du Grand-Clos 7, 1896 Vouvry · <a href="tel:+41799089295">+41 79 908 92 95</a> · <a href="mailto:info@suisseintervention.ch">info@suisseintervention.ch</a> · 7j/7.</p>
   </div>
 </aside>
 
 <div class="hub" id="hub">
   <button class="hub-btn" id="hubBtn" aria-label="Assistance client — ouvrir l'assistance" aria-expanded="false">
-    <span class="hub-flag" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#DA291C"/><path d="M10.6 4.5h2.8v6.1h6.1v2.8h-6.1v6.1h-2.8v-6.1H4.5v-2.8h6.1z" fill="#fff"/></svg></span>
+    <span class="hub-flag" aria-hidden="true"><img src="assets/logo/logo-suisse-intervention.webp" alt=""></span>
   </button>
   <div class="hub-panel" id="hubPanel">
     <div class="hub-head">
-      <span class="hub-flag" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#DA291C"/><path d="M10.6 4.5h2.8v6.1h6.1v2.8h-6.1v6.1h-2.8v-6.1H4.5v-2.8h6.1z" fill="#fff"/></svg></span>
+      <span class="hub-flag" aria-hidden="true"><img src="assets/logo/logo-suisse-intervention.webp" alt=""></span>
       <div>
         <h4>Assistance Suisse Intervention</h4>
         <p>Un seul interlocuteur — 7j/7 · VD·VS·FR·GE</p>
@@ -1107,8 +1108,8 @@ main#film::-webkit-scrollbar{display:none}
     </div>
     <div class="hub-body">
       <!-- 01/09 (GO Boss #6) : WhatsApp + actions en TÊTE du panneau — visibles dès la 1ʳᵉ page -->
-      <a href="https://wa.me/41798567890" class="hub-action wa">WhatsApp direct<span class="urgent">réponse rapide</span></a>
-      <a href="tel:+41798567890" class="hub-action">Appeler maintenant<span class="urgent">7j/7</span></a>
+      <a href="https://wa.me/41799089295" class="hub-action wa">WhatsApp direct<span class="urgent">réponse rapide</span></a>
+      <a href="tel:+41799089295" class="hub-action">Appeler maintenant<span class="urgent">7j/7</span></a>
       <a href="#contact" data-goto="sec:contact" class="hub-action">Prendre RDV<span class="urgent">Devis gratuit</span></a>
       <p class="hub-label">Votre projet ?</p>
       <button class="hub-q" data-goto="scene:4"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8.5 21h7M12 17.5V21"/></svg>Ordinateur &amp; dépannage</button>
@@ -1641,7 +1642,7 @@ main#film::-webkit-scrollbar{display:none}
 
   /* ── ④ config.json (assistance client, éditable par admin.php) ── */
   (function(){
-    var DEFAUT = { telephone_href: '+41798567890', telephone: '+41 79 856 78 90', email: 'info@suisseintervention.ch' };
+    var DEFAUT = { telephone_href: '+41799089295', telephone: '+41 79 908 92 95', email: 'info@suisseintervention.ch' };
     fetch('config.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(c){
       if (!c) return;
       if (!c.telephone_href && c.telephone) c.telephone_href = c.telephone.replace(/[^0-9+]/g, '');
@@ -1681,7 +1682,7 @@ main#film::-webkit-scrollbar{display:none}
       var subj = 'Demande d’intervention — ' + nom;
       window.location.href = 'mailto:info@suisseintervention.ch?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
       var esc = nom.replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; });
-      note.innerHTML = 'Merci ' + esc + ' — votre demande s’ouvre dans votre messagerie (<strong>info@suisseintervention.ch</strong>).<br>Urgent ? Appelez le <a href="tel:+41798567890">+41 79 856 78 90</a>.';
+      note.innerHTML = 'Merci ' + esc + ' — votre demande s’ouvre dans votre messagerie (<strong>info@suisseintervention.ch</strong>).<br>Urgent ? Appelez le <a href="tel:+41799089295">+41 79 908 92 95</a>.';
       note.hidden = false;
       if (window.__mfL) window.__mfL('FORM', 'mailto envoyé — ' + nom);
     });
