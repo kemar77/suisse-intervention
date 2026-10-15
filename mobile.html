@@ -14,11 +14,15 @@
 <meta property="og:description" content="Siège social et atelier à Vouvry (Valais). Vente, installation et dépannage 7j/7 : ordinateurs, imprimantes, TV &amp; rétroprojecteurs, Wi-Fi, photovoltaïque, batteries, caméras. Domaine d'intervention : cantons de Vaud, Valais, Fribourg &amp; Genève. Devis gratuit.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CH">
-<meta property="og:url" content="https://kemar77.github.io/suisse-intervention/mobile.html">
+<meta property="og:url" content="https://kemar77.github.io/suisse-intervention/">
 <meta property="og:site_name" content="Suisse Intervention">
 <meta property="og:image" content="https://kemar77.github.io/suisse-intervention/og-image.jpg?v=20261016c">
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://kemar77.github.io/suisse-intervention/mobile.html">
+<!-- 15/10 : la page mobile etait en NOINDEX alors que index.html la sert par redirection JS
+     aux ecrans <= 768 px. Googlebot Smartphone (viewport mobile) suit donc cette redirection,
+     tombe ici et voyait "noindex" => URL EXCLUE DE L'INDEX. Corrige en configuration m-dot
+     standard : page indexable + canonical vers l'URL de reference (la racine). -->
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kemar77.github.io/suisse-intervention/">
 <meta name="theme-color" content="#0D1520">
 <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=20261016c">
 <link rel="apple-touch-icon" href="favicon.png?v=20261016c">
