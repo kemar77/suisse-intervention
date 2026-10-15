@@ -29,8 +29,6 @@
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/Inter-600.woff2') format('woff2')}
 @font-face{font-family:'Inter Tight';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/InterTight-600.woff2') format('woff2')}
 @font-face{font-family:'Inter Tight';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/InterTight-700.woff2') format('woff2')}
-/* 15/10 : police d'affichage du titre — Bungee Outline (OFL), équivalent libre de Zelvane */
-@font-face{font-family:'Bungee Outline';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/BungeeOutline-Regular.woff2') format('woff2')}
 :root{
   --bg:#0d1520; --bg-deep:#0a111a; --surface:#121b28; --night:#1e2a45;
   --cream:#f5efe3; --cream-80:rgba(245,239,227,.80); --cream-60:rgba(245,239,227,.60); --cream-40:rgba(245,239,227,.40);
@@ -40,6 +38,7 @@
   --paper:#FBF8F1; --ink:#0D1520; --ink-62:rgba(13,21,32,.62);
   --gold:#C9A96A;
   --font-display:'Inter Tight','Inter',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -98,8 +97,8 @@ button{font-family:inherit}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,26,.55) 0%,rgba(10,17,26,.1) 34%,rgba(10,17,26,.88) 78%,var(--bg-deep) 100%)}
 .hero-content{position:relative;max-width:560px}
 /* h1 + lead = calibrage VERBATIM réel @375 (index.html L567 + L74) : h1 clamp(2.2rem,12vw,4rem), lead 19px */
-.hero h1{font-family:'Bungee Outline','Inter Tight',var(--font-display);font-weight:400;font-size:clamp(1.4rem,6.8vw,2.6rem);letter-spacing:.01em;line-height:1.12;margin-bottom:clamp(16px,2.6vh,28px);text-shadow:0 2px 4px rgba(0,0,0,.75),0 3px 18px rgba(0,0,0,.6)}
-.hero h1 em{font-style:normal;font-weight:400;color:var(--accent);letter-spacing:.01em}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.2rem,12vw,4rem);letter-spacing:-.03em;line-height:1.02;margin-bottom:clamp(16px,2.6vh,28px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
 .hero .lead{color:var(--cream-80);font-size:19px;line-height:1.6;max-width:65ch;margin-bottom:22px}
 .lead-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;padding:0}
 .lead-list li{position:relative;padding-left:16px;font-size:.9rem;color:var(--cream-80);line-height:1.6}
@@ -508,13 +507,30 @@ main#film::-webkit-scrollbar{display:none}
 .chips span{font-size:.6rem;padding:3px 8px}
 .val{font-size:.8rem;margin-bottom:8px}
 .card-cta{padding:9px 13px;font-size:.76rem}
-.hotspot .hs-label{font-size:11px;padding:5px 10px}
+.hotspot .hs-label{font-size:12.5px;padding:6px 12px}
 .hotspot{margin-top:2px}
-.hotspot .hs-ring{width:15px;height:15px}
+.hotspot .hs-ring{width:18px;height:18px}
 .sn-txt h2{font-size:clamp(1.15rem,5.4vw,1.7rem);margin-bottom:4px}
 .sn-txt p{font-size:.85rem}
 .sn-txt .num{font-size:.6rem;margin-bottom:4px}
 /* Palier ≤720 de haut (petits smartphones) */
+/* 15/10 (revue B, bloquant) : ecrans COURTS (<760px) — le hero-content depassait et le titre
+   sortait par le haut (iPhone SE/Galaxy 667px). On compacte pour que le h1 reste visible. */
+/* 15/10 (revue B, #5) : ecrans ETRICTS — les 3 stats tiennent sur une ligne */
+@media (max-width:430px){
+  .hero-stats .stat{padding:0 9px 0 0;flex:0 0 auto}
+  .hero-stats .stat strong{font-size:20px}
+  .hero-stats .stat span{font-size:9.5px;letter-spacing:.05em}
+}
+@media (max-height:760px){
+  .hero{padding-bottom:56px}
+  .hero .lead{font-size:15.5px;line-height:1.45;margin-bottom:12px}
+  .lead-list{gap:5px 14px;margin:6px 0 12px}
+  .lead-list li{font-size:.8rem;line-height:1.4}
+  .hero-ctas{gap:10px}
+  .hero-stats{margin-top:16px;padding-top:12px}
+  .hero-stats .stat strong{font-size:22px}
+}
 @media (max-height:720px){
   .sn-body{gap:7px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
   .card-img{height:76px}
@@ -522,8 +538,8 @@ main#film::-webkit-scrollbar{display:none}
   .sn-txt p{font-size:.78rem}
   .val{font-size:.72rem;margin-bottom:5px}
   .card-cta{padding:7px 11px;font-size:.7rem}
-  .hotspot .hs-label{font-size:8.5px;padding:3px 8px}
-  .hotspot .hs-ring{width:9px;height:9px}
+  .hotspot .hs-label{font-size:11.5px;padding:4px 9px}
+  .hotspot .hs-ring{width:14px;height:14px}
   .sn-panel .pin{padding-top:64px}
   .pin h2{font-size:1.15rem;margin-bottom:10px}
   .pcard{aspect-ratio:16/5.5;margin-bottom:7px}
@@ -633,7 +649,7 @@ main#film::-webkit-scrollbar{display:none}
   <div class="hero-content">
     <!-- Boss 31/08 : césure française voulue — « Votre expert » / (retour ligne) / « Tech & Énergie »
          (T majuscule à Tech, É majuscule à Énergie) ; le 2e paragraphe début SA ligne sur « Un seul » -->
-    <h1>Votre expert<br><em>Tech &amp; Énergie</em></h1>
+    <h1>Votre expert<br><em>tech &amp; énergie</em></h1>
     <p class="lead">Un seul interlocuteur à Vouvry pour tout votre matériel<br>vente, installation et dépannage 7j/7 :</p>
     <ul class="lead-list"><li>Informatique &amp; réseaux Wi-Fi</li><li>TV &amp; home cinéma</li><li>Photovoltaïque &amp; batteries</li><li>Vidéosurveillance &amp; sécurité</li></ul>
     <div class="hero-ctas">
