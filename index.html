@@ -2949,8 +2949,10 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
   }
   /* garde de 250 ms : si l'ecran est deja sorti a cet instant, RIEN n'est telecharge */
   function maybeBg(){ setTimeout(function(){ if(done) return; loadBg(); }, 250); }
-  /* liaison jugee sur le temps d'arrivee du HTML lui-meme */
-  if(performance.now()<=2500) loadBg();
+  /* liaison jugee sur le VRAI debit : le jalon polices (le HTML compresse arrive vite MEME en 3G,
+     il ne dit rien du debit — mesure en ligne du 15/10). > 2,5 s => liaison lente => pas de decor.
+     Sinon repli apres le jalon hero (p2), pour ne jamais voler sa bande passante a l'essentiel. */
+  function gatePolices(){ if(performance.now()<=2500) maybeBg(); }
   /* jalon 1 — polices du 1er ecran : document.fonts.load() DECLENCHE le telechargement
      (document.fonts.ready seul resout avant que les polices soient demandees — mesure du 15/10). */
   function fLoad(spec){ try { return document.fonts.load(spec,'A').catch(function(){}); } catch(e){ return Promise.resolve(); } }
@@ -2958,7 +2960,7 @@ seoPanel.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click'
     ? Promise.all([fLoad('700 16px "Inter Tight"'), fLoad('400 16px "Inter"')])
     : ((document.fonts&&document.fonts.ready)?document.fonts.ready:Promise.resolve());
   p1=Promise.race([p1, new Promise(function(r){ setTimeout(r,3000); })])
-    .then(function(){ setBar(40); setTxt('Préparation de l\'image…'); });
+    .then(function(){ setBar(40); setTxt('Préparation de l\'image…'); gatePolices(); });
   /* jalon 2 — photo hero (celle qui peint le premier ecran) */
   var hero="assets/banque/exterieurs/s0_villa_ancrage.webp?v=20261016b";
   var p2=new Promise(function(res){ var im=new Image(); im.onload=im.onerror=function(){ setBar(78); setTxt('Préparation du film…'); res(); };
