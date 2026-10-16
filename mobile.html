@@ -126,8 +126,9 @@ button{font-family:inherit}
 /* Boss 31/08 : PAS de panneaux derrière les chiffres (n'existe pas desktop) — mise en forme VERBATIM réel
    (index.html L143-148 + override @375 L564-566) : rangée, bord haut 1px, séparateurs 1px, chiffres 26px */
 .hero-stats{display:flex;margin-top:32px;padding-top:24px;border-top:1px solid var(--cream-15);gap:0;flex-wrap:wrap}
-.stat{padding:0 18px 0 0;position:relative}
-.stat:first-child{padding-left:0}
+.stat{padding:0 18px;position:relative}   /* 17/10 (Boss) : la barre separateur est a left:0 —
+   avec un rembourrage a droite seulement, elle collait le chiffre suivant. Rembourrage symetrique. */
+.stat:first-child{padding-left:0;padding-right:18px}
 .stat:not(:first-child)::before{content:'';position:absolute;left:0;top:0;width:1px;height:28px;background:var(--cream-15)}
 .stat strong{display:block;font-family:var(--font-body);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--cream);line-height:1.1}
 .stat span{display:block;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-60);margin-top:4px}
@@ -143,7 +144,8 @@ button{font-family:inherit}
 main#film{height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior-y:auto;background:var(--bg-deep);scrollbar-width:none}
 main#film::-webkit-scrollbar{display:none}
 .sn{position:relative;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:var(--bg-deep)}
-.snv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-deep)}
+.snv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-deep)}   /* 17/10 : la video est desormais PORTRAIT et porte sa
+   propre scene entiere — le fond flou est grave dedans, plus besoin de `contain`. */
 /* 16/10 (Boss) : sur telephone, garder leur texte incruste obligerait a afficher le cadre entier
    dans une bande minuscule. Choix du Boss : la batterie SEULE, plein cadre. Le fichier mobile est
    donc un cadrage PORTRAIT sur l'appareil (720x1280), sans aucun texte -> `cover` convient et
@@ -159,9 +161,9 @@ main#film::-webkit-scrollbar{display:none}
 /* 16/10 : le travelling `panAutonomie` du 02/09 suivait la boule verte de l'ANCIENNE video de nuit.
    La scene 11 joue desormais le plan d'origine de la scene (la villa entiere, 8,12 s) puis le fondu
    vers les trois batteries : ce travelling n'a plus d'objet et decalait le cadre. Retire. */
-.sn-scrim{position:absolute;inset:0;pointer-events:none;
+.sn-scrim{position:absolute;inset:0;pointer-events:none;z-index:2;
   background:linear-gradient(180deg,rgba(10,17,26,.5) 0%,rgba(10,17,26,0) 26%,rgba(10,17,26,0) 40%,rgba(10,17,26,.82) 82%,rgba(10,17,26,.94) 100%)}
-.sn-body{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 16px 22px}
+.sn-body{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 16px 22px}
 .sn-txt{width:min(88vw,340px)}
 /* Placement typo = règle desktop .film-scene (index.html L172-176) :
    num ACCENT + ligne 48px après, h2 display + shadow, p crème .94 + shadow */
@@ -759,7 +761,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="0">
-    <video class="snv" data-src="videos/s1_villa_mob2.mp4?v=20261016c" data-src-h265="videos/s1_villa_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s0_villa_ancrage_poster_mob.webp?v=20261016b" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s1_villa_mob2.mp4?v=20261017b" data-src-h265="videos/s1_villa_mob2_h265.mp4?v=20261017b" poster="assets/banque/exterieurs/s0_villa_ancrage_poster_mob.webp?v=20261016b" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <h2>Tous vos <em>équipements</em></h2>
@@ -769,7 +771,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="1">
-    <video class="snv" data-src="videos/s2_reseau_mob2.mp4?v=20261016c" data-src-h265="videos/s2_reseau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s2_reseau_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s2_reseau_mob2.mp4?v=20261017b" data-src-h265="videos/s2_reseau_mob2_h265.mp4?v=20261017b" poster="assets/banque/interieurs/s2_reseau_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_routeur.webp')"></div><div class="card-body">
@@ -788,7 +790,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="2">
-    <video class="snv" data-src="videos/s3_survol_mob2.mp4?v=20261016c" data-src-h265="videos/s3_survol_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s3_survol_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s3_survol_mob2.mp4?v=20261017b" data-src-h265="videos/s3_survol_mob2_h265.mp4?v=20261017b" poster="assets/banque/exterieurs/s3_survol_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <span class="num">Zone</span> 
@@ -799,7 +801,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="3">
-    <video class="snv" data-src="videos/s3_reseau_mob2.mp4?v=20261016c" data-src-h265="videos/s3_reseau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s3_reseau_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s3_reseau_mob2.mp4?v=20261017b" data-src-h265="videos/s3_reseau_mob2_h265.mp4?v=20261017b" poster="assets/banque/interieurs/s3_reseau_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_routeur_mesh.webp')"></div><div class="card-body">
@@ -818,7 +820,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="4">
-    <video class="snv" data-src="videos/s5_bureau_mob2.mp4?v=20261016c" data-src-h265="videos/s5_bureau_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/v_bureau_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s5_bureau_mob2.mp4?v=20261017b" data-src-h265="videos/s5_bureau_mob2_h265.mp4?v=20261017b" poster="assets/banque/interieurs/v_bureau_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_pc_workstation.webp')"></div><div class="card-body">
@@ -838,7 +840,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="5">
-    <video class="snv" data-src="videos/s5_pv_mob2.mp4?v=20261016c" data-src-h265="videos/s5_pv_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s5_pv_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s5_pv_mob2.mp4?v=20261017b" data-src-h265="videos/s5_pv_mob2_h265.mp4?v=20261017b" poster="assets/banque/exterieurs/s5_pv_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <button class="sim-pv-btn" data-sim="1" aria-label="Lancer ma simulation solaire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>MA SIMULATION</button>
     <div class="sn-body">
@@ -861,7 +863,7 @@ html.ld-lock{overflow:hidden}
   <section class="sn-panel" data-actname="avant">
     <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/ba_apres_toit.webp')" aria-hidden="true"></div>
     <div class="panel-veil" aria-hidden="true"></div>
-    <div class="pin">
+<div class="pin">
       <p class="eyebrow">Avant / Après</p>
       <h2>De l'ancienne toiture à l'installation <em>solaire</em></h2>
       <div class="ba-frame">
@@ -876,7 +878,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="6">
-    <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261016j" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016j" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp?v=20261016j" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261017b" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261017b" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp?v=20261016j" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-e-max-wide.webp?v=20261016m')"></div><div class="card-body">
@@ -896,7 +898,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="7">
-    <video class="snv" data-src="videos/s7_tv_mob2.mp4?v=20261016c" data-src-h265="videos/s7_tv_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/v_salon_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s7_tv_mob2.mp4?v=20261017b" data-src-h265="videos/s7_tv_mob2_h265.mp4?v=20261017b" poster="assets/banque/interieurs/v_salon_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/c_tv_oled.webp')"></div><div class="card-body">
@@ -930,7 +932,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="8">
-    <video class="snv" data-src="videos/s_famille_mob2.mp4?v=20261016c" data-src-h265="videos/s_famille_mob2_h265.mp4?v=20261016c" poster="assets/banque/interieurs/s_famille_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s_famille_mob2.mp4?v=20261017b" data-src-h265="videos/s_famille_mob2_h265.mp4?v=20261017b" poster="assets/banque/interieurs/s_famille_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body"><div class="sn-txt">
       <span class="num">Sérénité</span> 
@@ -941,7 +943,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn" data-scene="9">
-    <video class="snv" data-src="videos/s_camera_mob2.mp4?v=20261016c" data-src-h265="videos/s_camera_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s_camera_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s_camera_mob2.mp4?v=20261017b" data-src-h265="videos/s_camera_mob2_h265.mp4?v=20261017b" poster="assets/banque/exterieurs/s_camera_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_camera.webp')"></div><div class="card-body">
@@ -961,7 +963,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn pov" data-scene="10">
-    <video class="snv" data-src="videos/s10_pov_mob2.mp4?v=20261016c" data-src-h265="videos/s10_pov_mob2_h265.mp4?v=20261016c" poster="assets/banque/lumieres/s10_pov_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s10_pov_mob2.mp4?v=20261017b" data-src-h265="videos/s10_pov_mob2_h265.mp4?v=20261017b" poster="assets/banque/lumieres/s10_pov_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="osd">
       <div class="rec"><i></i>REC</div>
@@ -990,7 +992,7 @@ html.ld-lock{overflow:hidden}
 
   
   <section class="sn pov" data-scene="11">
-    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261016r" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016r" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016r" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261017b" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261017b" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016r" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="osd">
       <div class="rec"><i></i>REC</div>
