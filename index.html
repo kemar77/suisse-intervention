@@ -1559,7 +1559,7 @@ html.ld-lock{overflow:hidden}
       <div class="footer-col"><h4>Légal</h4><ul><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="confidentialite.html">Confidentialité</a></li><li><a href="conditions.html">Conditions</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Suisse Intervention · Chemin du Grand-Clos 7, 1896 Vouvry · 7j/7, 07h00 – 22h00 · CHE-299.440.840 · Retrouvez-nous : <a href="https://www.local.ch/fr/d/vouvry/1896/conseils-et-prestations-en-informatique/suisse-intervention--Vs9O_kStWJVo7nSdgisew" target="_blank" rel="noopener">local.ch</a> · <a href="https://search.ch/tel/vouvry/chemin-du-grandclos-7/suisse-intervention" target="_blank" rel="noopener">search.ch</a> · <a href="https://www.swissyp.com/pro/suisse-intervention" target="_blank" rel="noopener">SwissYP</a> · <a href="https://www.infobel.com/fr/switzerland/suisse_intervention/vouvry/CH101543121/businessdetails.aspx" target="_blank" rel="noopener">Infobel</a></p>
+      <p>© 2026 Suisse Intervention · Chemin du Grand-Clos 7, 1896 Vouvry · 7j/7, 07h00 – 22h00 · CHE-299.440.840</p>
     </div>
   </div>
 </footer>
@@ -1875,7 +1875,7 @@ revealEls.forEach(el => obs.observe(el));
     detailBody.innerHTML =
       (d.brand ? '<img class="prod-brand" src="' + d.brand + '" alt="MARSTEK" loading="lazy" width="480" height="51">' : '') +
       (d.img ? '<img class="prod-img' + (d.cover ? ' cover' : '') + '" src="' + d.img + '" alt="' + d.title + '" loading="lazy">' : '') +
-      '<p class="eyebrow">' + d.eyebrow + '</p><h3>' + d.title + '</h3><p class="dsub">' + d.sub + '</p>' +
+      '<p class="eyebrow">' + d.eyebrow + '</p><h3>' + d.title + '</h3><p class="dsub">' + d.sub + ' <p>© 2026 Suisse Intervention · Chemin du Grand-Clos 7, 1896 Vouvry · 7j/7, 07h00 – 22h00 · CHE-299.440.840 · Retrouvez-nous : <a href="https://www.local.ch/fr/d/vouvry/1896/conseils-et-prestations-en-informatique/suisse-intervention--Vs9O_kStWJVo7nSdgisew" target="_blank" rel="noopener">local.ch</a> · <a href="https://search.ch/tel/vouvry/chemin-du-grandclos-7/suisse-intervention" target="_blank" rel="noopener">search.ch</a> · <a href="https://www.swissyp.com/pro/suisse-intervention" target="_blank" rel="noopener">SwissYP</a> · <a href="https://www.infobel.com/fr/switzerland/suisse_intervention/vouvry/CH101543121/businessdetails.aspx" target="_blank" rel="noopener">Infobel</a></p></p>' +
       ((d.models && d.models.length) ? '<div class="prod-models">' + d.models.map(function(m){ return '<div class="pm"><img src="' + m.img + '" alt="' + m.n + '" loading="lazy"' + (m.p ? ' style="object-position:' + m.p + '"' : '') + '><b>' + m.n + '</b><span>' + m.d + '</span></div>'; }).join('') + '</div>' : '') +
       ((d.specs && d.specs.length) ? '<div class="spec-grid">' + d.specs.map(s=>'<div class="spec"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>').join('') + '</div>' : '') +
       '<div class="dtitle">' + (d.listTitle || '') + '</div><ul class="dlist">' +
