@@ -587,6 +587,13 @@ main#film::-webkit-scrollbar{display:none}
 @media (max-height:720px){
   .sn[data-scene="6"] .card-img, .sn[data-scene="11"] .card-img{height:auto;aspect-ratio:2.286}
 }
+/* 16/10 : sur un ecran TRES court (telephone en paysage, 667x375 mesure), la carte a 330 px
+   de large donne une image de 143 px de haut et la pile carte+texte deborde de 17 px ->
+   `overflow:hidden` rogne le HAUT de l'image. On plafonne la LARGEUR : 128 px / 56 px de haut
+   = ratio 2,286 exact, et le budget vertical redevient celui d'avant (299 px pour 375). */
+@media (max-height:440px){
+  .sn[data-scene="6"] .card, .sn[data-scene="11"] .card{width:128px}
+}
 /* Bouton « démarrer » si autoplay refusé par le téléphone (Data Saver / économie) */
 .play-veil{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(6,10,16,.25)}
 .play-veil.show{display:flex}
@@ -971,7 +978,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- PANNEAU Preuve sociale — toile de fond floutée (nuit villa) + voile + verre (montage PC) -->
   <section class="sn-panel" data-actname="trust">
-    <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016m')" aria-hidden="true"></div>
+    <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016o')" aria-hidden="true"></div>
     <div class="panel-veil" aria-hidden="true"></div>
     <div class="pin">
       <p class="eyebrow">Ils nous font confiance</p>
@@ -984,7 +991,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 11 · 23:00 Nuit (finale visuelle) -->
   <section class="sn pov" data-scene="11">
-    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261016m" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016m" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016m" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261016o" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016o" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016o" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="osd">
       <div class="rec"><i></i>REC</div>

@@ -303,7 +303,7 @@ img{max-width:100%;display:block}
 .pc-canvas.left{left:48px;bottom:262px;top:auto}   /* ancrée AU-DESSUS du texte de scène (jamais dessus) */
 .pc-canvas.left .pc-img{aspect-ratio:16/7}   /* carte gauche plus basse : tient entre le haut et le texte même sur écrans bas */
 .pc-canvas.on{opacity:1;pointer-events:auto;transform:translateY(0)}
-.pc-canvas .pc-img{aspect-ratio:16/10;background-size:cover;background-repeat:no-repeat;background-position:center;background-color:#0f1621;transition:transform .8s var(--ease)} /* 30/08 (GO Boss) : retour au STUDIO NOIR comme les 1res générations — CONTAIN (jamais rognée) sur fond noir, rempli gauche/droite ; les bords noirs = look intentionnel */
+.pc-canvas .pc-img{aspect-ratio:16/10;background-size:cover;background-repeat:no-repeat;background-position:center;background-color:#0f1621;transition:transform .8s var(--ease)} /* Regle de BASE, ECRASEE plus bas par `.pc-canvas .pc-img{aspect-ratio:var(--pr,16/10);background-size:cover}` : seuls `transition` et `background-color` survivent. Le commentaire d'origine (CONTAIN / bords noirs = look intentionnel) etait faux ; corrige le 16/10. */
 /* zoom produit au survol SUPPRIMÉ (Boss : « tendance à les couper ou les zoomer pour rien ») */
 .pc-canvas .pc-body{padding:20px 22px 22px}
 .pc-canvas .pc-eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:7px}
@@ -1007,7 +1007,7 @@ body{background:linear-gradient(175deg,#F5F0E8 0%,#FAF6EE 45%,#F1EADF 100%);colo
   .film-poster[data-p="8"]{background-image:url('assets/banque/interieurs/s_famille_f0_mob.webp')!important}
   .film-poster[data-p="9"]{background-image:url('assets/banque/exterieurs/s_camera_f0_mob.webp')!important}
   .film-poster[data-p="10"]{background-image:url('assets/banque/lumieres/s10_pov_f0_mob.webp')!important}
-  .film-poster[data-p="11"]{background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016m')!important}
+  .film-poster[data-p="11"]{background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016o')!important}
 }
 
 /* ═══ 15/10 : PRELOADER — ecran de chargement (logo + paysage) ═══
@@ -1176,7 +1176,7 @@ html.ld-lock{overflow:hidden}
         <!-- 30/08 soir : scène 10 POV = vidéo Wan3.0 caméra + HUD (scan, détection lapin). Poster = frame 0 du clip s10_pov. -->
         <div class="film-poster" style="background-image:url('assets/banque/lumieres/s10_pov_f0.webp')" data-p="10"></div>
         <!-- 30/08 soir : scène 11 = raccord même caméra (continu POV). Poster = frame 0 du clip s11_nuit. -->
-        <div class="film-poster" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0.webp?v=20261016m')" data-p="11"></div>
+        <div class="film-poster" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0.webp?v=20261016o')" data-p="11"></div>
         <!-- 01/09 (GO Boss) : double source — desktop videos/s1_villa.mp4 et mobile videos/s1_villa_mob2.mp4 (1280x720 des deux cotes, mesure du 15/10). Le HEVC mobile est en 720p egalement. -->
         <video class="film-vid" data-v="0" muted="" playsinline="" preload="metadata"><source src="videos/s1_villa.mp4" media="(min-width:769px)"><source src="videos/s1_villa_mob2.mp4" media="(max-width:768px)"></video>
         <video class="film-vid" data-v="1" muted="" playsinline="" preload="metadata"><source src="videos/s2_reseau.mp4" media="(min-width:769px)"><source src="videos/s2_reseau_mob2.mp4" media="(max-width:768px)"></video>
@@ -1194,7 +1194,7 @@ html.ld-lock{overflow:hidden}
         <video class="film-vid" data-v="9" muted="" playsinline="" preload="metadata"><source src="videos/s_camera.mp4" media="(min-width:769px)"><source src="videos/s_camera_mob2.mp4" media="(max-width:768px)"></video>
         <!-- 30/08 soir : remplacées par vidéos Wan3.0 caméra nuit (partie 1 = POV scan, partie 2 = raccord), 1080p muet, poster = frame 0. ORIG backup temp/backup_cam_30aout/ -->
         <video class="film-vid" data-v="10" muted="" playsinline="" preload="metadata"><source src="videos/s10_pov.mp4" media="(min-width:769px)"><source src="videos/s10_pov_mob2.mp4" media="(max-width:768px)"></video>
-        <video class="film-vid" data-v="11" muted="" playsinline="" preload="metadata"><source src="videos/s11_nuit.mp4?v=20261016m" media="(min-width:769px)"><source src="videos/s11_nuit_mob2.mp4?v=20261016m" media="(max-width:768px)"></video>
+        <video class="film-vid" data-v="11" muted="" playsinline="" preload="metadata"><source src="videos/s11_nuit.mp4?v=20261016o" media="(min-width:769px)"><source src="videos/s11_nuit_mob2.mp4?v=20261016o" media="(max-width:768px)"></video>
       </div>
       <div class="film-scrim"></div>
       <!-- TIMELINE de la journée -->
@@ -1255,7 +1255,7 @@ html.ld-lock{overflow:hidden}
             <div class="pgrid realize-grid">
               <a class="pcard" href="#contact"><div class="bg" style="background:url('assets/banque/lumieres/villa_S2_crepuscule.png') center/cover"></div><div class="ov"></div><span class="pcard-chip">6,2 kWc</span><div class="body"><h3>Rénovation énergétique</h3><p class="loc">Vouvry</p></div></a>
               <a class="pcard" href="#contact"><div class="bg" style="background:url('assets/banque/exterieurs/v_toiture.png') center/cover"></div><div class="ov"></div><span class="pcard-chip">Clé en main</span><div class="body"><h3>Toiture photovoltaïque</h3><p class="loc">Monthey</p></div></a>
-              <a class="pcard" href="#contact"><div class="bg" style="background:url('assets/marques/marstek-e-max-wide.webp?v=20261016m') center/cover"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
+              <a class="pcard" href="#contact"><div class="bg" style="background:url('assets/marques/marstek-e-max.webp?v=20261016d') center/cover"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
             </div>
           </div>
         </div>
@@ -1445,7 +1445,7 @@ html.ld-lock{overflow:hidden}
         <span class="tt">Batteries</span>
         <span class="go">Voir en scène <span class="arr">→</span></span>
         <span class="desc">Stockage MARSTEK 5,12 à 15,36 kWh — branchement sur une prise, sans travaux.</span>
-        <span class="peek"><img src="assets/marques/marstek-venus-g-wide.webp?v=20261016d" alt=""></span>
+        <span class="peek"><img src="assets/marques/marstek-venus-g-carte.webp?v=20261016m" alt=""></span>
       </a>
       <a class="srow mv r" href="#film" data-goto="scene:4">
         <span class="line"></span>
