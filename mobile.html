@@ -141,6 +141,11 @@ main#film{height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;overscrol
 main#film::-webkit-scrollbar{display:none}
 .sn{position:relative;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:var(--bg-deep)}
 .snv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-deep)}
+/* 16/10 (Boss) : sur telephone, garder leur texte incruste obligerait a afficher le cadre entier
+   dans une bande minuscule. Choix du Boss : la batterie SEULE, plein cadre. Le fichier mobile est
+   donc un cadrage PORTRAIT sur l'appareil (720x1280), sans aucun texte -> `cover` convient et
+   l'image remplit l'ecran. */
+.sn[data-scene="6"] .snv{object-fit:cover}
 /* 15/10 : FLOU RETIRE — la dernière image reste NETTE en toile de fond (seul un leger assombrissement)
    pour DÉMARQUER la carte produit. Le scale ne travaille QUE ici — jamais pendant la lecture. */
 .snv.blur{filter:brightness(.88) saturate(1.03);transform:scale(1.05);transition:filter .8s ease,transform .8s ease}
@@ -642,9 +647,9 @@ html.ld-lock{overflow:hidden}
 /* le fond PHOTO n'est PAS sur le chemin critique : il n'est demande par le JS
    QUE si l'ecran est encore la ET que polices+photo hero sont deja arrivees.
    Sur une liaison lente l'ecran reste navy + logo : zero octet de decor. */
-#loader .ld-bg{position:absolute;inset:-4%;background-position:50% 50%;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity .9s var(--ease)}
-#loader .ld-bg.on{opacity:1;animation:ldKb 14s ease-out forwards}
-@keyframes ldKb{from{transform:scale(1)}to{transform:scale(1.07)}}
+#loader .ld-bg{position:absolute;inset:0;background-position:50% 50%;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity .9s var(--ease)}
+/* 16/10 (Boss) : plus de zoom sur le decor — l'image est deja juste, on ne la recadre plus */
+#loader .ld-bg.on{opacity:1}
 #loader .ld-scrim{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 42%,rgba(11,18,25,.30),rgba(11,18,25,.84) 70%,#0b1219)}
 #loader .ld-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px;text-align:center}
 #loader .ld-logo{width:88px;height:88px;filter:drop-shadow(0 12px 34px rgba(0,0,0,.55));opacity:0;transform:scale(.92);animation:ldLogo .9s cubic-bezier(.23,1,.32,1) .12s forwards}
@@ -866,7 +871,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 6 · 15:00 Batterie + carte + hotspot -->
   <section class="sn" data-scene="6">
-    <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261016g" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016g" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp?v=20261016g" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261016i" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016i" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp?v=20261016i" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
       <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-e-max.webp?v=20261016d')"></div><div class="card-body">
@@ -1991,7 +1996,7 @@ html.ld-lock{overflow:hidden}
   function loadBg(){
     var b=L.querySelector('.ld-bg'); if(!b||done||bgAsked||window.__ldSkipped) return;   /* saute, deja demande ou ecran sorti : ZERO octet */
     bgAsked=true;
-    var u='assets/banque/exterieurs/loader-paysage-mob.webp?v=20261016e';
+    var u='assets/banque/exterieurs/loader-paysage-mob.webp?v=20261016h';
     var im=new Image();
     function show(){ if(done) return; b.style.backgroundImage='url("'+u+'")'; b.classList.add('on'); bgShownAt=performance.now(); }
     /* priorite HAUTE : mesure du 15/10 — en priorite basse la requete n'aboutissait jamais
