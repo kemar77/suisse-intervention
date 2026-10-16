@@ -199,6 +199,7 @@ main#film::-webkit-scrollbar{display:none}
 .card-img{height:148px;background-size:cover;background-position:center;background-color:#0f1621}
 .card-body{padding:12px 14px 14px}
 .eyebrow{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.pc-brand{display:inline-block;height:11px;width:auto;margin-right:6px;vertical-align:-1px}
 .card-body h3{font-family:var(--font-display);font-weight:600;font-size:1.02rem;letter-spacing:-.01em;margin:3px 0 7px;color:#f5efe3}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .chips span{font-size:.64rem;font-weight:500;letter-spacing:.04em;color:rgba(245,239,227,.72);
@@ -322,6 +323,20 @@ main#film::-webkit-scrollbar{display:none}
 .sheet-close{position:sticky;top:0;float:right;width:32px;height:32px;border-radius:50%;border:0;background:rgba(245,239,227,.12);color:#f5efe3;font-size:.95rem;cursor:pointer}
 .sheet .eyebrow{font-size:.66rem;letter-spacing:.18em;color:var(--accent)}
 /* 15/10 : visuel produit MARSTEK dans la sheet (parité desktop — revue C8) */
+.prod-brand{display:block;height:18px;width:auto;margin:0 0 10px}
+.prod-img.cover{max-height:none;height:150px;object-fit:cover;object-position:50% 46%}
+.prod-models{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 12px}
+.pm{border:1px solid rgba(245,239,227,.14);border-radius:11px;overflow:hidden;background:rgba(245,239,227,.05)}
+.pm img{display:block;width:100%;height:66px;object-fit:cover;object-position:50% 42%}
+.pm b{display:block;font-size:.68rem;color:#fff;padding:6px 7px 0}
+.pm span{display:block;font-size:.57rem;color:var(--cream-60);padding:2px 7px 7px;line-height:1.32}
+@media (max-width:430px){
+  .prod-models{grid-template-columns:1fr;gap:8px}
+  .pm{display:grid;grid-template-columns:104px 1fr;align-items:center}
+  .pm img{height:76px;object-position:50% 45%}
+  .pm b{font-size:.8rem;padding:0 10px 0 0}
+  .pm span{font-size:.7rem;padding:5px 10px 0 0;line-height:1.35}
+}
 .prod-img{width:100%;max-height:150px;object-fit:contain;border-radius:14px;border:1px solid rgba(245,239,227,.14);background:rgba(245,239,227,.05);margin-bottom:12px}
 .sheet h3{font-family:var(--font-display);font-weight:700;font-size:1.3rem;letter-spacing:-.01em;margin:4px 0 6px;color:#f5efe3}
 .dsub{font-size:.85rem;color:rgba(245,239,227,.85);line-height:1.55;margin-bottom:14px;text-wrap:pretty}
@@ -854,17 +869,17 @@ html.ld-lock{overflow:hidden}
     <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261016c" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
-      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/v_batterie.png')"></div><div class="card-body">
-        <p class="eyebrow">Batterie MARSTEK</p><h3>VENUS — batterie de stockage</h3>
-        <div class="chips"><span>2,56 → 15,36 kWh</span><span>Plug &amp; play</span><span>Retrofit sans travaux</span></div>
-        <div class="val">Agréée Suisse · compatible avec votre installation existante</div>
-        <div class="card-foot"><a class="card-cta" href="#contact">Découvrir la MARSTEK VENUS →</a></div>
+      <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-e-max.webp?v=20261016d')"></div><div class="card-body">
+        <p class="eyebrow"><img src="assets/marques/marstek-logo.webp?v=20261016d" alt="MARSTEK" class="pc-brand" loading="lazy" width="480" height="51">Batterie MARSTEK</p><h3>VENUS E MAX — batterie de stockage</h3>
+        <div class="chips"><span>10,048 kWh</span><span>3,6 kVA réseau &amp; secours</span><span>Plug &amp; play sur prise</span></div>
+        <div class="val">314 Ah LiFePO₄ · 10 000 cycles · IP65 — marque distribuée en Suisse</div>
+        <div class="card-foot"><a class="card-cta" href="#contact">Découvrir la gamme MARSTEK →</a></div>
       </div></div>
       <button class="hotspot" data-hs="venus"><span class="hs-ring"></span><span class="hs-label">Ma batterie</span></button>
       <div class="sn-txt">
         <span class="num">Batterie</span> <!-- heure desktop = timeline -->
         <h2>Stockage <em>d'énergie</em></h2>
-        <p>Batteries 2,56 à 15,36 kWh : votre solaire consommé jour et nuit.</p>
+        <p>Batteries MARSTEK 5,12 à 15,36 kWh : votre solaire consommé jour et nuit.</p>
       </div>
     </div>
   </section>
@@ -898,7 +913,7 @@ html.ld-lock{overflow:hidden}
       <h2>Nos installations <em>récentes</em></h2>
       <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/lumieres/villa_S2_crepuscule.png')"></div><div class="ov"></div><span class="pcard-chip">6,2 kWc</span><div class="body"><h3>Rénovation énergétique</h3><p class="loc">Vouvry</p></div></a>
       <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/exterieurs/v_toiture.png')"></div><div class="ov"></div><span class="pcard-chip">Clé en main</span><div class="body"><h3>Toiture photovoltaïque</h3><p class="loc">Monthey</p></div></a>
-      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/produits/v_batterie.png')"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
+      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/marques/marstek-e-max.webp?v=20261016d')"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
       <a class="realize-cta" href="#contact">Demander une étude →</a>
     </div>
   </section>
@@ -973,16 +988,16 @@ html.ld-lock{overflow:hidden}
       <div class="pov-ts"><span class="date">2026-08-30</span> <span class="pov-clock">23:11:42</span> LIVE</div>
     </div>
     <div class="sn-body">
-      <div class="card"><div class="card-img" style="background-image:url('assets/banque/produits/s3_batterie_4k.png')"></div><div class="card-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-venus-g-wide.webp?v=20261016d')"></div><div class="card-body">
         <p class="eyebrow">Autonomie</p><h3>Kit complet autonome</h3>
-        <div class="chips"><span>PV + batterie + suivi</span><span>Reprise &lt; 10 ms</span><span>Garantie 10 ans</span></div>
+        <div class="chips"><span>PV + batterie + suivi</span><span>Bascule secours 10 ms</span><span>Garantie 10 ans</span></div>
         <div class="val">Maisons · villas · commerces · exploitations agricoles</div>
         <div class="card-foot"><a class="card-cta" href="#contact">Demander une étude →</a></div>
       </div></div>
       <div class="sn-txt">
         <span class="num">Autonomie</span> <!-- heure desktop = timeline -->
         <h2>Indépendance <em>énergétique</em></h2>
-        <p>La batterie alimente la maison toute la nuit — reprise en moins de 10 ms.</p>
+        <p>La batterie alimente la maison toute la nuit — bascule en 10 ms.</p>
       </div>
     </div>
   </section>
@@ -1038,7 +1053,7 @@ html.ld-lock{overflow:hidden}
   <a class="srow" href="#film" data-goto="scene:1"><span class="no">02</span><span class="tt">Réseaux &amp; Wi-Fi</span><span class="desc">Routeurs, amplificateurs, switch, tirage de câbles Ethernet propre et sécurisé.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="#film" data-goto="scene:7"><span class="no">03</span><span class="tt">TV &amp; rétroprojecteur</span><span class="desc">Fixation murale ou plafond, écran fixe ou motorisé, barre de son, réglages image &amp; son.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="#contact" data-sim="1"><span class="no">04</span><span class="tt">Photovoltaïque</span><span class="desc">Panneaux, onduleur hybride intelligent, suivi temps réel — maisons, villas, commerces, exploitations agricoles, immeubles.</span><span class="go">Calculer ma toiture →</span></a>
-  <a class="srow" href="#film" data-goto="scene:6"><span class="no">05</span><span class="tt">Batteries</span><span class="desc">Stockage 2,56 à 15,36 kWh — batteries de ce type, rétrofit sur installation existante sans travaux.</span><span class="go">Voir en scène →</span></a>
+  <a class="srow" href="#film" data-goto="scene:6"><span class="no">05</span><span class="tt">Batteries</span><span class="desc">Stockage MARSTEK 5,12 à 15,36 kWh — branchement sur une prise, sans travaux.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="#film" data-goto="scene:4"><span class="no">06</span><span class="tt">Transfert de données</span><span class="desc">Fichiers, photos, logiciels, e-mails, favoris : de l'ancien PC vers le nouveau, rien ne se perd.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="#film" data-goto="scene:9"><span class="no">07</span><span class="tt">Vidéosurveillance</span><span class="desc">Caméras PoE 4K, alarmes, alertes en temps réel, accès smartphone.</span><span class="go">Voir en scène →</span></a>
   <a class="srow" href="tel:+41799089295"><span class="no">08</span><span class="tt">Dépannage express 7j/7</span><span class="desc">Diagnostic, réparation et mise en service à domicile — intervention sous 24 h.</span><span class="go">Appeler maintenant →</span></a>
@@ -1237,7 +1252,7 @@ html.ld-lock{overflow:hidden}
   <div class="sim-field">
     <label id="simOptsL">Votre projet de vie</label>
     <div class="sim-chips" id="simOpts" aria-labelledby="simOptsL">
-      <button type="button" class="sim-chip" data-opt="bat" aria-pressed="false">Batterie MARSTEK +10,2 kWh</button>
+      <button type="button" class="sim-chip" data-opt="bat" aria-pressed="false">Batterie MARSTEK ≈10 kWh</button>
       <button type="button" class="sim-chip" data-opt="ve" aria-pressed="false">Voiture électrique</button>
       <button type="button" class="sim-chip" data-opt="pac" aria-pressed="false">Pompe à chaleur</button>
     </div>
@@ -1248,7 +1263,7 @@ html.ld-lock{overflow:hidden}
     <div class="sim-stat sim-hl"><b id="simSave">—</b><span>Économies / an</span></div>
   </div>
   <p class="sim-net" id="simNet">—</p>
-  <p class="sim-note">Base : 800 CHF par panneau de 490 Wc posé · électricité 25 c./kWh · rendement 1 000–1 150 kWh/kWc/an selon le canton · batterie MARSTEK en option · estimation non contractuelle, l'étude gratuite affine ces chiffres.</p>
+  <p class="sim-note">Base : 800 CHF par panneau de 490 Wc posé · électricité 25 c./kWh · rendement 1 000–1 150 kWh/kWc/an selon le canton · batterie MARSTEK en option, chiffrée sur l’étude gratuite · estimation non contractuelle, l'étude gratuite affine ces chiffres.</p>
   <a class="sim-cta" href="#contact" data-goto="sec:contact" id="simContact">Recevoir mon étude gratuite →</a>
 </div>
 
@@ -1574,13 +1589,27 @@ html.ld-lock{overflow:hidden}
   /* ── HOTSPOTS — sheet plein écran, contenu HS_DATA (verbatim desktop) ── */
   var HS_DATA = {
     venus: {
-      eyebrow: 'Batterie', title: 'MARSTEK VENUS — batterie de stockage',
-      img: 'assets/marques/marstek-venus.jpg',
-      sub: "La batterie MARSTEK VENUS, agréée pour la distribution en Suisse : modulaire empilable, 2,56 à 15,36 kWh. Stockez votre production solaire pour la consommer jour et nuit — ajout possible sur installation existante.",
-      specs: [['480×320 mm','Empreinte au sol'],['2,56→15,36','kWh (1→6 modules)'],['LiFePO₄ 51,2V','Chimie stable'],['90%','Profondeur décharge'],['6 000','Cycles (10 000+ annoncés)'],['10 ans','Garantie'],['dès 7 500 CHF','Batterie 10 kWh posée'],['2,2–2,5 kW','Puissance AC'],['<10 ms','Reprise EPS'],['4 × 4 000 W','MPPT solaires'],['IP65','Indoor & outdoor']],
+      eyebrow: 'Batterie · MARSTEK', title: 'Batteries MARSTEK — stockage d’énergie',
+      brand: 'assets/marques/marstek-logo.webp?v=20261016d',
+      img: 'assets/marques/marstek-e-max.webp?v=20261016d',
+      cover: true,
+      models: [
+        { n:'VENUS E', img:'assets/marques/marstek-venus-e.webp?v=20261016d', p:'26% 82%', d:'5,12 kWh / module · 2,5 kVA' },
+        { n:'VENUS E MAX', img:'assets/marques/marstek-e-max.webp?v=20261016d', p:'24% 52%', d:'10,048 kWh · 3,6 kVA · 314 Ah' },
+        { n:'VENUS G', img:'assets/marques/marstek-venus-g.webp?v=20261016d', p:'36% 58%', d:'5 / 8 / 10 kW triphasé · 2 MPPT' }
+      ],
+      sub: "MARSTEK — la marque que nous distribuons en Suisse. La VENUS E (5,12 kWh par module, jusqu'à 15,36 kWh en monophasé) et la VENUS E MAX (10,048 kWh, 3,6 kVA) se branchent sur une prise, sans toucher à votre toiture. La VENUS G triphasée (5, 8 ou 10 kW) reçoit directement vos panneaux, avec 2 MPPT.",
+      specs: [
+        ['>10 000','Cycles E MAX'],['10,048 kWh','VENUS E MAX'],
+        ['5,12 kWh','VENUS E, module'],['15,36 kWh','VENUS E, mono.'],
+        ['3,6 kVA','E MAX, réseau'],['10 ms','VENUS G, secours'],
+        ['LiFePO₄','DOD 90 %'],['86 kg','750×450×210'],
+        ['IP65','Int. & ext.'],['Wi-Fi · BT','LAN · Ethernet'],
+        ['>92 %','Rendement E MAX'],['10 ans','Garantie VENUS E']
+      ],
       listTitle: 'Nos services solaires',
       list: ['Étude et dimensionnement','Réalisation clé en main','Installation panneaux','Installation de batteries ⭐','Autoconsommation','Ajout de batteries sur existant','Compatibilité onduleurs','Optimisation autoconsommation','Conseil, dimensionnement, installation, mise en service'],
-      star: 3, cta: 'Découvrir la MARSTEK VENUS →'
+      star: 3, cta: 'Demander une étude batterie →'
     },
     pv: {
       eyebrow: 'Photovoltaïque', title: 'Installation photovoltaïque',
@@ -1632,9 +1661,11 @@ html.ld-lock{overflow:hidden}
   function openSheet(key){
     var d = HS_DATA[key]; if (!d) return;
     sheetBody.innerHTML =
-      (d.img ? '<img class="prod-img" src="' + d.img + '" alt="' + d.title + '" loading="lazy">' : '') +
+      (d.brand ? '<img class="prod-brand" src="' + d.brand + '" alt="MARSTEK" loading="lazy">' : '') +
+      (d.img ? '<img class="prod-img' + (d.cover ? ' cover' : '') + '" src="' + d.img + '" alt="' + d.title + '" loading="lazy">' : '') +
       '<p class="eyebrow">' + d.eyebrow + '</p><h3>' + d.title + '</h3><p class="dsub">' + d.sub + '</p>' +
-      (d.specs.length ? '<div class="spec-grid">' + d.specs.map(function(s){ return '<div class="spec"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>'; }).join('') + '</div>' : '') +
+      (d.models ? '<div class="prod-models">' + d.models.map(function(m){ return '<div class="pm"><img src="' + m.img + '" alt="' + m.n + '" loading="lazy"' + (m.p ? ' style="object-position:' + m.p + '"' : '') + '><b>' + m.n + '</b><span>' + m.d + '</span></div>'; }).join('') + '</div>' : '') +
+      ((d.specs && d.specs.length) ? '<div class="spec-grid">' + d.specs.map(function(s){ return '<div class="spec"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>'; }).join('') + '</div>' : '') +
       '<div class="dtitle">' + d.listTitle + '</div><ul class="dlist">' +
       d.list.map(function(it, i){ return '<li' + (i === d.star ? ' class="star"' : '') + '>' + it + '</li>'; }).join('') + '</ul>' +
       '<a class="detail-cta" href="#contact">' + d.cta + '</a>';
@@ -1853,7 +1884,7 @@ html.ld-lock{overflow:hidden}
     var prod = kwc * zr * f;
     var auto = bat ? 0.72 : ((ve || pac) ? 0.52 : 0.42);
     var eco = prod * (auto * 0.28 + (1 - auto) * 0.11);
-    var price = panels * 800 + (bat ? 7500 : 0);
+    var price = panels * 800;
     var amo = price / Math.max(eco, 1);
     simBillOut.textContent = bill + ' CHF';
     simBill.style.setProperty('--p', ((bill - 50) / 450 * 100) + '%');
@@ -1861,7 +1892,7 @@ html.ld-lock{overflow:hidden}
     simProd.textContent = Math.round(prod).toLocaleString('fr-CH') + ' kWh';
     simSave.textContent = Math.round(eco).toLocaleString('fr-CH') + ' CHF';
     simNet.innerHTML = 'Prix estimé ≈ <b>CHF ' + Math.round(price).toLocaleString('fr-CH') +
-      '</b> (' + panels + ' panneaux × 800 CHF' + (bat ? ', batterie MARSTEK incluse' : ', hors batterie') +
+      '</b> (' + panels + ' panneaux × 800 CHF' + (bat ? ', hors batterie — batterie MARSTEK chiffrée sur l’étude gratuite' : ', hors batterie') +
       '). Estimation non contractuelle — l\'étude gratuite affine ces chiffres.' +
       (kwcRaw > 20 ? ' <span style="color:#e7cf9e">Votre besoin dépasse 20 kWc — l\'étude gratuite dimensionne au-delà.</span>' : '');
   }
