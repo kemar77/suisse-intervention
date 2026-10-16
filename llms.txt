@@ -5,6 +5,14 @@
 > avec batteries, videosurveillance. Intervention dans les cantons de Vaud, Valais,
 > Fribourg et Geneve. Devis gratuit.
 
+## Identite legale
+- Raison sociale : Suisse intervention Kheloufi Sofiane — entreprise individuelle
+- IDE / numero au registre du commerce : CHE-299.440.840
+- Inscrite au registre du commerce suisse le 17 fevrier 2023
+- Adresse : Chemin du Grand-Clos 7, 1896 Vouvry, canton du Valais, Suisse
+- Site : https://kemar77.github.io/suisse-intervention/
+- Domaine de messagerie : suisse-intervention.com
+
 ## Coordonnees
 - Telephone : +41 79 908 92 95 (7j/7)
 - E-mail : info@suisse-intervention.com
@@ -19,6 +27,15 @@
 - [Confidentialite](https://kemar77.github.io/suisse-intervention/confidentialite.html)
 - [Conditions generales](https://kemar77.github.io/suisse-intervention/conditions.html)
 
+## Tarifs affiches
+- Panneau photovoltaique : 800 CHF par panneau de 490 Wc pose, hors batterie.
+- Electricite : 25 centimes par kWh (hypothese de calcul du simulateur).
+- Devis et etude : gratuits.
+
+## Communes citees sur le site
+Vouvry, Monthey, Saint-Maurice, Collombey-Muraz, Aigle, Vionnaz, Port-Valais — et les cantons de Vaud, du Valais, de Fribourg et de Geneve.
+
+- [Photovoltaique et batteries en Valais](https://kemar77.github.io/suisse-intervention/photovoltaique-valais.html) : installer du solaire et une batterie dans le Chablais valaisan.
 ## Prestations
 - Informatique : vente, installation, configuration et depannage d'ordinateurs, imprimantes et peripheriques, a domicile.
 - Television et home cinema : fixation murale ou sur pied, ecrans de projection fixes ou motorises, branchements (box, consoles, lecteurs), reglages image et son, integration de barre de son.
