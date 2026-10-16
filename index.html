@@ -388,6 +388,13 @@ img{max-width:100%;display:block}
 .pm img{display:block;width:100%;height:84px;object-fit:cover;object-position:50% 42%}
 .pm b{display:block;font-size:.76rem;color:#fff;padding:7px 9px 0}
 .pm span{display:block;font-size:.63rem;color:var(--cream-60);padding:3px 9px 8px;line-height:1.35}
+@media (max-width:430px){
+  .prod-models{grid-template-columns:1fr;gap:8px}
+  .pm{display:grid;grid-template-columns:104px 1fr;align-items:center}
+  .pm img{height:76px;object-position:50% 45%}
+  .pm b{font-size:.8rem;padding:0 10px 0 0}
+  .pm span{font-size:.7rem;padding:5px 10px 0 0;line-height:1.35}
+}
 .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
 .spec{padding:9px 11px;border:1px solid rgba(245,239,227,.14);border-radius:12px;background:rgba(245,239,227,.06)}
 .spec b{display:block;font-size:1rem;color:#fff;font-variant-numeric:tabular-nums;margin-bottom:2px}
@@ -1289,7 +1296,7 @@ html.ld-lock{overflow:hidden}
       <div class="fx-layer" id="fxMist"><span class="nappe a"></span><span class="nappe b"></span></div>
       <div class="fx-layer" id="fxEnergy"></div>
       <div class="film-hotspots" id="filmHs">
-        <button class="hotspot" data-hs="info" data-scene="4" style="--x:62%;--y:56%"><span class="hs-ring"></span><span class="hs-label">En savoir +</span></button>
+        <button class="hotspot" data-hs="info" data-scene="4" style="--x:64%;--y:72%"><span class="hs-ring"></span><span class="hs-label">En savoir +</span></button>
         <button class="hotspot" data-hs="pv" data-scene="5" style="--x:16%;--y:24%"><span class="hs-ring"></span><span class="hs-label">Ma toiture solaire</span></button>
         <button class="hotspot" data-hs="venus" data-scene="6" style="--x:36%;--y:60%"><span class="hs-ring"></span><span class="hs-label">Ma batterie</span></button>
         <button class="hotspot" data-hs="multi" data-scene="7" style="--x:26%;--y:27%"><span class="hs-ring"></span><span class="hs-label">Mon salon TV</span></button>
@@ -1880,13 +1887,13 @@ revealEls.forEach(el => obs.observe(el));
   function openPanel(key){
     const d = HS_DATA[key]; if (!d) return;
     detailBody.innerHTML =
-      (d.brand ? '<img class="prod-brand" src="' + d.brand + '" alt="MARSTEK" loading="lazy">' : '') +
+      (d.brand ? '<img class="prod-brand" src="' + d.brand + '" alt="MARSTEK" loading="lazy" width="480" height="51">' : '') +
       (d.img ? '<img class="prod-img' + (d.cover ? ' cover' : '') + '" src="' + d.img + '" alt="' + d.title + '" loading="lazy">' : '') +
       '<p class="eyebrow">' + d.eyebrow + '</p><h3>' + d.title + '</h3><p class="dsub">' + d.sub + '</p>' +
-      (d.models ? '<div class="prod-models">' + d.models.map(function(m){ return '<div class="pm"><img src="' + m.img + '" alt="' + m.n + '" loading="lazy"' + (m.p ? ' style="object-position:' + m.p + '"' : '') + '><b>' + m.n + '</b><span>' + m.d + '</span></div>'; }).join('') + '</div>' : '') +
+      ((d.models && d.models.length) ? '<div class="prod-models">' + d.models.map(function(m){ return '<div class="pm"><img src="' + m.img + '" alt="' + m.n + '" loading="lazy"' + (m.p ? ' style="object-position:' + m.p + '"' : '') + '><b>' + m.n + '</b><span>' + m.d + '</span></div>'; }).join('') + '</div>' : '') +
       ((d.specs && d.specs.length) ? '<div class="spec-grid">' + d.specs.map(s=>'<div class="spec"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>').join('') + '</div>' : '') +
-      '<div class="dtitle">' + d.listTitle + '</div><ul class="dlist">' +
-      d.list.map((it,i)=>'<li' + (i===d.star ? ' class="star"' : '') + '>' + it + '</li>').join('') + '</ul>' +
+      '<div class="dtitle">' + (d.listTitle || '') + '</div><ul class="dlist">' +
+      (d.list || []).map((it,i)=>'<li' + (i===d.star ? ' class="star"' : '') + '>' + it + '</li>').join('') + '</ul>' +
       '<a class="detail-cta" href="#contact"' + (key === 'pv' ? ' data-sim="1"' : '') + '>' + d.cta + '</a>';
     // 15/10 (revue) : retirer .open une frame avant réinjection — la transition .prod-img (Émil :
     // rien n'apparaît de nulle part) doit jouer à CHAQUE changement de hotspot, pas qu'à la 1re ouverture
@@ -1950,7 +1957,7 @@ revealEls.forEach(el => obs.observe(el));
     simSave.textContent = Math.round(eco).toLocaleString('fr-CH') + ' CHF';
     /* 15/10 (revue C2) : au-delà de 20 kWc, le dimensionnement affiché est plafonné — le dire */
     simNet.innerHTML = 'Prix estimé ≈ <b>CHF ' + Math.round(price).toLocaleString('fr-CH') +
-      '</b> (' + panels + ' panneaux × 800 CHF' + (bat ? ', hors batterie — batterie MARSTEK chiffrée sur l’étude gratuite' : ', hors batterie') +
+      '</b> (' + panels + ' panneaux × 800 CHF' + (bat ? ', total panneaux seuls — batterie MARSTEK chiffrée sur l’étude gratuite' : ', hors batterie') +
       '). Estimation non contractuelle — l\'étude gratuite affine ces chiffres.' +
       (kwcRaw > 20 ? ' <span style="color:#e7cf9e">Votre besoin dépasse 20 kWc — l\'étude gratuite dimensionne au-delà.</span>' : '');
   }
