@@ -1,0 +1,64 @@
+# ═══════════════════════════════════════════════
+#  Suisse Intervention — robots.txt
+#  Le site EST 100% indexable. On n'interdit QUE l'administration et la
+#  configuration sensibles — JAMAIS le contenu public.
+#  NB : un scraper malveillant ignore robots.txt de toute facon ; ce fichier
+#  sert a TOUS les moteurs legitimes, moteurs IA compris.
+# ═══════════════════════════════════════════════
+
+User-agent: *
+Allow: /
+
+# ── Moteurs IA autorises NOMMEMENT (16/10) ────────────────────────────────────
+# Ils tombent deja sous « User-agent: * », mais les citer evite qu'une lecture
+# rapide du fichier laisse croire qu'ils sont ecartes : le site veut etre LU par
+# les moteurs de reponse (ChatGPT, Claude, Perplexity, Google AI, Apple).
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# ── Ce qui reste interdit ─────────────────────────────────────────────────────
+Disallow: /admin.php
+Disallow: /admin
+Disallow: /config.json
+Disallow: /config
+Disallow: /.admin_pass.json
+Disallow: /temp/
+Disallow: /backups/
+Disallow: /.backups/
+
+Sitemap: https://kemar77.github.io/suisse-intervention/sitemap.xml
+# Carte du site pour les moteurs de reponse (format llms.txt)
+# https://kemar77.github.io/suisse-intervention/llms.txt
