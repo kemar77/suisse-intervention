@@ -2398,7 +2398,13 @@ revealEls.forEach(el => obs.observe(el));
         // → le film filait devant la scrollbar (scroll 35% → remplissage 40,7%) et les scènes
         // intermédiaires étaient brûlées (saut scene5, scene9, scene10). On coince la poussée
         // du clip SOUS rawP : le film reste calé sur le scroll, chaque scène a son moment.
-        const f = Math.min(1, vid.currentTime / CLIP);
+        // 16/10 : la timeline suivait une constante de 4,6 s alors que le commentaire ci-dessus dit
+          // « LA TIMELINE VIT LE CLIP ». Sur les 13 clips du film (tous > 4,6 s, jusqu'a 10 s),
+          // les dernieres secondes jouaient pendant que la progression etait saturee. On lit la
+          // duree REELLE du clip joue. Le verrou du 30/08 reste intact : le Math.min(rawP, ...)
+          // juste en dessous continue de coincer la poussee du clip SOUS la demande de scroll.
+          const clipLen = (vid.duration > 1 ? vid.duration : CLIP);  // NaN avant metadonnees -> CLIP
+          const f = Math.min(1, vid.currentTime / clipLen);
         effP = Math.max(effP, Math.min(rawP, cur.s + (cur.e - cur.s) * f * 0.96));
         // reprise : un clip mis en pause (onglet, buffering) reprend au lieu de bloquer le film ;
         // le temps déjà joué est crédité au garde anti-blocage (pas de kill instantané au retour d'onglet)
