@@ -153,18 +153,9 @@ main#film::-webkit-scrollbar{display:none}
 @keyframes kbScene0{from{transform:scale(1)}to{transform:scale(1.14)}}
 .sn[data-scene="0"] .snv{transform-origin:56% 44%;animation:kbScene0 12s linear forwards}
 @media (prefers-reduced-motion:reduce){.sn[data-scene="0"] .snv{animation:none}} /* 01/09 P2 (revue LongCat) : respecter reduced-motion */
-/* 02/09 (Boss, GO) : scène 11 AUTONOMIE — travelling qui SUIT la boule verte fluo.
-   Mesuré frame par frame (s11_nuit_mob2.mp4, 5s) : la boule entre à DROITE (~98%) à 0,2s et
-   touche la batterie de l'aile gauche (~34%) vers 3,5s → traversée réelle ≈ 3,3s.
-   Pan 97%→35% en 2,8s ease-out (la caméra arrive juste avant la boule), `forwards` = fini
-   sur la batterie (plus de boucle infinie désynchronisée). object-position de BASE 97% :
-   l'image de garde est déjà cadrée à droite → zéro saut au démarrage. */
-.sn[data-scene="11"] .snv{object-position:97% 50%;will-change:object-position;animation:panAutonomie 2.8s ease-out forwards}
-@keyframes panAutonomie{
-  0%{object-position:97% 50%}
-  100%{object-position:35% 50%}
-}
-@media (prefers-reduced-motion:reduce){.sn[data-scene="11"] .snv{animation:none}}
+/* 16/10 : l'animation `panAutonomie` du 02/09 suivait la boule verte de l'ANCIENNE video de nuit.
+   La scene 11 joue desormais le plan officiel MARSTEK de 10 s (villa la nuit, puis deploiement,
+   sujet centre) : ce travelling n'a plus d'objet et decalait le cadre. Retire. */
 .sn-scrim{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(10,17,26,.5) 0%,rgba(10,17,26,0) 26%,rgba(10,17,26,0) 40%,rgba(10,17,26,.82) 82%,rgba(10,17,26,.94) 100%)}
 .sn-body{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 16px 22px}
@@ -588,6 +579,14 @@ main#film::-webkit-scrollbar{display:none}
   .pcard{aspect-ratio:16/4.5;margin-bottom:5px}
   .pin{padding-top:56px}
 }
+
+/* 16/10 (Boss) : les deux cartes MARSTEK gardent EXACTEMENT le ratio de leur image (2,286).
+   Mesure sur 360x568 : la boite tombait a 5,49 -> `cover` rognait 58,4 % de la hauteur (chien et
+   produit coupes). Ici la hauteur suit la largeur : plein cadre, aucun rognage, aucune bande.
+   Ce bloc est APRES les paliers <=720 et <=620, donc il gagne sur les deux. */
+@media (max-height:720px){
+  .sn[data-scene="6"] .card-img, .sn[data-scene="11"] .card-img{height:auto;aspect-ratio:2.286}
+}
 /* Bouton « démarrer » si autoplay refusé par le téléphone (Data Saver / économie) */
 .play-veil{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(6,10,16,.25)}
 .play-veil.show{display:flex}
@@ -874,7 +873,7 @@ html.ld-lock{overflow:hidden}
     <video class="snv" data-src="videos/s7_batterie_mob2.mp4?v=20261016j" data-src-h265="videos/s7_batterie_mob2_h265.mp4?v=20261016j" poster="assets/banque/exterieurs/s7_batterie_f0_mob.webp?v=20261016j" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="sn-body">
-      <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-e-max.webp?v=20261016d')"></div><div class="card-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-e-max-wide.webp?v=20261016m')"></div><div class="card-body">
         <p class="eyebrow"><img src="assets/marques/marstek-logo.webp?v=20261016d" alt="MARSTEK" class="pc-brand" loading="lazy" width="480" height="51">Batterie MARSTEK</p><h3>VENUS E MAX — batterie de stockage</h3>
         <div class="chips"><span>10,048 kWh</span><span>3,6 kVA réseau &amp; secours</span><span>Plug &amp; play sur prise</span></div>
         <div class="val">314 Ah LiFePO₄ · 10 000 cycles · IP65 — marque distribuée en Suisse</div>
@@ -918,7 +917,7 @@ html.ld-lock{overflow:hidden}
       <h2>Nos installations <em>récentes</em></h2>
       <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/lumieres/villa_S2_crepuscule.png')"></div><div class="ov"></div><span class="pcard-chip">6,2 kWc</span><div class="body"><h3>Rénovation énergétique</h3><p class="loc">Vouvry</p></div></a>
       <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/banque/exterieurs/v_toiture.png')"></div><div class="ov"></div><span class="pcard-chip">Clé en main</span><div class="body"><h3>Toiture photovoltaïque</h3><p class="loc">Monthey</p></div></a>
-      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/marques/marstek-e-max.webp?v=20261016d')"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
+      <a class="pcard" href="#contact"><div class="bg" style="background-image:url('assets/marques/marstek-e-max-wide.webp?v=20261016m')"></div><div class="ov"></div><span class="pcard-chip">Stockage</span><div class="body"><h3>Batterie &amp; stockage</h3><p class="loc">Saint-Maurice</p></div></a>
       <a class="realize-cta" href="#contact">Demander une étude →</a>
     </div>
   </section>
@@ -972,7 +971,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- PANNEAU Preuve sociale — toile de fond floutée (nuit villa) + voile + verre (montage PC) -->
   <section class="sn-panel" data-actname="trust">
-    <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp')" aria-hidden="true"></div>
+    <div class="panel-bg" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016m')" aria-hidden="true"></div>
     <div class="panel-veil" aria-hidden="true"></div>
     <div class="pin">
       <p class="eyebrow">Ils nous font confiance</p>
@@ -985,7 +984,7 @@ html.ld-lock{overflow:hidden}
 
   <!-- 11 · 23:00 Nuit (finale visuelle) -->
   <section class="sn pov" data-scene="11">
-    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261016c" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016c" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp" muted playsinline preload="none"></video>
+    <video class="snv" data-src="videos/s11_nuit_mob2.mp4?v=20261016m" data-src-h265="videos/s11_nuit_mob2_h265.mp4?v=20261016m" poster="assets/banque/exterieurs/s11_nuit_f0_mob.webp?v=20261016m" muted playsinline preload="none"></video>
     <div class="sn-scrim"></div>
     <div class="osd">
       <div class="rec"><i></i>REC</div>
@@ -993,7 +992,7 @@ html.ld-lock{overflow:hidden}
       <div class="pov-ts"><span class="date">2026-08-30</span> <span class="pov-clock">23:11:42</span> LIVE</div>
     </div>
     <div class="sn-body">
-      <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-venus-g-wide.webp?v=20261016d')"></div><div class="card-body">
+      <div class="card"><div class="card-img" style="background-image:url('assets/marques/marstek-venus-g-carte.webp?v=20261016m')"></div><div class="card-body">
         <p class="eyebrow">Autonomie</p><h3>Kit complet autonome — VENUS G</h3>
         <div class="chips"><span>PV + batterie + suivi</span><span>Bascule secours 10 ms</span><span>Garantie 10 ans</span></div>
         <div class="val">Maisons · villas · commerces · exploitations agricoles</div>
