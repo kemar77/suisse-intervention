@@ -1,0 +1,41 @@
+# Suisse Intervention
+
+> Entreprise suisse d'installation et de depannage a domicile. Siege social et atelier a
+> Vouvry (Valais). Informatique, TV et retroprojecteurs, Wi-Fi et reseaux, photovoltaique
+> avec batteries, videosurveillance. Intervention dans les cantons de Vaud, Valais,
+> Fribourg et Geneve. Devis gratuit.
+
+## Coordonnees
+- Telephone : +41 79 908 92 95 (7j/7)
+- E-mail : info@suisseintervention.ch
+- Adresse : Chemin du Grand-Clos 7, 1896 Vouvry, Valais, Suisse
+- Horaires : tous les jours, 07:00 a 22:00
+- Zone desservie : Vaud, Valais, Fribourg, Geneve
+- Tarifs : sur devis, etude gratuite
+
+## Pages
+- [Accueil](https://kemar77.github.io/suisse-intervention/) : prestations, tarifs, references, questions frequentes et contact.
+- [Mentions legales](https://kemar77.github.io/suisse-intervention/mentions-legales.html)
+- [Confidentialite](https://kemar77.github.io/suisse-intervention/confidentialite.html)
+- [Conditions generales](https://kemar77.github.io/suisse-intervention/conditions.html)
+
+## Prestations
+- Informatique : vente, installation, configuration et depannage d'ordinateurs, imprimantes et peripheriques, a domicile.
+- Television et home cinema : fixation murale ou sur pied, ecrans de projection fixes ou motorises, branchements (box, consoles, lecteurs), reglages image et son, integration de barre de son.
+- Wi-Fi et reseaux : installation de routeurs et de systemes mailles, switchs, cablage Ethernet, optimisation de couverture.
+- Photovoltaique : etude et dimensionnement, pose de panneaux sur tuiles, tole ou toit plat, onduleur, mise en service. Delai de 2 a 5 jours ouvrables une fois l'etude validee.
+- Stockage par batteries : batteries MARSTEK VENUS E, VENUS E MAX et VENUS G, raccordement plug & play sur prise secteur, sans modification de l'installation existante. Compatibilite de l'onduleur verifiee avant devis.
+- Videosurveillance : cameras, enregistrement et consultation a distance.
+
+## Questions frequentes
+- **Installez-vous des panneaux sur tous les types de toiture ?** Oui : tuiles, tole ou toit plat, apres etude et dimensionnement.
+- **Les batteries sont-elles compatibles avec une installation existante ?** Oui, plug & play sur une simple prise secteur ; la compatibilite de l'onduleur est verifiee avant tout devis.
+- **Pouvez-vous acheter mon materiel a ma place ?** Oui : achat libre (Fnac, Interdiscount, Fust, MediaMarkt, Conforama...) ou conseil sur le modele adapte, puis livraison, installation et configuration.
+- **Installez-vous des TV et des retroprojecteurs ?** Oui : fixation, ecrans fixes ou motorises, branchements, reglages image et son, barre de son.
+- **Quelle est la duree d'une installation photovoltaique ?** 2 a 5 jours ouvrables selon la taille du chantier, mise en service incluse.
+- **Intervenez-vous en urgence en cas de panne ?** Oui : depannage rapide a domicile ou a distance.
+
+## Materiel batterie presente (marque : MARSTEK)
+- VENUS E MAX : 10,048 kWh, 3,6 kVA reseau et secours, 314 Ah, plus de 10 000 cycles, 86 kg, 750x450x210 mm, IP65.
+- VENUS E : 5,12 kWh par module, jusqu'a 15,36 kWh, 51,2 V, 2,5 kVA, garantie 10 ans.
+- VENUS G : 5 / 8 / 10 kW triphase, 2 MPPT solaires, bascule de secours 10 ms.
