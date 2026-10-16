@@ -675,7 +675,8 @@ img{max-width:100%;display:block}
    rognée) sur fond noir #0f1621. Le ratio de CHAQUE carte = ratio de son image (via --pr) → zéro barre noire.
    Ce bloc est A-PRÈS tous les @media donc il gagne partout (desktop + mobile + écrans courts). ═══ */
 .pc-canvas .pc-img{aspect-ratio:var(--pr,16/10);background-size:cover;background-repeat:no-repeat;background-position:center;background-color:#0f1621}   /* 30/08 (GO Boss) : IMAGE PLEINE LARGEUR de la bulle — cover + ratio bulle = ratio natif de l'image → jamais croppée, jamais en barres */
-.pc-canvas[data-scene="1"] .pc-img{aspect-ratio:2.286}   /* v_routeur 1920×840 */
+.pc-canvas[data-scene="1"] .pc-img{aspect-ratio:2.286}
+.pc-canvas[data-scene="12"] .pc-img{aspect-ratio:2.286}   /* c_borne_ev 1180x516 */   /* v_routeur 1920×840 */
 .pc-canvas[data-scene="3"] .pc-img{aspect-ratio:2.286}   /* c_routeur_mesh 1920×840 */
 .pc-canvas[data-scene="4"] .pc-img{aspect-ratio:2.286}   /* c_pc_workstation 1920×840 */
 .pc-canvas[data-scene="5"] .pc-img{aspect-ratio:1.600}   /* c_panneau_toiture 1920×1200 (KREA 30/08) */
@@ -987,7 +988,7 @@ body{background:linear-gradient(175deg,#F5F0E8 0%,#FAF6EE 45%,#F1EADF 100%);colo
    Mobile = même sujet, 1280px ≥ 3× la densité d'un écran 430px → « ultra HD » préservé. */
 @media (max-width:768px){
   .film-poster[data-p="0"]{background-image:url('assets/banque/exterieurs/s0_villa_ancrage_poster.webp?v=20261016b')!important}
-  .film-poster[data-p="1"]{background-image:url('assets/banque/interieurs/s2_reseau_f0_mob.webp')!important}
+  .film-poster[data-p="1"]{background-image:url('assets/banque/interieurs/s_routeur_f0_mob.webp?v=20261017i')!important}
   .film-poster[data-p="2"]{background-image:url('assets/banque/exterieurs/s3_survol_f0_mob.webp')!important}
   .film-poster[data-p="3"]{background-image:url('assets/banque/interieurs/s3_reseau_f0_mob.webp')!important}
   .film-poster[data-p="4"]{background-image:url('assets/banque/interieurs/v_bureau_mob.webp')!important}
@@ -1146,7 +1147,7 @@ html.ld-lock{overflow:hidden}
       
       <div class="film-canvas" id="filmCanvas">
         <div class="film-poster on" style="background-image:url('assets/banque/exterieurs/s0_villa_ancrage_poster.webp?v=20261016b')" data-p="0"></div>
-        <div class="film-poster" style="background-image:url('assets/banque/interieurs/s2_reseau_f0.webp')" data-p="1"></div>
+        <div class="film-poster" style="background-image:url('assets/banque/interieurs/s_routeur_f0.webp?v=20261017i')" data-p="1"></div>
         
         
         <div class="film-poster" style="background-image:url('assets/banque/exterieurs/s3_survol_f0.webp')" data-p="2"></div>
@@ -1165,10 +1166,11 @@ html.ld-lock{overflow:hidden}
         <div class="film-poster" style="background-image:url('assets/banque/lumieres/s10_pov_f0.webp')" data-p="10"></div>
         
         <div class="film-poster" style="background-image:url('assets/banque/exterieurs/s11_nuit_f0.webp?v=20261016r')" data-p="11"></div>
+        <div class="film-poster" style="background-image:url('assets/banque/exterieurs/s_voiture_f0.webp?v=20261017i')" data-p="12"></div>
         
-        <video class="film-vid" data-v="0" muted="" playsinline="" preload="metadata"><source src="videos/s1_villa.mp4" media="(min-width:769px)"><source src="videos/s1_villa_mob2.mp4" media="(max-width:768px)"></video>
-        <video class="film-vid" data-v="1" muted="" playsinline="" preload="metadata"><source src="videos/s2_reseau.mp4" media="(min-width:769px)"><source src="videos/s2_reseau_mob2.mp4" media="(max-width:768px)"></video>
-        <video class="film-vid" data-v="2" muted="" playsinline="" preload="metadata"><source src="videos/s3_survol.mp4" media="(min-width:769px)"><source src="videos/s3_survol_mob2.mp4" media="(max-width:768px)"></video>
+        <video class="film-vid" data-v="0" muted="" playsinline="" preload="metadata"><source src="videos/s1_villa.mp4?v=20261017m" media="(min-width:769px)"><source src="videos/s1_villa_mob2.mp4?v=20261017m" media="(max-width:768px)"></video>
+        <video class="film-vid" data-v="1" muted="" playsinline="" preload="metadata"><source src="videos/s_routeur.mp4?v=20261017i" media="(min-width:769px)"><source src="videos/s_routeur_mob2.mp4?v=20261017i" media="(max-width:768px)"></video>
+        <video class="film-vid" data-v="2" muted="" playsinline="" preload="metadata"><source src="videos/s3_survol.mp4?v=20261017i" media="(min-width:769px)"><source src="videos/s3_survol_mob2.mp4?v=20261017i" media="(max-width:768px)"></video>
         
         <video class="film-vid" data-v="3" muted="" playsinline="" preload="metadata"><source src="videos/s3_reseau.mp4" media="(min-width:769px)"><source src="videos/s3_reseau_mob2.mp4" media="(max-width:768px)"></video>
         <video class="film-vid" data-v="4" muted="" playsinline="" preload="metadata"><source src="videos/s5_bureau.mp4" media="(min-width:769px)"><source src="videos/s5_bureau_mob2.mp4" media="(max-width:768px)"></video>
@@ -1183,6 +1185,7 @@ html.ld-lock{overflow:hidden}
         
         <video class="film-vid" data-v="10" muted="" playsinline="" preload="metadata"><source src="videos/s10_pov.mp4" media="(min-width:769px)"><source src="videos/s10_pov_mob2.mp4" media="(max-width:768px)"></video>
         <video class="film-vid" data-v="11" muted="" playsinline="" preload="metadata"><source src="videos/s11_nuit.mp4?v=20261016r" media="(min-width:769px)"><source src="videos/s11_nuit_mob2.mp4?v=20261016r" media="(max-width:768px)"></video>
+        <video class="film-vid" data-v="12" muted="" playsinline="" preload="metadata"><source src="videos/s_voiture.mp4?v=20261017i" media="(min-width:769px)"><source src="videos/s_voiture_mob2.mp4?v=20261017i" media="(max-width:768px)"></video>
       </div>
       <div class="film-scrim"></div>
       
@@ -1214,6 +1217,7 @@ html.ld-lock{overflow:hidden}
         <div class="film-scene" data-scene="9"><span class="num">Sécurité</span><h2>Vidéosurveillance <em>HD</em></h2><p>Caméras et systèmes de sécurité installés, configurés, mis en service.</p></div>
         <div class="film-scene" data-scene="10"><span class="num">Accès à distance</span><h2>Surveillance <em>à distance</em></h2><p>Alertes en temps réel, visualisation depuis votre smartphone.</p></div>
         <div class="film-scene" data-scene="11"><span class="num">Autonomie</span><h2>Indépendance <em>énergétique</em></h2><p>La batterie alimente la maison toute la nuit — bascule en 10 ms.</p></div>
+        <div class="film-scene" data-scene="12"><span class="num">Recharge</span><h2>Votre voiture sur <em>votre solaire</em></h2><p>Le boîtier de recharge branché sur la batterie MARSTEK — la production de la journée part dans le véhicule.</p></div>
         
         <div class="act-panel" data-act="0">
           <div class="act-inner">
@@ -1275,6 +1279,7 @@ html.ld-lock{overflow:hidden}
         <div class="pc-canvas left" data-scene="7"><div class="pc-img" style="background-image:url('assets/banque/produits/c_tv_oled.webp')"></div><div class="pc-body"><p class="pc-eyebrow">TV &amp; Audio</p><h3>TV &amp; home cinéma</h3><div class="pc-chips"><span>Fixation murale ou pied</span><span>Barre de son</span><span>Écran motorisé</span></div><div class="pc-foot"><div class="pc-val">Déjà acheté votre TV ? Je livre, j'installe, je configure</div><a class="pc-cta" href="#contact">Composer mon salon →</a></div></div></div>
         <div class="pc-canvas left" data-scene="9"><div class="pc-img" style="background-image:url('assets/banque/produits/v_camera.webp')"></div><div class="pc-body"><p class="pc-eyebrow">Vidéosurveillance</p><h3>Caméra PoE 4K</h3><div class="pc-chips"><span>Vision nocturne</span><span>Détection IA</span><span>Accès smartphone</span></div><div class="pc-foot"><div class="pc-val">Installée, configurée et mise en service chez vous</div><a class="pc-cta" href="#contact">Sécuriser ma villa →</a></div></div></div>
         <div class="pc-canvas left" data-scene="11"><div class="pc-img" style="background-image:url('assets/marques/marstek-venus-g-carte.webp?v=20261016m')"></div><div class="pc-body"><p class="pc-eyebrow">Autonomie</p><h3>Kit complet autonome — VENUS G</h3><div class="pc-chips"><span>PV + batterie + suivi</span><span>Bascule secours 10 ms</span><span>2 MPPT solaires</span></div><div class="pc-foot"><div class="pc-val">Maisons · villas · commerces · exploitations agricoles</div><a class="pc-cta" href="#contact">Demander une étude →</a></div></div></div>
+        <div class="pc-canvas left" data-scene="12"><div class="pc-img" style="background-image:url('assets/banque/exterieurs/c_borne_ev.webp?v=20261017i')"></div><div class="pc-body"><p class="pc-eyebrow">Recharge · MARSTEK</p><h3>Recharger sa voiture sur son solaire</h3><div class="pc-chips"><span>Surplus solaire</span><span>Heures creuses</span><span>App MARSTEK</span></div><div class="pc-foot"><div class="pc-val">Le boîtier de recharge MARSTEK branché sur la batterie — la production de la journée part dans le véhicule</div><a class="pc-cta" href="#contact">Parler de ma recharge →</a></div></div></div>
         <div class="pc-canvas left" data-scene="3"><div class="pc-img" style="background-image:url('assets/banque/produits/c_routeur_mesh.webp')"></div><div class="pc-body"><p class="pc-eyebrow">Réseau</p><h3>Câblage &amp; switch</h3><div class="pc-chips"><span>Tirage de câbles</span><span>Réseau filaire</span><span>Stable &amp; sécurisé</span></div><div class="pc-foot"><div class="pc-val">Un réseau propre et performant dans toute la propriété</div><a class="pc-cta" href="#contact">Câbler ma maison →</a></div></div></div>
         
         <div class="finale-panel" id="finalePanel">
@@ -1298,6 +1303,7 @@ html.ld-lock{overflow:hidden}
         <button class="hotspot" data-hs="venus" data-scene="6" style="--x:80%;--y:17%"><span class="hs-ring"></span><span class="hs-label">Ma batterie</span></button>
         <button class="hotspot" data-hs="multi" data-scene="7" style="--x:26%;--y:27%"><span class="hs-ring"></span><span class="hs-label">Mon salon TV</span></button>
         <button class="hotspot" data-hs="secu" data-scene="9" style="--x:50%;--y:26%"><span class="hs-ring"></span><span class="hs-label">Me protéger</span></button>
+        <button class="hotspot" data-hs="borne" data-scene="12" style="--x:50%;--y:38%"><span class="hs-ring"></span><span class="hs-label">Ma borne</span></button>
       </div>
       
       <button class="sim-pv-btn" id="simPvBtn" data-sim="1" aria-label="Lancer ma simulation solaire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>MA SIMULATION</button>
@@ -1457,6 +1463,131 @@ html.ld-lock{overflow:hidden}
     </div>
   </div>
 </section>
+
+<style id="rea-css">
+/* NOS REALISATIONS - accordeon horizontal. La tranche survolee ou touchee S'OUVRE et la photo
+   s'y affiche ENTIERE a sa forme naturelle (aucun recadrage). Fond floute = plus de vide.
+   AUCUNE rotation automatique. Survol amorti, clavier, tactile, reduced-motion. */
+#realisations .rea-wrap{max-width:1344px;margin:0 auto;padding:0 48px}
+#realisations .rea-row{display:flex;gap:6px;height:clamp(420px,72vh,780px);margin-top:44px;padding:0 6px}
+#realisations .rea-pan{position:relative;flex:1 1 0;min-width:44px;max-width:78px;border:0;padding:0;cursor:pointer;
+  border-radius:16px;overflow:hidden;background:#e6e0d4;isolation:isolate;
+  transition:flex-basis 1.1s cubic-bezier(0.16,1,0.3,1),opacity .6s cubic-bezier(0.16,1,0.3,1)}
+#realisations .rea-pan::before{content:"";position:absolute;inset:-6%;z-index:0;
+  background-image:var(--bg);background-size:cover;background-position:center;
+  filter:blur(38px) saturate(1.25);opacity:0;transition:opacity .95s cubic-bezier(0.16,1,0.3,1)}
+#realisations .rea-pan>img{position:relative;z-index:1;width:100%;height:100%;display:block;
+  object-fit:cover;object-position:center}
+#realisations .rea-pan.on{flex:0 0 46%;max-width:none}
+#realisations .rea-pan.on::before{opacity:.6}
+#realisations .rea-pan.on>img{object-fit:contain;animation:reaOpen 1.15s cubic-bezier(0.16,1,0.3,1) both}
+@keyframes reaOpen{
+  0%{opacity:.55;transform:scale(1.045)}
+  100%{opacity:1;transform:scale(1)}
+}
+#realisations .rea-pan.dim{opacity:.42}
+#realisations .rea-pan:focus-visible{outline:2px solid #c9a254;outline-offset:3px}
+#realisations .rea-bar{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  max-width:1344px;margin:18px auto 0;padding:0 48px}
+#realisations .rea-legende{font-size:.95rem;color:rgba(13,21,32,.72);line-height:1.5}
+#realisations .rea-cpt{font-size:12px;font-weight:600;letter-spacing:.18em;color:#c9a254;
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+/* SUR TELEPHONE L'ACCORDEON DEVIENT VERTICAL.
+   Deux raisons MESUREES : en horizontal, 10 tranches debordaient de 203 px (defilement
+   lateral interdit), et les tranches repliees tombaient a 30 px, sous le minimum tactile
+   de 44 px. En vertical : aucune largeur a partager, et chaque ligne fait 56 px de haut
+   sur toute la largeur — la cible tactile est le bloc entier. */
+@media (max-width:900px){
+  #realisations .rea-wrap,#realisations .rea-bar{padding:0 20px}
+  #realisations .rea-row{flex-direction:column;height:auto;gap:6px;padding:0 4px}
+  #realisations .rea-pan{flex:0 0 auto;width:100%;height:56px;min-width:0;max-width:none;
+    border-radius:12px;transition:height .8s cubic-bezier(0.16,1,0.3,1),opacity .5s linear}
+  #realisations .rea-pan.on{flex:0 0 auto;height:clamp(300px,46vh,440px);max-width:none}
+  #realisations .rea-pan>img{object-position:center 42%}
+  #realisations .rea-bar{flex-direction:column;align-items:flex-start;gap:6px;margin-top:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  #realisations .rea-pan{transition:opacity .2s linear}
+  #realisations .rea-pan.on>img{animation:none}
+}
+</style>
+
+<section class="section" id="realisations">
+  <div class="rea-wrap">
+    <div class="reveal">
+      <p class="section-label">Nos réalisations</p>
+      <h2 class="h2">Des toitures qui <em style="font-style:italic;color:#8a6a2e;font-weight:400">produisent</em></h2>
+      <p style="max-width:60ch;margin:14px 0 0;color:rgba(13,21,32,.72);font-size:.95rem">Quelques chantiers récents — survolez une photo pour l'ouvrir en grand.</p>
+    </div>
+  </div>
+  <div class="rea-row" id="reaRow" role="list"></div>
+  <div class="rea-bar">
+    <p class="rea-legende" id="reaLegende" aria-live="polite"></p>
+    <p class="rea-cpt" id="reaCpt">01 / 10</p>
+  </div>
+</section>
+<script id="rea-js">
+(function(){
+  var REA = [
+    {src:"assets/realisations/r01.webp", w:1600, h:686,  alt:"Toiture photovoltaïque sur une maison à étages, échafaudage en place", leg:"Toiture complète — maison à étages"},
+    {src:"assets/realisations/r02.webp", w:719,  h:335,  alt:"Toiture en tuiles équipée de panneaux photovoltaïques, cheminée conservée", leg:"Panneaux et cheminée — toiture en tuiles"},
+    {src:"assets/realisations/r03.webp", w:900,  h:1600, alt:"Batterie de stockage MARSTEK installée contre un mur, garantie dix ans affichée", leg:"Batterie MARSTEK — 10 ans de garantie"},
+    {src:"assets/realisations/r04.webp", w:686,  h:1600, alt:"Batterie MARSTEK et tableau électrique dans un local technique", leg:"Batterie MARSTEK — local technique"},
+    {src:"assets/realisations/r05.webp", w:747,  h:1600, alt:"Toiture photovoltaïque vue de près, village et montagnes derrière", leg:"Toiture — village et montagnes"},
+    {src:"assets/realisations/r06.webp", w:899,  h:1599, alt:"Panneaux photovoltaïques sur toiture plate", leg:"Toiture plate — village en contrebas"},
+    {src:"assets/realisations/r07.webp", w:747,  h:1600, alt:"Panneaux photovoltaïques sur toiture plate gravillonnée", leg:"Toiture plate — dalle gravillonnée"},
+    {src:"assets/realisations/r08.webp", w:747,  h:1600, alt:"Toiture photovoltaïque ouverte sur la vallée", leg:"Toiture et vue sur la vallée"},
+    {src:"assets/realisations/r09.webp", w:747,  h:1600, alt:"Détail des modules photovoltaïques, reflets des nuages sur le verre", leg:"Détail des modules"},
+    {src:"assets/realisations/r10.webp", w:747,  h:1600, alt:"Pose de panneaux photovoltaïques sur une toiture en rénovation", leg:"Chantier — pose en cours"}
+  ];
+  var row = document.getElementById("reaRow"),
+      leg = document.getElementById("reaLegende"),
+      cpt = document.getElementById("reaCpt");
+  if (!row) return;
+  var panneaux = [], actif = -1, minuteur = null;
+  function deux(n){ return (n < 9 ? "0" : "") + n; }
+  function ouvrir(i, direct){
+    if (i === actif) return;
+    actif = i;
+    panneaux.forEach(function(p, k){
+      p.classList.toggle("on", k === i);
+      p.classList.toggle("dim", k !== i);
+      p.setAttribute("aria-expanded", k === i ? "true" : "false");
+      if (k === i){
+        var im = p.querySelector("img");
+        im.style.animation = "none"; void im.offsetWidth; im.style.animation = "";
+      }
+    });
+    leg.textContent = REA[i].leg;
+    cpt.textContent = deux(i + 1) + " / " + deux(REA.length);
+    if (direct) panneaux[i].scrollIntoView({block:"nearest", inline:"nearest"});
+  }
+  REA.forEach(function(d, i){
+    var b = document.createElement("button");
+    b.className = "rea-pan"; b.type = "button"; b.setAttribute("role", "listitem");
+    b.setAttribute("aria-label", d.leg); b.setAttribute("aria-expanded", "false");
+    b.style.setProperty("--bg", "url('" + d.src + "')");
+    var im = document.createElement("img");
+    im.src = d.src; im.alt = d.alt; im.width = d.w; im.height = d.h;
+    im.loading = i < 4 ? "eager" : "lazy"; im.decoding = "async";
+    b.appendChild(im);
+    b.addEventListener("mouseenter", function(){
+      clearTimeout(minuteur); minuteur = setTimeout(function(){ ouvrir(i); }, 220);
+    });
+    b.addEventListener("click", function(){ clearTimeout(minuteur); ouvrir(i, true); });
+    b.addEventListener("focus", function(){ clearTimeout(minuteur); ouvrir(i, true); });
+    b.addEventListener("keydown", function(e){
+      var n = null;
+      if (e.key === "ArrowRight") n = (i + 1) % REA.length;
+      if (e.key === "ArrowLeft")  n = (i - 1 + REA.length) % REA.length;
+      if (n !== null){ e.preventDefault(); panneaux[n].focus(); }
+    });
+    row.appendChild(b); panneaux.push(b);
+  });
+  row.addEventListener("mouseleave", function(){ clearTimeout(minuteur); });
+  ouvrir(0);
+})();
+</script>
 
 <section class="section" id="cibles">
   <div class="container">
@@ -1712,7 +1843,7 @@ window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.
 (function(){
   const world = document.getElementById('filmWorld');
   /* position de départ de bande par scène (0..11) — les panneaux intercalés ne sont jamais visés */
-  const STORY = [[0,.05],[.05,.10],[.10,.15],[.15,.20],[.20,.25],[.25,.29],[.34,.39],[.39,.44],[.48,.53],[.53,.58],[.58,.63],[.67,.73]];
+  const STORY = [[0.0,0.0476],[0.0476,0.0952],[0.0952,0.1429],[0.1429,0.1905],[0.1905,0.2381],[0.2381,0.2762],[0.3238,0.3714],[0.419,0.4667],[0.5048,0.5524],[0.5524,0.6],[0.6,0.6476],[0.6857,0.9619],[0.3714,0.419]];
   function goto(spec){
     if (spec.startsWith('scene:')){
       const b = STORY[+spec.slice(6)]; if (!b) return;
@@ -1828,6 +1959,18 @@ revealEls.forEach(el => obs.observe(el));
       list: ['Étude et dimensionnement','Réalisation clé en main','Installation panneaux','Installation de batteries ⭐','Autoconsommation','Ajout de batteries sur existant','Compatibilité onduleurs','Optimisation autoconsommation','Conseil, dimensionnement, installation, mise en service'],
       star: 3,
       cta: 'Demander une étude batterie →'
+    },
+    borne: {
+      eyebrow: 'Recharge · MARSTEK',
+      title: 'Recharger sa voiture sur son solaire',
+      sub: "Le boîtier de recharge MARSTEK se branche sur la batterie : la voiture se recharge sur le surplus solaire de la journée, pendant les heures creuses, ou sur une plage horaire planifiée. Le pilotage se fait depuis l'application MARSTEK.",
+      specs: [
+        ['VENUS E MAX','Batterie compatible'],['VENUS E 4.0','Batterie compatible'],
+        ['3 modes','Solaire · planifié · heures creuses'],['App MARSTEK','Pilotage']
+      ],
+      listTitle: 'Nos prestations solaires et recharge',
+      list: ['Étude et dimensionnement','Installation de batteries','Recharge du véhicule sur le surplus solaire','Recharge en heures creuses',"Configuration de l'application MARSTEK",'Mise en service'],
+      cta: 'Parler de ma recharge →'
     },
     pv: {
       eyebrow: 'Photovoltaïque',
@@ -1997,7 +2140,8 @@ revealEls.forEach(el => obs.observe(el));
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) return;
   // 11 scènes + 3 panneaux intercalés = 14 étapes (le scroll = la journée)
-  const HOURS = ['07:00','07:30','08:00','09:00','09:30','12:00','15:00','18:00','20:00','22:15','22:30','23:00'];
+  const HOURS = ['07:00','07:30','08:00','09:00','09:30','12:00','15:00','18:00','20:00','22:15','22:30','23:00',
+                 '16:30'];   // 17/10 : scene 12 = recharge du vehicule
   // Heures des 3 panneaux — REMISES EN ORDRE CHRONOLOGIQUE (29/08, fix timeline).
   // Avant : Réalisations=16:30 (entre 18:00 et 20:00 → l'heure RECULAIT) et Preuve sociale=21:30
   // (entre 22:30 et 23:00 → reculait aussi). La timeline 07:00→23:00 rebroussait chemin.
@@ -2008,22 +2152,23 @@ revealEls.forEach(el => obs.observe(el));
   const CATCH_RATE = 2.2;    // vitesse des clips en rattrapage (accéléré, JAMAIS sauté)
   const FLING = 0.12;        // au-delà : grand élan → atterrissage direct sur la bande demandée
   const story = [
-    {s:0,    e:.05,  v:0,  scene:0,  act:-1, off:-1},  // Villa 07:00
-    {s:.05,  e:.10,  v:1,  scene:1,  act:-1, off:0},   // Réseau 07:30 → offre
-    {s:.10,  e:.15,  v:2,  scene:2,  act:-1, off:-1},  // Survol 08:00
-    {s:.15,  e:.20,  v:3,  scene:3,  act:-1, off:-1},  // Écrin 09:00
-    {s:.20,  e:.25,  v:4,  scene:4,  act:-1, off:2},   // Bureau 09:30 → offre IT
-    {s:.25,  e:.29,  v:5,  scene:5,  act:-1, off:3},   // Soleil 12:00 → offre PV
-    {s:.29,  e:.34,  v:-1, scene:-1, act:0,  off:-1},  // PANNEAU Avant/Après (GO Boss 30/08 : APRÈS les panneaux solaires, plus entre scène 4 et 5)
-    {s:.34,  e:.39,  v:6,  scene:6,  act:-1, off:4},   // Batterie 15:00 → offre
-    {s:.39,  e:.44,  v:7,  scene:7,  act:-1, off:5},   // TV 18:00 → offre TV (GO Boss 29/08 : la bande 7 devient Multimédia, v_salon)
-    {s:.44,  e:.48,  v:-1, scene:-1, act:1,  off:-1},  // PANNEAU Réalisations
-    {s:.48,  e:.53,  v:8,  scene:8,  act:-1, off:-1},  // Salon 20:00 — sérénité famille (journal du PAPA, plus d'offre TV ici)
-    {s:.53,  e:.58,  v:9,  scene:9,  act:-1, off:1},   // CAMÉRA 22:15 → offre Sécurité
-    {s:.58,  e:.63,  v:10, scene:10, act:-1, off:-1},  // POV 22:30 (REC)
-    {s:.63,  e:.67,  v:-1, scene:-1, act:2,  off:-1},  // PANNEAU Preuve sociale
-    {s:.67,  e:.96,  v:11, scene:11, act:-1, off:-1},  // Nuit 23:00 — tient plus longtemps (finale visuelle, belle nuit)
-    {s:.96,  e:1,    v:-1, scene:-1, act:-1, off:-1}   // sortie COURTE — le panneau « SUISSE INTERVENTION » apparaît ici, 3 crans et on sort
+    {s:0.0000, e:0.0476, v:0, scene:0, act:-1, off:-1},
+    {s:0.0476, e:0.0952, v:1, scene:1, act:-1, off:0},
+    {s:0.0952, e:0.1429, v:2, scene:2, act:-1, off:-1},
+    {s:0.1429, e:0.1905, v:3, scene:3, act:-1, off:-1},
+    {s:0.1905, e:0.2381, v:4, scene:4, act:-1, off:2},
+    {s:0.2381, e:0.2762, v:5, scene:5, act:-1, off:3},
+    {s:0.2762, e:0.3238, v:-1, scene:-1, act:0, off:-1},
+    {s:0.3238, e:0.3714, v:6, scene:6, act:-1, off:4},
+    {s:0.3714, e:0.4190, v:12, scene:12, act:-1, off:-1},
+    {s:0.4190, e:0.4667, v:7, scene:7, act:-1, off:5},
+    {s:0.4667, e:0.5048, v:-1, scene:-1, act:1, off:-1},
+    {s:0.5048, e:0.5524, v:8, scene:8, act:-1, off:-1},
+    {s:0.5524, e:0.6000, v:9, scene:9, act:-1, off:1},
+    {s:0.6000, e:0.6476, v:10, scene:10, act:-1, off:-1},
+    {s:0.6476, e:0.6857, v:-1, scene:-1, act:2, off:-1},
+    {s:0.6857, e:0.9619, v:11, scene:11, act:-1, off:-1},
+    {s:0.9619, e:1.0000, v:-1, scene:-1, act:-1, off:-1}
   ];
   let effP = 0;            // progression du FILM
   let curBand = -1;        // index de bande courant (détection d'entrée)
